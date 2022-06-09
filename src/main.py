@@ -9,9 +9,13 @@ def addArguments():
     parser = argparse.ArgumentParser('cominnek')
     parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + _VERSION)
     subparser = parser.add_subparsers(dest='command')
+
     update_version = subparser.add_parser('update-version', help='Create a commit with the message "update version" before pushing to github and BigCommerce')
     publish = subparser.add_parser('publish', help='create a pull request after commit')
     push = subparser.add_parser('push', help="commit and push the branch")
+    feature = subparser.add_parser('feature', help="Create a feature branch")
+
+    feature.add_argument('-t', '--ticket', help="The feature name")
 
     def addArguments(toAdd):
         toAdd.add_argument("-f", "--fix", help="make the commit with the prefix fix()" )
@@ -46,7 +50,7 @@ def push(pr, args):
     state = getState(args)
     desc = None
     msg = args.message[0]
-    ticket = git.get_branch()
+    ticket = git.is_feature()
     message = f"{state}{ticket} {msg}"
 
     if(len(args.message) > 1):
@@ -72,6 +76,10 @@ def updateVersion(args):
     
     run_command(stencil)
 
+def feature(args):
+    git.feature_create(args.ticket)
+    
+
 def main():
     args = addArguments()
 
@@ -83,6 +91,9 @@ def main():
 
     if(args.command == "push"):
         push(False, args)
+    
+    if(args.command == "feature"):
+        feature(args)
 
 if __name__ == "__main__":
     main()
