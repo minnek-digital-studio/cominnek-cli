@@ -2,6 +2,8 @@
 
 Create commits & pull requests in an easy way
 
+This is based in the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
+
 # Requirements 📃
 
 - **[Git](https://git-scm.com/)**
