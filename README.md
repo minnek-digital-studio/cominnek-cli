@@ -62,7 +62,7 @@ MSI installers are available for download on the [releases page](https://github.
 
 1. Clone the repository
 ```bash
-git clone repository
+git clone git@github.com:Minnek-Digital-Studio/cominnek.git
 ```
 
 ```bash
