@@ -1,97 +1,37 @@
 import subprocess
 import argparse
+from . import git_controller as git
+from .run_command import run_command
 
-parser = argparse.ArgumentParser('something')
-subparser = parser.add_subparsers(dest='command')
+_VERSION = "1.0.0"
 
-publish = subparser.add_parser(
-    'publish', help='create a pull request after commit')
-push = subparser.add_parser('push', help="commit and push the branch")
-update_version = subparser.add_parser('update-version')
+def addArguments():
+    parser = argparse.ArgumentParser('cominnek')
+    parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + _VERSION)
+    subparser = parser.add_subparsers(dest='command')
+    update_version = subparser.add_parser('update-version', help='Create a commit with the message "update version" before pushing to github and BigCommerce')
+    publish = subparser.add_parser('publish', help='create a pull request after commit')
+    push = subparser.add_parser('push', help="commit and push the branch")
 
-update_version.add_argument("-a", "--apply", type=bool, default=False, action=argparse.BooleanOptionalAction)
+    def addArguments(toAdd):
+        toAdd.add_argument("-f", "--fix", help="make the commit with the prefix fix()" )
+        toAdd.add_argument("-F", "--feat", type=str, help="make the commit with the prefix feat()" )
+        toAdd.add_argument("-m", "--message", action='append', type=str, required=True, help="the commit message")
+        toAdd.add_argument("-y", "--yes", type=bool, default=False, action=argparse.BooleanOptionalAction, help="skip the question")
 
+    addArguments(push)
+    addArguments(publish)
 
-def addArguments(toAdd):
-    toAdd.add_argument("-f", "--fix", metavar="fix",
-                       help="make the commit with the prefix fix()")
-    toAdd.add_argument(
-        "-F", "--feat",  help="make the commit with the prefix feat()")
-    toAdd.add_argument("-m", "--message", type=str,
-                       required=True, help="the commit message")
-    toAdd.add_argument("-y", "--yes", type=bool, default=False, action=argparse.BooleanOptionalAction)
+    update_version.add_argument("-a", "--apply", type=bool, default=False, action=argparse.BooleanOptionalAction, help="Upload the theme to BigCommerce and Apply it" )
+    return parser.parse_args()
 
-
-
-addArguments(push)
-addArguments(publish)
-
-args = parser.parse_args()
-
-
-def question(question):
-    i = 0
-    while i < 2:
-        answer = input(f"{question} (yes or no)")
-        if any(answer.lower() == f for f in ["yes", 'y', '1', 'ye']):
-            return True
-        elif any(answer.lower() == f for f in ['no', 'n', '0']):
-            return False
-        else:
-            i += 1
-            if i < 4:
-                print('Please enter yes or no')
-            else:
-                print("Nothing done")
-                return False
-
-
-def run_command(command, output=False):
-    if(output):
-        return subprocess.check_output(['powershell.exe', command])
-    else:
-        subprocess.call(['powershell.exe', command])
-
-
-def pullRequet(ticket):
-    title = f'Feature/{ticket}'
-    message = f'### Ticket info \n- {ticket}\n\n- https://minnek.atlassian.net/browse/{ticket}'
-    run_command(
-        f'gh pr create -t "{title}" -b "{message}" -B develop -a "@me"')
-
-
-def getBranch():
-    outCmd = str(run_command("git rev-parse --abbrev-ref HEAD", True))
-    outCmd = outCmd.split("'")[1]
-    outCmd = outCmd.split("\\")[0]
-    res = None
-
-    if("feature" not in outCmd):
-        res = question("This is not a feature. Do you want to continue?")
-
-    if(res == True):
-        return ""
-    elif(res == False):
-        exit()
-
-    if("/" in outCmd):
-        outCmd = outCmd.split('/')[1]
-
-    return outCmd
-
-
-def textValidate(text: str):
-    if(text == "n"):
+def textValidate(text):
+    if(text == "" or not isinstance(text, str)):
         return ""
     return text.strip()
 
-
-def push(pr):
+def getState(args):
     state = None
-    msg = args.message
-    # ticket = getBranch()
-    ticket = "getBranch()"
-
     if(args.fix):
         state = f"fix({textValidate(args.fix)}):"
     if(args.feat):
@@ -100,37 +40,49 @@ def push(pr):
     if(not state):
         raise Exception("Sorry, a state is required. use --feat or --fix")
 
+    return state
+
+def push(pr, args):
+    state = getState(args)
+    desc = None
+    msg = args.message[0]
+    ticket = git.get_branch()
     message = f"{state}{ticket} {msg}"
-    print(message)
 
-    # run_command('git add .')
-    # run_command('git status')
+    if(len(args.message) > 1):
+        desc = args.message[1]
 
-    if(not question("Do you want to continue?") or args.fix != False):
-        print("no")
-        # run_command('git reset .')
-    else:
-        print("yes")
-        # run_command(f'git commit -m "{message}"')
-        # run_command(f'git push')
+    commit_exec = git.commit(message, desc, skip_question = args.yes)
 
-        # if(pr):
-        #     pullRequet(ticket)
+    if(commit_exec == False):
+        return
+    
+    git.push()
 
+    if(pr):
+        git.pull_request(ticket)
+
+def updateVersion(args):
+    stencil = "stencil push"
+    git.commit("update version", skip_question = True)
+    git.push()
+
+    if(args.apply):
+        stencil = f"{stencil} -a"
+    
+    run_command(stencil)
 
 def main():
-    if(args.command == "update-version"):
-        stencil = "stencil push"
-        run_command('git add .')
-        run_command('git commit -m "update version"; git push;')
+    args = addArguments()
 
-        if(args.apply):
-            stencil = f"{stencil} -a"
-        
-        run_command(stencil)
+    if(args.command == "update-version"):
+        updateVersion(args)
 
     if(args.command == "publish"):
-        push(True)
+        push(True, args)
 
     if(args.command == "push"):
-        push(False)
+        push(False, args)
+
+if __name__ == "__main__":
+    main()
