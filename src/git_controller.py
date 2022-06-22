@@ -70,7 +70,7 @@ def pull():
 
 def brach_switch(branch, make_pull_request=False):
     outCmd = run_command(f'git checkout {branch}', True)
-    #check if origin branch have changes
+
     if(outCmd.find(f"Your branch is up to date with 'origin/{branch}'") == -1):
         print("Branch has changes. Pulling latest changes...")
         if(make_pull_request):
