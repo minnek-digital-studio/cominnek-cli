@@ -1,3 +1,4 @@
+from cProfile import run
 from .run_command import run_command
 from .question import question
 
@@ -87,3 +88,8 @@ def feature_create(ticket):
     
     print(f"Creating feature branch for {ticket}")
     run_command(f'git flow feature start {ticket}')
+
+def stash(branch):
+    run_command(f'git stash')
+    run_command(f'git checkout {branch}')
+    run_command(f'git stash apply')

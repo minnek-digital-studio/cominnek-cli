@@ -81,6 +81,12 @@ cominnek -v
 ```
 
 # Usage
+
+- **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce
+- **[Push](#push)**: Commit and push the branch to GitHub
+- **[Publish](#publish)**: Commit, push and create the pull request to develop in GitHub.
+- **[Feature](#feature)**: Create a new feature branch
+  
 ## Update version
 Commit, push and publish the theme to BigCommerce. The commit going to be "update version" by default. 
 
@@ -92,9 +98,9 @@ cominnek update-version -a
 the commit will be: `update version`
 
 
-| Flag:              | type          | Description:                 |
-| ------------------ | ------------- | -----------------------------|
-| `-a --apply`        |Boolean        | Apply the theme automaticly |
+| flag               | type          | description                 |
+| ------------------ | ------------- | --------------------------- |
+| `-a --apply`       |Boolean        | Apply the theme automaticly |
 ## Push
 Commit and push the branch to GitHub
 ```bash
@@ -104,7 +110,7 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 *{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
 
-| Flag:              | type          | Description:                           |
+| flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
@@ -119,6 +125,17 @@ The usage is the same as [push](#push) just with the difference that this create
 ```bash
 cominnek publish --feat "home" --message "do some modifications"
 ```
+## Feature
+Create a new feature branch using git flow. Also, this going to checkout `develop` branch if it isn't checked out.
+
+```bash
+cominnek feature --ticket "{Ticket}"
+```
+This the equivalent of: `git flow feature start {Ticket}` or `git-flow feature start {Ticket}` on MacOS
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-t --ticket`      |string         | name to assign to the feature          |
+
 
 ## Examples and more
 
@@ -127,7 +144,7 @@ You can add a body to commit using the `--message` flag twice.
 ```bash
 cominnek push -f "home" -m "Changes in home page" -m "the title was aligned to right"
 ```
-This is the same as : `git commit -m "fix(home):{Ticket} Changes in home page" -m "the title was aligned to right"`
+This is the same as `git commit` -m "fix(home):{Ticket} Changes in home page" -m "the title was aligned to right"`
 
 *{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
 
@@ -165,11 +182,5 @@ $ cominnek push -F "home" -m "Changes in home page"
   This is not a feature. Do you want to continue? (yes or no)
         Commit message: "feat(home): Changes in home page"
 ```
-
-# To do:
-
-- [] Create a system to do git stash and git stash apply to another branch
-
-
 
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)

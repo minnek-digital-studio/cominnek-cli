@@ -14,6 +14,7 @@ def addArguments():
     publish = subparser.add_parser('publish', help='create a pull request after commit')
     push = subparser.add_parser('push', help="commit and push the branch")
     feature = subparser.add_parser('feature', help="Create a feature branch")
+    stash = subparser.add_parser('stash', help="Take all changes in current branch and stash them to another branch")
 
     feature.add_argument('-t', '--ticket', help="The feature name")
 
@@ -27,6 +28,9 @@ def addArguments():
     addArguments(publish)
 
     update_version.add_argument("-a", "--apply", type=bool, default=False, action=argparse.BooleanOptionalAction, help="Upload the theme to BigCommerce and Apply it" )
+    
+    stash.add_argument("-t", "--ticket", type=str, help="The ticket name")
+    stash.add_argument("-b", "--branch", type=str, help="The branch name")
     return parser.parse_args()
 
 def textValidate(text):
@@ -78,7 +82,17 @@ def updateVersion(args):
 
 def feature(args):
     git.feature_create(args.ticket)
-    
+
+def stash(args):
+    branch = ""
+    if(not args.ticket and not args.branch):
+        raise Exception("Sorry, a ticket or branch is required. use --ticket or --branch")
+
+    if(args.ticket): branch = f"feature/{args.ticket}"
+    if(args.branch): branch = args.branch
+
+    git.stash(branch)
+
 def main():
     args = addArguments()
 
@@ -93,6 +107,10 @@ def main():
     
     if(args.command == "feature"):
         feature(args)
+    
+    if(args.command == "stash"):
+        stash(args)
+
 
 if __name__ == "__main__":
     main()
