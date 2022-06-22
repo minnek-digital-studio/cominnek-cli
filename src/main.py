@@ -1,4 +1,3 @@
-import subprocess
 import argparse
 from . import git_controller as git
 from .run_command import run_command
@@ -16,7 +15,7 @@ def addArguments():
     feature = subparser.add_parser('feature', help="Create a feature branch")
     stash = subparser.add_parser('stash', help="Take all changes in current branch and stash them to another branch")
 
-    feature.add_argument('-t', '--ticket', help="The feature name")
+    feature.add_argument('-t', '--ticket', required=True ,help="The feature name")
 
     def addArguments(toAdd):
         toAdd.add_argument("-f", "--fix", help="make the commit with the prefix fix()" )
