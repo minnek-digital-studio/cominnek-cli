@@ -1,10 +1,8 @@
-from cProfile import run
 from .run_command import run_command
 from .question import question
 
 def _get_commit_cmd(message, desc = None) -> str:
     commit_command = f'git commit'
-    msg = message
     commit_command = f'{commit_command} -m "{message}"'
 
     print(f'\n\tCommit message: "{message}"')
