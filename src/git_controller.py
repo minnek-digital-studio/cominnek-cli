@@ -70,7 +70,11 @@ def feature_create(ticket):
     res = None
 
     if("develop" not in outCmd):
-        return print("This is not a develop branch. Please checkout to develop.")
+        print("This is not a develop branch. Switching to develop.")
+        run_command("git checkout develop")
+        print("Pulling latest changes...")
+        run_command("git pull")
+        print("Ready to create feature branch.\n")
     
     print(f"Creating feature branch for {ticket}")
     run_command(f'git flow feature start {ticket}')

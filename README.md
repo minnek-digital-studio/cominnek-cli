@@ -166,7 +166,9 @@ $ cominnek push -F "home" -m "Changes in home page"
         Commit message: "feat(home): Changes in home page"
 ```
 
+# To do:
 
+- [] Create a system to do git stash and git stash apply to another branch
 
 
 
