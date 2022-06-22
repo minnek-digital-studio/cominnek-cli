@@ -64,16 +64,25 @@ def is_feature():
 
     return outCmd
 
+def pull():
+    run_command('git pull')
+
+def brach_switch(branch, make_pull_request=False):
+    outCmd = run_command(f'git checkout {branch}', True)
+    #check if origin branch have changes
+    if(outCmd.find(f"Your branch is up to date with 'origin/{branch}'") == -1):
+        print("Branch has changes. Pulling latest changes...")
+        if(make_pull_request):
+           pull()
+    else:
+        print("Branch is up to date.\n")
 
 def feature_create(ticket):
     outCmd = get_current_branch()
-    res = None
 
     if("develop" not in outCmd):
-        print("This is not a develop branch. Switching to develop.")
-        run_command("git checkout develop")
-        print("Pulling latest changes...")
-        run_command("git pull")
+        print("This is not the develop branch. Switching to develop.\n")
+        brach_switch("develop", True)
         print("Ready to create feature branch.\n")
     
     print(f"Creating feature branch for {ticket}")

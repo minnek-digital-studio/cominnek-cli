@@ -79,7 +79,6 @@ def updateVersion(args):
 def feature(args):
     git.feature_create(args.ticket)
     
-
 def main():
     args = addArguments()
 
