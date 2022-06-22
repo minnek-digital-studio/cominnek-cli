@@ -86,6 +86,7 @@ cominnek -v
 - **[Push](#push)**: Commit and push the branch to GitHub
 - **[Publish](#publish)**: Commit, push and create the pull request to develop in GitHub.
 - **[Feature](#feature)**: Create a new feature branch
+- **[Stash](#stash)**: Stash changes in a branch to another branch 
   
 ## Update version
 Commit, push and publish the theme to BigCommerce. The commit going to be "update version" by default. 
@@ -134,8 +135,27 @@ cominnek feature --ticket "{Ticket}"
 This the equivalent of: `git flow feature start {Ticket}` or `git-flow feature start {Ticket}` on MacOS
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `-t --ticket`      |string         | name to assign to the feature          |
+| `-t --ticket`      |string*        | name to assign to the feature          |
 
+*\* required*
+
+## Stash
+Stash all the changes in the current branch and apply the changes to another branch.
+
+```bash
+cominnek stash --ticket "{Ticket}"
+```
+*For features* Ex: `feature/{Ticket}`
+
+```bash
+cominnek stash --branch "{branch}"
+```
+*For branch that is not a feature* Ex: `develop`
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-t --ticket`      |string         | name of the feature that's will be applied the change     |
+| `-b --branch`      |string         | name of the branch that's will be applied the changes       |
 
 ## Examples and more
 
