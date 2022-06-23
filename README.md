@@ -1,17 +1,27 @@
 # Cominnek  [!["Pyhton"](https://img.shields.io/badge/python-3.9.1%20-gray.svg?longCache=true&logo=python&colorB=yellow)](https://www.python.org/downloads/release/python-391/)
 
-Create commits & pull requests in an easy way
+Create commits & pull requests in an easy way. `Cominnek` is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
 
-This is based in the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
+## Index
+ - **[Requirements](#requirements)**
+ - **[First Step](#first-steps)**
+     - **[Github CLI](#install-github-cli)**
+     - **[Git-Flow (MacOS)](#git-flow-macos)**
+ - **[Install](#install)**
+ - **[Usage](#usage)**
+ - **[Ticketing System](#ticketing-system)**
 
-# Requirements 📃
+# Requirements
 
 - **[Git](https://git-scm.com/)**
 - **[Python 3.9.1](https://www.python.org/downloads/release/python-391/) (or higher)**
-- **[Github CLI](https://git-scm.com/)**
+- **[Github CLI](#install-github-cli)**
+- **[Git-Flow (MacOS)](#git-flow-macos)**
 
-# First steps 🦶:
+# First steps:
 ## Install github-cli
+`Comminek` uses GitHub-CLI to interact with GitHub. For Example, create the `pull requests`. **[See more here](https://git-scm.com/)**
+
 ### macOS
 `gh` is available via [Homebrew](https://brew.sh/), [MacPorts](https://www.macports.org/), [Conda](https://docs.conda.io/en/latest/), [Spack](https://spack.io/), and as a downloadable binary from the [releases page](https://github.com/cli/cli/releases/latest).
 
@@ -58,7 +68,16 @@ Additional Conda installation options available on the [gh-feedstock page](https
 #### Signed MSI
 
 MSI installers are available for download on the [releases page](https://github.com/cli/cli/releases/latest).
-## Install
+
+
+## Git-Flow (MacOS)
+To install git flow run: 
+
+```bash
+brew install git-flow
+```
+
+# Install
 
 1. Clone the repository
 ```bash
@@ -74,13 +93,24 @@ cd ./cominnek
 ```bash
 python setup.py install
 ```
+or
+```bash
+python3 setup.py install
+```
+*Keep in mind you should run `sudo` on unix*
 
-Now you can run 
+3. Now you can run 
 ```bash
 cominnek -v
 ```
-
 # Usage
+
+- **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce
+- **[Push](#push)**: Commit and push the branch to GitHub
+- **[Publish](#publish)**: Commit, push and create the pull request to develop in GitHub.
+- **[Feature](#feature)**: Create a new feature branch
+- **[Stash](#stash)**: Stash changes in a branch to another branch 
+  
 ## Update version
 Commit, push and publish the theme to BigCommerce. The commit going to be "update version" by default. 
 
@@ -92,9 +122,9 @@ cominnek update-version -a
 the commit will be: `update version`
 
 
-| Flag:              | type          | Description:                 |
-| ------------------ | ------------- | -----------------------------|
-| `-a --apply`        |Boolean        | Apply the theme automaticly |
+| flag               | type          | description                 |
+| ------------------ | ------------- | --------------------------- |
+| `-a --apply`       |Boolean        | Apply the theme automaticly |
 ## Push
 Commit and push the branch to GitHub
 ```bash
@@ -104,7 +134,7 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 *{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
 
-| Flag:              | type          | Description:                           |
+| flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
@@ -119,6 +149,36 @@ The usage is the same as [push](#push) just with the difference that this create
 ```bash
 cominnek publish --feat "home" --message "do some modifications"
 ```
+## Feature
+Create a new feature branch using git flow. Also, this going to checkout `develop` branch if it isn't checked out.
+
+```bash
+cominnek feature --ticket "{Ticket}"
+```
+This the equivalent of: `git flow feature start {Ticket}` or `git-flow feature start {Ticket}` on MacOS
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-t --ticket`      |string*        | name to assign to the feature          |
+
+*\* required*
+
+## Stash
+Stash all the changes in the current branch and apply the changes to another branch.
+
+```bash
+cominnek stash --ticket "{Ticket}"
+```
+*For features* Ex: `feature/{Ticket}`
+
+```bash
+cominnek stash --branch "{branch}"
+```
+*For branch that is not a feature* Ex: `develop`
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-t --ticket`      |string         | name of the feature that's will be applied the change     |
+| `-b --branch`      |string         | name of the branch that's will be applied the changes       |
 
 ## Examples and more
 
@@ -127,7 +187,7 @@ You can add a body to commit using the `--message` flag twice.
 ```bash
 cominnek push -f "home" -m "Changes in home page" -m "the title was aligned to right"
 ```
-This is the same as : `git commit -m "fix(home):{Ticket} Changes in home page" -m "the title was aligned to right"`
+This is the same as `git commit` -m "fix(home):{Ticket} Changes in home page" -m "the title was aligned to right"`
 
 *{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
 
@@ -167,7 +227,5 @@ $ cominnek push -F "home" -m "Changes in home page"
 ```
 
 
-
-
-
+Cominnek `V1.1.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
