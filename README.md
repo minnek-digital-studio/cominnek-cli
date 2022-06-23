@@ -5,22 +5,22 @@ Create commits & pull requests in an easy way
 This is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
 
 ## Index
- - **[Requirements](#requirements)**
- - **[First Step](#first-steps-🦶)**
+ - **[Requirements](#requirements-)**
+ - **[First Step](#first-steps-)**
      - **[Github CLI](#install-github-cli)**
      - **[Git-Flow (MacOS)](#git-flow-macos)**
  - **[Install](#install)**
  - **[Usage](#usage)**
  - **[Ticketing System](#ticketing-system)**
 
-# Requirements 📃
+# Requirements
 
 - **[Git](https://git-scm.com/)**
 - **[Python 3.9.1](https://www.python.org/downloads/release/python-391/) (or higher)**
 - **[Github CLI](#install-github-cli)**
 - **[Git-Flow (MacOS)](#git-flow-macos)**
 
-# First steps 🦶:
+# First steps:
 ## Install github-cli
 `Comminek` use GitHub-CLI to interact with GitHub. For Example, create the `pull requests`. **[See more here](https://git-scm.com/)**
 
