@@ -5,8 +5,8 @@ Create commits & pull requests in an easy way
 This is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
 
 ## Index
- - **[Requirements](#requirements-)**
- - **[First Step](#first-steps-)**
+ - **[Requirements](#requirements)**
+ - **[First Step](#first-steps)**
      - **[Github CLI](#install-github-cli)**
      - **[Git-Flow (MacOS)](#git-flow-macos)**
  - **[Install](#install)**
