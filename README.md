@@ -2,7 +2,16 @@
 
 Create commits & pull requests in an easy way
 
-This is based in the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
+This is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
+
+## Index
+ - **[Requirements](#requirements)**
+ - **[First Step](#first-steps-🦶)**
+     - **[Github CLI](#install-github-cli)**
+     - **[Git-Flow (MacOS)](#git-flow-macos)**
+ - **[Install](#install)**
+ - **[Usage](#usage)**
+ - **[Ticketing System](#ticketing-system)**
 
 # Requirements 📃
 
@@ -61,7 +70,16 @@ Additional Conda installation options available on the [gh-feedstock page](https
 #### Signed MSI
 
 MSI installers are available for download on the [releases page](https://github.com/cli/cli/releases/latest).
-## Install
+
+
+## Git-Flow (MacOS)
+To install git flow run: 
+
+```bash
+brew install git-flow
+```
+
+# Install
 
 1. Clone the repository
 ```bash
@@ -87,14 +105,6 @@ python3 setup.py install
 ```bash
 cominnek -v
 ```
-
-# Git-Flow (MacOS)
-To install git flow run: 
-
-```bash
-brew install git-flow
-```
-
 # Usage
 
 - **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce
