@@ -1,5 +1,6 @@
 from .run_command import run_command
 from .question import question
+from . import config
 
 def _get_commit_cmd(message, desc = None) -> str:
     commit_command = f'git commit'
@@ -85,7 +86,11 @@ def feature_create(ticket):
         print("Ready to create feature branch.\n")
     
     print(f"Creating feature branch for {ticket}")
-    run_command(f'git flow feature start {ticket}')
+
+    if(config.is_windows):
+        run_command(f'git flow feature start {ticket}')
+    else:
+        run_command(f'git-flow feature start {ticket}')
 
 def stash(branch):
     run_command(f'git stash')

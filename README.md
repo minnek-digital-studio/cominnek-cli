@@ -77,8 +77,13 @@ cd ./cominnek
 ```bash
 python setup.py install
 ```
+or
+```bash
+python3 setup.py install
+```
+*Keep in mind you should run `sudo` on unix*
 
-Now you can run 
+3. Now you can run 
 ```bash
 cominnek -v
 ```
