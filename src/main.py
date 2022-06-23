@@ -2,7 +2,7 @@ import argparse
 from . import git_controller as git
 from .run_command import run_command
 
-_VERSION = "1.1.0"
+_VERSION = "1.1.1"
 
 def addArguments():
     parser = argparse.ArgumentParser('cominnek')
@@ -64,7 +64,7 @@ def push(pr, args):
     if(commit_exec == False):
         return
     
-    git.push()
+    git.push(pr)
 
     if(pr):
         git.pull_request(ticket)

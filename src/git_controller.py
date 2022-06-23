@@ -32,14 +32,17 @@ def commit(message, desc=None, skip_question=False):
     run_command(commit_command)
     return True
 
-def push():
-    run_command('git push')
+def push(publish=False):
+    if(publish):
+        print("Pushing to remote...")
+        run_command(f'git push --set-upstream origin {get_current_branch()}')
+    else:
+        run_command('git push')
 
 def pull_request(ticket):
     title = f'Feature/{ticket}'
     message = f'### Ticket info \n- {ticket}\n\n- https://minnek.atlassian.net/browse/{ticket}'
-    run_command(
-        f'gh pr create -t "{title}" -b "{message}" -B develop -a "@me"')
+    run_command(f'gh pr create -t "{title}" -b "{message}" -B develop -a "@me"')
 
 def get_current_branch():
     outCmd = str(run_command("git rev-parse --abbrev-ref HEAD", True))
@@ -72,6 +75,7 @@ def brach_switch(branch, make_pull_request=False):
 
     if(outCmd.find(f"Your branch is up to date with 'origin/{branch}'") == -1):
         print("Branch has changes. Pulling latest changes...")
+
         if(make_pull_request):
            pull()
     else:
