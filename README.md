@@ -8,10 +8,13 @@ This is based in the [Git Version Control](https://docs.minnekdigital.com/develo
 
 - **[Git](https://git-scm.com/)**
 - **[Python 3.9.1](https://www.python.org/downloads/release/python-391/) (or higher)**
-- **[Github CLI](https://git-scm.com/)**
+- **[Github CLI](#install-github-cli)**
+- **[Git-Flow (MacOS)](#git-flow-macos)**
 
 # First steps 🦶:
 ## Install github-cli
+`Comminek` use GitHub-CLI to interact with GitHub. For Example, create the `pull requests`. **[See more here](https://git-scm.com/)**
+
 ### macOS
 `gh` is available via [Homebrew](https://brew.sh/), [MacPorts](https://www.macports.org/), [Conda](https://docs.conda.io/en/latest/), [Spack](https://spack.io/), and as a downloadable binary from the [releases page](https://github.com/cli/cli/releases/latest).
 
@@ -78,6 +81,13 @@ python setup.py install
 Now you can run 
 ```bash
 cominnek -v
+```
+
+# Git-Flow (MacOS)
+To install git flow run: 
+
+```bash
+brew install git-flow
 ```
 
 # Usage
