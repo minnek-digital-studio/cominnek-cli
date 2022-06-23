@@ -22,7 +22,7 @@ This is based on the [Git Version Control](https://docs.minnekdigital.com/develo
 
 # First steps:
 ## Install github-cli
-`Comminek` use GitHub-CLI to interact with GitHub. For Example, create the `pull requests`. **[See more here](https://git-scm.com/)**
+`Comminek` uses GitHub-CLI to interact with GitHub. For Example, create the `pull requests`. **[See more here](https://git-scm.com/)**
 
 ### macOS
 `gh` is available via [Homebrew](https://brew.sh/), [MacPorts](https://www.macports.org/), [Conda](https://docs.conda.io/en/latest/), [Spack](https://spack.io/), and as a downloadable binary from the [releases page](https://github.com/cli/cli/releases/latest).
