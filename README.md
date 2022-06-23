@@ -1,8 +1,6 @@
 # Cominnek  [!["Pyhton"](https://img.shields.io/badge/python-3.9.1%20-gray.svg?longCache=true&logo=python&colorB=yellow)](https://www.python.org/downloads/release/python-391/)
 
-Create commits & pull requests in an easy way
-
-This is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
+Create commits & pull requests in an easy way. `Cominnek` is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
 
 ## Index
  - **[Requirements](#requirements)**
@@ -228,4 +226,6 @@ $ cominnek push -F "home" -m "Changes in home page"
         Commit message: "feat(home): Changes in home page"
 ```
 
+
+Cominnek `V1.1.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
