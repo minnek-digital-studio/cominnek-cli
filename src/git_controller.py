@@ -81,7 +81,10 @@ def brach_switch(branch, make_pull_request=False):
     else:
         print("Branch is up to date.\n")
 
-def feature_create(ticket):
+def feature_create(ticket, stash=False):
+    if(stash):
+        run_command(f'git stash')
+
     outCmd = get_current_branch()
 
     if("develop" not in outCmd):
@@ -95,6 +98,10 @@ def feature_create(ticket):
         run_command(f'git flow feature start {ticket}')
     else:
         run_command(f'git-flow feature start {ticket}')
+
+    if(stash):
+        print("Stashing changes... \n")
+        run_command(f'git stash apply')
 
 def stash(branch):
     run_command(f'git stash')
