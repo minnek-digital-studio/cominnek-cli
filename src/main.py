@@ -2,7 +2,7 @@ import argparse
 from . import git_controller as git
 from .run_command import run_command
 
-_VERSION = "1.1.2"
+_VERSION = "1.2.0"
 
 def addArguments():
     parser = argparse.ArgumentParser('cominnek')
