@@ -159,6 +159,7 @@ This the equivalent of: `git flow feature start {Ticket}` or `git-flow feature s
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
 | `-t --ticket`      |string*        | name to assign to the feature          |
+| `-s --stash`       |boolean        | take the changes in the current branch and apply it to the new feature's branch          |
 
 *\* required*
 
@@ -198,6 +199,13 @@ cominnek push -F " " -m "theme setup"
 ```
 the commit will be: `feat(): theme setup`
 
+___ 
+Move your changes to a new feature branch
+
+```bash
+cominnek feature --ticket "{Ticket}" -s
+```
+
 # Ticketing system
 This takes the ticket number from the branch name. This is important to create the pull request with the correct ticket number.
 
@@ -227,5 +235,5 @@ $ cominnek push -F "home" -m "Changes in home page"
 ```
 
 
-Cominnek `V1.1.1`
+Cominnek `V1.2.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)

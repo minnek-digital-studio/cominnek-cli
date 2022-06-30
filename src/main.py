@@ -2,7 +2,7 @@ import argparse
 from . import git_controller as git
 from .run_command import run_command
 
-_VERSION = "1.1.1"
+_VERSION = "1.2.0"
 
 def addArguments():
     parser = argparse.ArgumentParser('cominnek')
@@ -16,6 +16,8 @@ def addArguments():
     stash = subparser.add_parser('stash', help="Take all changes in current branch and stash them to another branch")
 
     feature.add_argument('-t', '--ticket', required=True, help="The feature name")
+    feature.add_argument("-s", "--stash", type=bool, default=False, action=argparse.BooleanOptionalAction, help="skip the question")
+
 
     def addArguments(toAdd):
         toAdd.add_argument("-f", "--fix", help="make the commit with the prefix fix()" )
@@ -80,7 +82,7 @@ def updateVersion(args):
     run_command(stencil)
 
 def feature(args):
-    git.feature_create(args.ticket)
+    git.feature_create(args.ticket, args.stash)
 
 def stash(args):
     branch = ""
