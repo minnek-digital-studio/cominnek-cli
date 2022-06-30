@@ -159,6 +159,7 @@ This the equivalent of: `git flow feature start {Ticket}` or `git-flow feature s
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
 | `-t --ticket`      |string*        | name to assign to the feature          |
+| `-s --stash`       |boolean        | take the changes in the current branch and apply it to the new feature's branch          |
 
 *\* required*
 
@@ -197,6 +198,13 @@ To do a commit without a scope, use the flag `-f, --fix` or `-F, --feat` with a 
 cominnek push -F " " -m "theme setup"
 ```
 the commit will be: `feat(): theme setup`
+
+___ 
+Move your changes to a new feature branch
+
+```bash
+cominnek feature --ticket "{Ticket}" -s
+```
 
 # Ticketing system
 This takes the ticket number from the branch name. This is important to create the pull request with the correct ticket number.
