@@ -235,5 +235,5 @@ $ cominnek push -F "home" -m "Changes in home page"
 ```
 
 
-Cominnek `V1.2.0`
+Cominnek `V1.2.1`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)

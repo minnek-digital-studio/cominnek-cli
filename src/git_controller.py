@@ -67,17 +67,38 @@ def is_feature():
 
     return outCmd
 
-def pull():
-    run_command('git pull')
+def pull() -> str:
+    return run_command('git pull', True)
 
-def brach_switch(branch, make_pull_request=False):
+
+def check_conflicts(outcmd, callback = None):
+    if(outcmd.find("CONFLICT") != -1 or outcmd.find("conflict") != -1):
+        print("\nConflicts found. Please resolve conflicts and try again.\n")
+        print(outcmd)
+        print("Cleanin... \n")
+        run_command('git reset --merge ORIG_HEAD')
+        
+        if(callback != None):
+            callback()
+
+        print("Exiting...")
+        exit(1)
+
+def brach_switch(branch, branchCome = None, _stash = False ,make_pull_request=False):
     outCmd = run_command(f'git checkout {branch}', True)
 
     if(outCmd.find(f"Your branch is up to date with 'origin/{branch}'") == -1):
         print("Branch has changes. Pulling latest changes...")
 
         if(make_pull_request):
-           pull()
+           p_out = pull()
+
+           def fallBack():
+                if(_stash and branchCome):
+                    brach_switch(branchCome)
+                    run_command(f'git stash apply')
+
+           check_conflicts(p_out, fallBack)
     else:
         print("Branch is up to date.\n")
 
@@ -89,8 +110,9 @@ def feature_create(ticket, stash=False):
 
     if("develop" not in outCmd):
         print("This is not the develop branch. Switching to develop.\n")
-        brach_switch("develop", True)
-        print("Ready to create feature branch.\n")
+        
+    brach_switch("develop", outCmd, stash, True)
+    print("Ready to create feature branch.\n")
     
     print(f"Creating feature branch for {ticket}")
 
