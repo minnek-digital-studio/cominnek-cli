@@ -73,10 +73,10 @@ class GitController:
 
         return outCmd
 
-    def pull() -> str:
+    def pull(self) -> str:
         return run_command('git pull', True)
 
-    def __check_conflicts(outcmd, callback=None):
+    def __check_conflicts(self, outcmd, callback=None):
         if(outcmd.find("CONFLICT") != -1 or outcmd.find("conflict") != -1):
             print("\nConflicts found. Please resolve conflicts and try again.\n")
             print(outcmd)
@@ -131,7 +131,7 @@ class GitController:
             run_command(f'git stash apply')
 
 
-    def stash(branch):
+    def stash(self, branch):
         run_command(f'git stash')
         run_command(f'git checkout {branch}')
         run_command(f'git stash apply')
