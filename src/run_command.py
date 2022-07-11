@@ -1,12 +1,11 @@
 import subprocess
-from . import config
+from .config import os as _config
 
 def run_command(command, output=False):
-    if(config.is_windows):
+    if(_config.is_windows):
         return _run_command_windows(command, output)
     else:
         return _run_command_unix(command, output)
-
 
 def _run_command_windows(command, output=False):
     res = _run(['powershell.exe', command], output)
