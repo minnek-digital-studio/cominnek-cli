@@ -1,38 +1,8 @@
-import argparse
-from . import git_controller as git
+from .args_ctrl import addArguments
+from .git_controller import GitController
 from .run_command import run_command
 
-_VERSION = "1.2.1"
-
-def addArguments():
-    parser = argparse.ArgumentParser('cominnek')
-    parser.add_argument('-v', '--version', action='version', version='%(prog)s ' + _VERSION)
-    subparser = parser.add_subparsers(dest='command')
-
-    update_version = subparser.add_parser('update-version', help='Create a commit with the message "update version" before pushing to github and BigCommerce')
-    publish = subparser.add_parser('publish', help='create a pull request after commit')
-    push = subparser.add_parser('push', help="commit and push the branch")
-    feature = subparser.add_parser('feature', help="Create a feature branch")
-    stash = subparser.add_parser('stash', help="Take all changes in current branch and stash them to another branch")
-
-    feature.add_argument('-t', '--ticket', required=True, help="The feature name")
-    feature.add_argument("-s", "--stash", type=bool, default=False, action=argparse.BooleanOptionalAction, help="skip the question")
-
-
-    def addArguments(toAdd):
-        toAdd.add_argument("-f", "--fix", help="make the commit with the prefix fix()" )
-        toAdd.add_argument("-F", "--feat", type=str, help="make the commit with the prefix feat()" )
-        toAdd.add_argument("-m", "--message", action='append', type=str, required=True, help="the commit message")
-        toAdd.add_argument("-y", "--yes", type=bool, default=False, action=argparse.BooleanOptionalAction, help="skip the question")
-
-    addArguments(push)
-    addArguments(publish)
-
-    update_version.add_argument("-a", "--apply", type=bool, default=False, action=argparse.BooleanOptionalAction, help="Upload the theme to BigCommerce and Apply it" )
-    
-    stash.add_argument("-t", "--ticket", type=str, help="The ticket name")
-    stash.add_argument("-b", "--branch", type=str, help="The branch name")
-    return parser.parse_args()
+gitCtrl = GitController()
 
 def textValidate(text):
     if(text == "" or not isinstance(text, str)):
@@ -55,26 +25,26 @@ def push(pr, args):
     state = getState(args)
     desc = None
     msg = args.message[0]
-    ticket = git.is_feature()
+    ticket = gitCtrl.is_feature()
     message = f"{state}{ticket} {msg}"
 
     if(len(args.message) > 1):
         desc = args.message[1]
 
-    commit_exec = git.commit(message, desc, skip_question = args.yes)
+    commit_exec = gitCtrl.commit(message, desc, skip_question = args.yes)
 
     if(commit_exec == False):
         return
     
-    git.push(pr)
+    gitCtrl.push(pr)
 
     if(pr):
-        git.pull_request(ticket)
+        gitCtrl.pull_request(ticket)
 
 def updateVersion(args):
     stencil = "stencil push"
-    git.commit("update version", skip_question = True)
-    git.push()
+    gitCtrl.commit("update version", skip_question = True)
+    gitCtrl.push()
 
     if(args.apply):
         stencil = f"{stencil} -a"
@@ -82,7 +52,7 @@ def updateVersion(args):
     run_command(stencil)
 
 def feature(args):
-    git.feature_create(args.ticket, args.stash)
+    gitCtrl.feature_create(args.ticket, args.stash)
 
 def stash(args):
     branch = ""
@@ -92,7 +62,7 @@ def stash(args):
     if(args.ticket): branch = f"feature/{args.ticket}"
     if(args.branch): branch = args.branch
 
-    git.stash(branch)
+    gitCtrl.stash(branch)
 
 def main():
     args = addArguments()
