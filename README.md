@@ -1,6 +1,6 @@
 # Cominnek  [!["Pyhton"](https://img.shields.io/badge/python-3.9.1%20-gray.svg?longCache=true&logo=python&colorB=yellow)](https://www.python.org/downloads/release/python-391/)
 
-Create commits & pull requests in an easy way. `Cominnek` is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
+Create commits & pull requests easily. `Cominnek` is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
 
 ## Index
  - **[Requirements](#requirements)**
@@ -36,7 +36,7 @@ Create commits & pull requests in an easy way. `Cominnek` is based on the [Git V
 |------------------------------------------|-----------------------------------------|
 | `conda install gh --channel conda-forge` | `conda update gh --channel conda-forge` |
 
-Additional Conda installation options available on the [gh-feedstock page](https://github.com/conda-forge/gh-feedstock#installing-gh).
+Additional Conda installation options are available on the [gh-feedstock page](https://github.com/conda-forge/gh-feedstock#installing-gh).
 
 #### Spack
 
@@ -105,22 +105,24 @@ cominnek -v
 ```
 # Usage
 
-- **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce
-- **[Push](#push)**: Commit and push the branch to GitHub
-- **[Publish](#publish)**: Commit, push and create the pull request to develop in GitHub.
-- **[Feature](#feature)**: Create a new feature branch
-- **[Stash](#stash)**: Stash changes in a branch to another branch 
+- **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce.
+- **[Push](#push)**: Commit and push the branch to GitHub.
+- **[Publish](#publish)**: Commit, push and create the pull request as a draft to develop in GitHub.
+- **[Commit](#commit)**: Commit the changes to the branch.
+- **[Feature](#feature)**: Create a new feature branch.
+- **[Stash](#stash)**: Stash changes from one branch to another one.
+- **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
+- **[Merge](#merge)**: Merge the branch into the received branch.
   
 ## Update version
 Commit, push and publish the theme to BigCommerce. The commit going to be "update version" by default. 
 
-***Important:** Just use this in the test branch.*
+***Important:** Just use this in the test branch. This is exclusive for BigCommerce projects*
 
 ```bash
 cominnek update-version -a
 ```
 the commit will be: `update version`
-
 
 | flag               | type          | description                 |
 | ------------------ | ------------- | --------------------------- |
@@ -139,16 +141,37 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
 | `-m --message`     |string*        | Receives the commit message            |
+| `-M --merge`       |string         | Receives a brach to merge the current branch in the received one  |
 | `-y --yes`         |Boolean (false)| Skip the confirmation question         |
 
 *\* required*
 
 ## Publish
-Commit, push and create the pull request to develop in GitHub.
+Commit, push and create the pull request as a draft to develop in GitHub.
+the commit will be: `feat(home):{Ticket} do some modifications`
+
 The usage is the same as [push](#push) just with the difference that this creates a pull request.
 ```bash
 cominnek publish --feat "home" --message "do some modifications"
 ```
+## Commit
+Will commit the changes to the branch.
+```bash
+cominnek commit --feat "home" --message "do some modifications"
+```
+the commit will be: `feat(home):{Ticket} do some modifications`
+
+*{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-F --feat`        |string         | make the commit with the prefix feat() |
+| `-f --fix`         |string         | make the commit with the prefix fix()  |
+| `-m --message`     |string*        | Receives the commit message            |
+| `-y --yes`         |Boolean (false)| Skip the confirmation question         |
+| `-a --add-all`     |Boolean (false)| will add to stash all changes          |
+
+*\* required*
 ## Feature
 Create a new feature branch using git flow. Also, this going to checkout `develop` branch if it isn't checked out.
 
@@ -180,7 +203,33 @@ cominnek stash --branch "{branch}"
 | ------------------ | ------------- | ---------------------------------------|
 | `-t --ticket`      |string         | name of the feature that's will be applied the change     |
 | `-b --branch`      |string         | name of the branch that's will be applied the changes       |
+## PR
+Create a pull request as a draft directly to develop
 
+```bash
+cominnek pr
+```
+The flag `--ticket` is optional. If it's not provided this will take the ticket number from the current branch.
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-t --ticket`      |string         | name of the feature that's will be applied the change     |
+
+## Merge
+Merge the current branch into the received one. This will help you save time when you are working on a feature branch and you
+want to merge, for example, the feature branch into `test`.
+
+
+```bash
+cominnek merge --branch "{branch}"
+```
+
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-b --branch`      |string*         | name of the branch that's will be applied the changes       |
+
+*\* required*
 ## Examples and more
 
 You can add a body to commit using the `--message` flag twice.
@@ -235,5 +284,5 @@ $ cominnek push -F "home" -m "Changes in home page"
 ```
 
 
-Cominnek `V1.2.3`
+Cominnek `V1.3.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
