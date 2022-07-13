@@ -1,12 +1,13 @@
 import argparse
 
-ticket_flag = {
-    "name": "ticket",
-    "short": "t",
-    "help": "The ticket name",
-    "required": True,
-    "type": str
-}
+def ticket_flag(not_required=False):
+    return {
+        "name": "ticket",
+        "short": "t",
+        "help": "The ticket name",
+        "required": not not_required,
+        "type": str
+    }
 
 yes_flag = {
     "name": "yes",
@@ -17,29 +18,44 @@ yes_flag = {
     "type": bool
 }
 
-commits_flags = [
-    {
-        "name": "fix",
-        "short": "f",
-        "help": "make the commit with the prefix fix()",
-        "type": str
-    },
-    {
-        "name": "feat",
-        "short": "F",
-        "help": "make the commit with the prefix feat()",
-        "type": str
-    },
-    {
-        "name": "message",
-        "short": "m",
-        "help": "the commit message",
-        "action": "append",
-        "required": True,
-        "type": str
-    },
-    yes_flag
-]
+def commits_flags(add_all=False):
+    __add_all = {
+        "name": "add-all",
+        "short": "a",
+        "help": "Add all files to the commit",
+        "action": argparse.BooleanOptionalAction,
+        "default": False,
+        "type": bool
+    }
+
+    flags = [
+        {
+            "name": "fix",
+            "short": "f",
+            "help": "make the commit with the prefix fix()",
+            "type": str
+        },
+        {
+            "name": "feat",
+            "short": "F",
+            "help": "make the commit with the prefix feat()",
+            "type": str
+        },
+        {
+            "name": "message",
+            "short": "m",
+            "help": "the commit message",
+            "action": "append",
+            "required": True,
+            "type": str
+        },
+        yes_flag
+    ]
+
+    if(add_all):
+        flags.append(__add_all)
+
+    return flags
 
 items = [
     {
@@ -54,7 +70,7 @@ items = [
                 "action": argparse.BooleanOptionalAction,
                 "type": bool
             },
-            ticket_flag
+            ticket_flag()
         ]
     },
     {
@@ -74,12 +90,12 @@ items = [
     {
         "value": "publish",
         "help": "create a pull request after commit",
-        "flags": commits_flags
+        "flags": commits_flags()
     },
     {
         "value": "push",
         "help": "commit and push the branch",
-        "flags": commits_flags
+        "flags": commits_flags()
     },
     {
         "value": "stash",
@@ -91,15 +107,20 @@ items = [
                 "help": "The branch name",
                 "type": str
             },
-            ticket_flag
+            ticket_flag()
         ]
-    }, 
+    },
     {
         "value": "pr",
-        "help": "Create a pull request",
+        "help": "Create a pull request directly to develop's branch",
         "flags": [
-            ticket_flag
+            ticket_flag(not_required=True)
         ]
+    },
+    {
+        "value": "commit",
+        "help": "Create a commit",
+        "flags": commits_flags(add_all=True)
     }
 ]
 
@@ -113,5 +134,3 @@ for item in items:
             flag["action"] = None
         if(not "default" in flag):
             flag["default"] = None
-
-# print(items)

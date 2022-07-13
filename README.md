@@ -110,6 +110,7 @@ cominnek -v
 - **[Publish](#publish)**: Commit, push and create the pull request to develop in GitHub.
 - **[Feature](#feature)**: Create a new feature branch
 - **[Stash](#stash)**: Stash changes in a branch to another branch 
+- **[PR](#pr)**: Create a Pull Request to develop in GitHub. 
   
 ## Update version
 Commit, push and publish the theme to BigCommerce. The commit going to be "update version" by default. 
@@ -180,6 +181,17 @@ cominnek stash --branch "{branch}"
 | ------------------ | ------------- | ---------------------------------------|
 | `-t --ticket`      |string         | name of the feature that's will be applied the change     |
 | `-b --branch`      |string         | name of the branch that's will be applied the changes       |
+## PR
+Create a pull request directly to develop's branch
+
+```bash
+cominnek pr
+```
+The flag `--ticket` is optional. If it's not provided this will take the ticket number from the current branch.
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-t --ticket`      |string         | name of the feature that's will be applied the change     |
 
 ## Examples and more
 
