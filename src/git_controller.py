@@ -25,7 +25,6 @@ class GitController:
 
     def commit(self, message, desc=None, skip_question=False):
         commit_command = self.__get_commit_cmd(message, desc)
-        self.add(True)
 
         if(skip_question == False):
             if(not question("Do you want to continue?")):

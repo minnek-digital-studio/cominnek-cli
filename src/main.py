@@ -23,6 +23,8 @@ def getState(args):
 
 def push(pr, args):
     ticket = gitCtrl.is_feature()
+    gitCtrl.add(True)
+
     commit_exec = commit(args, ticket)
 
     if(commit_exec == False):
@@ -40,7 +42,7 @@ def commit(args, ticket = None):
     
     if(args.add_all):
         print("Adding all files...")
-        gitCtrl.add()
+        gitCtrl.add(True)
 
     if(ticket == None):
         ticket = gitCtrl.is_feature()
