@@ -136,12 +136,13 @@ items = [
     },
     {
         "value": "merge",
-        "help": "Merge the current branch with the received branch",
+        "help": "Merge the current branch into the received branch",
         "flags": [
             {
                 "name": "branch",
                 "short": "b",
                 "help": "The branch name",
+                "required": True,
                 "type": str
             },
         ]
