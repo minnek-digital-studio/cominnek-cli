@@ -1,7 +1,7 @@
 def question(question):
     i = 0
     while i < 2:
-        answer = input(f"{question} (yes or no)")
+        answer = input(f"{question} (yes or no): ")
         if any(answer.lower() == f for f in ["yes", 'y', '1', 'ye']):
             return True
         elif any(answer.lower() == f for f in ['no', 'n', '0']):

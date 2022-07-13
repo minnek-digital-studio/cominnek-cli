@@ -2,6 +2,9 @@ from .run_command import run_command
 from .question import question
 from .config import os as _config
 from . import file
+from colorama import Fore
+from colorama import Style
+
 class GitController:
     def __init__(self) -> None:
         pass
@@ -27,7 +30,9 @@ class GitController:
         commit_command = self.__get_commit_cmd(message, desc)
 
         if(skip_question == False):
-            if(not question("Do you want to continue?")):
+            res = question(f"{Fore.LIGHTWHITE_EX}Do you want to continue?{Style.RESET_ALL}")
+
+            if(not res):
                 run_command('git reset .')
                 print("exiting...")
                 return False
@@ -38,7 +43,8 @@ class GitController:
     def push(self, publish=False):
         if(publish):
             print("Pushing to remote...")
-            run_command(f'git push --set-upstream origin {self.get_current_branch()}')
+            run_command(
+                f'git push --set-upstream origin {self.get_current_branch()}')
         else:
             run_command('git push')
 
@@ -47,6 +53,7 @@ class GitController:
         message = f'### Ticket info\n- {ticket}\n- https://minnek.atlassian.net/browse/{ticket}'
         route = _config.path(_config.get_path(), 'pull_request.md')
         file.create(route, message)
+
         run_command(f'gh pr create -t "{title}" -F "{route}" -B develop -a "@me" -d')
 
     def get_current_branch(self):
@@ -60,7 +67,8 @@ class GitController:
         res = None
 
         if("feature" not in outCmd):
-            res = question("This is not a feature. Do you want to continue?")
+            msg = "This is not a feature. Do you want to continue?"
+            res = question(f"{Fore.LIGHTWHITE_EX}{msg}{Style.RESET_ALL} ")
 
         if(res == True):
             return ""
@@ -77,9 +85,10 @@ class GitController:
 
     def __check_conflicts(self, outcmd, callback=None):
         if(outcmd.find("CONFLICT") != -1 or outcmd.find("conflict") != -1):
-            print("\nConflicts found. Please resolve conflicts and try again.\n")
+            msg = "Conflicts found. Please checkout the branch, resolve conflicts and try again.\n"
+            print(f"\n{Fore.LIGHTRED_EX}{msg}{Style.RESET_ALL}")
             print(outcmd)
-            print("Cleanin... \n")
+            print(f"{Fore.LIGHTYELLOW_EX}Cleanin...\n{Style.RESET_ALL}")
             run_command('git reset --merge ORIG_HEAD')
 
             if(callback != None):
@@ -98,9 +107,11 @@ class GitController:
                 p_out = self.pull()
 
             def fallBack():
-                if(_stash and branchCome):
+                if(branchCome):
                     self.brach_switch(branchCome)
-                    run_command(f'git stash apply')
+
+                    if(_stash):
+                        run_command(f'git stash apply')
 
             self.__check_conflicts(p_out, fallBack)
         else:
@@ -129,6 +140,12 @@ class GitController:
             print("Stashing changes... \n")
             run_command(f'git stash apply')
 
+    def merge(self, swich_branch, mergeable_branch):
+        self.brach_switch(swich_branch, mergeable_branch, False, True)
+        self.__merge(mergeable_branch)
+
+    def __merge(self, branch):
+        run_command(f'git merge {branch}')
 
     def stash(self, branch):
         run_command(f'git stash')
