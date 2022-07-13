@@ -22,16 +22,10 @@ def getState(args):
     return state
 
 def push(pr, args):
-    state = getState(args)
-    desc = None
-    msg = args.message[0]
     ticket = gitCtrl.is_feature()
-    message = f"{state}{ticket} {msg}"
+    gitCtrl.add(True)
 
-    if(len(args.message) > 1):
-        desc = args.message[1]
-
-    commit_exec = gitCtrl.commit(message, desc, skip_question = args.yes)
+    commit_exec = commit(args, ticket)
 
     if(commit_exec == False):
         return
@@ -39,9 +33,38 @@ def push(pr, args):
     gitCtrl.push(pr)
 
     if(pr):
-        gitCtrl.pull_request(ticket)
+        pull_request(None, ticket)
 
-def updateVersion(args):
+def commit(args, ticket = None):
+    state = getState(args)
+    desc = None
+    msg = args.message[0]
+    
+    if(args.add_all):
+        print("Adding all files...")
+        gitCtrl.add(True)
+
+    if(ticket == None):
+        ticket = gitCtrl.is_feature()
+    
+    message = f"{state}{ticket} {msg}"
+
+    if(len(args.message) > 1):
+            desc = args.message[1]
+
+    return gitCtrl.commit(message, desc, skip_question=args.yes)
+
+def pull_request(args, ticket = None):
+    if(ticket == None):
+        ticket = gitCtrl.is_feature() or args.ticket
+        
+        if(not ticket):
+            print("\nSorry, a ticket is required. use --ticket")
+            exit(1)
+
+    gitCtrl.pull_request(ticket)
+
+def update_version(args):
     stencil = "stencil push"
     gitCtrl.commit("update version", skip_question = True)
     gitCtrl.push()
@@ -68,7 +91,7 @@ def main():
     args = addArguments()
 
     if(args.command == "update-version"):
-        updateVersion(args)
+        update_version(args)
 
     if(args.command == "publish"):
         push(True, args)
@@ -82,6 +105,11 @@ def main():
     if(args.command == "stash"):
         stash(args)
 
+    if(args.command == "pr"):
+        pull_request(args)
+
+    if(args.command == "commit"):
+        commit(args)
 
 if __name__ == "__main__":
     main()
