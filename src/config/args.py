@@ -57,6 +57,18 @@ def commits_flags(add_all=False):
 
     return flags
 
+def git_publish_flags():
+    flags = commits_flags()
+    flags.append(
+        {
+            "name": "merge",
+            "short": "M",
+            "help": "merge the commit with the received branch",
+            "type": str
+        }
+    )
+    return flags
+
 items = [
     {
         "value": "feature",
@@ -90,12 +102,12 @@ items = [
     {
         "value": "publish",
         "help": "create a pull request after commit",
-        "flags": commits_flags()
+        "flags": git_publish_flags()
     },
     {
         "value": "push",
         "help": "commit and push the branch",
-        "flags": commits_flags()
+        "flags": git_publish_flags()
     },
     {
         "value": "stash",

@@ -140,6 +140,7 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
 | `-m --message`     |string*        | Receives the commit message            |
+| `-M --merge`       |string         | Receives a brach to merge the current branch in the received one  |
 | `-y --yes`         |Boolean (false)| Skip the confirmation question         |
 
 *\* required*
@@ -267,5 +268,5 @@ $ cominnek push -F "home" -m "Changes in home page"
 ```
 
 
-Cominnek `V1.2.3`
+Cominnek `V1.3.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
