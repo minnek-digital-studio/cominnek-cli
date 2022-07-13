@@ -41,7 +41,7 @@ def push(pr, args):
     if(pr):
         gitCtrl.pull_request(ticket)
 
-def updateVersion(args):
+def update_version(args):
     stencil = "stencil push"
     gitCtrl.commit("update version", skip_question = True)
     gitCtrl.push()
@@ -68,7 +68,7 @@ def main():
     args = addArguments()
 
     if(args.command == "update-version"):
-        updateVersion(args)
+        update_version(args)
 
     if(args.command == "publish"):
         push(True, args)
