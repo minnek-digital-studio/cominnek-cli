@@ -1,6 +1,6 @@
 # Cominnek  [!["Pyhton"](https://img.shields.io/badge/python-3.9.1%20-gray.svg?longCache=true&logo=python&colorB=yellow)](https://www.python.org/downloads/release/python-391/)
 
-Create commits & pull requests in an easy way. `Cominnek` is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
+Create commits & pull requests easily. `Cominnek` is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
 
 ## Index
  - **[Requirements](#requirements)**
@@ -36,7 +36,7 @@ Create commits & pull requests in an easy way. `Cominnek` is based on the [Git V
 |------------------------------------------|-----------------------------------------|
 | `conda install gh --channel conda-forge` | `conda update gh --channel conda-forge` |
 
-Additional Conda installation options available on the [gh-feedstock page](https://github.com/conda-forge/gh-feedstock#installing-gh).
+Additional Conda installation options are available on the [gh-feedstock page](https://github.com/conda-forge/gh-feedstock#installing-gh).
 
 #### Spack
 
@@ -108,20 +108,20 @@ cominnek -v
 - **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce
 - **[Push](#push)**: Commit and push the branch to GitHub
 - **[Publish](#publish)**: Commit, push and create the pull request to develop in GitHub.
+- **[Commit](#commit)**: Commit the changes to the branch
 - **[Feature](#feature)**: Create a new feature branch
-- **[Stash](#stash)**: Stash changes in a branch to another branch 
+- **[Stash](#stash)**: Stash changes from one branch to another one 
 - **[PR](#pr)**: Create a Pull Request to develop in GitHub. 
   
 ## Update version
 Commit, push and publish the theme to BigCommerce. The commit going to be "update version" by default. 
 
-***Important:** Just use this in the test branch.*
+***Important:** Just use this in the test branch. This is exclusive for BigCommerce projects*
 
 ```bash
 cominnek update-version -a
 ```
 the commit will be: `update version`
-
 
 | flag               | type          | description                 |
 | ------------------ | ------------- | --------------------------- |
@@ -145,11 +145,31 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 *\* required*
 
 ## Publish
-Commit, push and create the pull request to develop in GitHub.
+Commit, push and create the pull request as a draft to develop in GitHub.
+the commit will be: `feat(home):{Ticket} do some modifications`
+
 The usage is the same as [push](#push) just with the difference that this creates a pull request.
 ```bash
 cominnek publish --feat "home" --message "do some modifications"
 ```
+## Commit
+Will commit the changes to the branch.
+```bash
+cominnek commit --feat "home" --message "do some modifications"
+```
+the commit will be: `feat(home):{Ticket} do some modifications`
+
+*{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-F --feat`        |string         | make the commit with the prefix feat() |
+| `-f --fix`         |string         | make the commit with the prefix fix()  |
+| `-m --message`     |string*        | Receives the commit message            |
+| `-y --yes`         |Boolean (false)| Skip the confirmation question         |
+| `-a --add-all`     |Boolean (false)| will add to stash all changes          |
+
+*\* required*
 ## Feature
 Create a new feature branch using git flow. Also, this going to checkout `develop` branch if it isn't checked out.
 
@@ -182,7 +202,7 @@ cominnek stash --branch "{branch}"
 | `-t --ticket`      |string         | name of the feature that's will be applied the change     |
 | `-b --branch`      |string         | name of the branch that's will be applied the changes       |
 ## PR
-Create a pull request directly to develop's branch
+Create a pull request as a draft directly to develop
 
 ```bash
 cominnek pr
