@@ -105,13 +105,13 @@ cominnek -v
 ```
 # Usage
 
-- **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce
-- **[Push](#push)**: Commit and push the branch to GitHub
-- **[Publish](#publish)**: Commit, push and create the pull request to develop in GitHub.
-- **[Commit](#commit)**: Commit the changes to the branch
-- **[Feature](#feature)**: Create a new feature branch
-- **[Stash](#stash)**: Stash changes from one branch to another one 
-- **[PR](#pr)**: Create a Pull Request to develop in GitHub.
+- **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce.
+- **[Push](#push)**: Commit and push the branch to GitHub.
+- **[Publish](#publish)**: Commit, push and create the pull request as a draft to develop in GitHub.
+- **[Commit](#commit)**: Commit the changes to the branch.
+- **[Feature](#feature)**: Create a new feature branch.
+- **[Stash](#stash)**: Stash changes from one branch to another one.
+- **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
 - **[Merge](#merge)**: Merge the branch into the received branch.
   
 ## Update version
