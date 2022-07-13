@@ -43,15 +43,16 @@ def push(pr, args):
 
     if(args.merge):
         print(f"{Fore.GREEN}Done!{Style.RESET_ALL}")
-        merge(args)
+        print(f"\n{Fore.LIGHTWHITE_EX}Preparing to merge into {args.merge}...{Style.RESET_ALL}")
+        merge(args.merge)
 
 
-def merge(args):
+def merge(mergeable_branch):
     print(f"\n{Fore.LIGHTWHITE_EX}Getting current branch...{Style.RESET_ALL}")
     current_branch = gitCtrl.get_current_branch()
-    mergeable_branch = args.merge
+    
     print(f"Current branch: {Fore.GREEN}{current_branch}{Style.RESET_ALL}")
-    print(f"\nMergin into {mergeable_branch}")
+    print(f"{Fore.GREEN}\nMergin into {mergeable_branch}...{Style.RESET_ALL}\n")
     gitCtrl.merge(mergeable_branch, current_branch)
     print("\nMerge complete!")
 
@@ -139,6 +140,9 @@ def main():
 
     if(args.command == "commit"):
         commit(args)
+
+    if(args.command == "merge"):
+        merge(args.branch)
 
 
 if __name__ == "__main__":

@@ -111,7 +111,8 @@ cominnek -v
 - **[Commit](#commit)**: Commit the changes to the branch
 - **[Feature](#feature)**: Create a new feature branch
 - **[Stash](#stash)**: Stash changes from one branch to another one 
-- **[PR](#pr)**: Create a Pull Request to develop in GitHub. 
+- **[PR](#pr)**: Create a Pull Request to develop in GitHub.
+- **[Merge](#merge)**: Merge the branch into the received branch.
   
 ## Update version
 Commit, push and publish the theme to BigCommerce. The commit going to be "update version" by default. 
@@ -214,6 +215,21 @@ The flag `--ticket` is optional. If it's not provided this will take the ticket 
 | ------------------ | ------------- | ---------------------------------------|
 | `-t --ticket`      |string         | name of the feature that's will be applied the change     |
 
+## Merge
+Merge the current branch into the received one. This will help you save time when you are working on a feature branch and you
+want to merge, for example, the feature branch into `test`.
+
+
+```bash
+cominnek merge --branch "{branch}"
+```
+
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-b --branch`      |string*         | name of the branch that's will be applied the changes       |
+
+*\* required*
 ## Examples and more
 
 You can add a body to commit using the `--message` flag twice.

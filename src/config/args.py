@@ -133,6 +133,19 @@ items = [
         "value": "commit",
         "help": "Create a commit",
         "flags": commits_flags(add_all=True)
+    },
+    {
+        "value": "merge",
+        "help": "Merge the current branch into the received branch",
+        "flags": [
+            {
+                "name": "branch",
+                "short": "b",
+                "help": "The branch name",
+                "required": True,
+                "type": str
+            },
+        ]
     }
 ]
 
