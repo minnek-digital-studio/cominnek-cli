@@ -90,6 +90,10 @@ def pull_request(args, ticket=None):
 
 def update_version(args):
     stencil = "stencil push"
+    
+    print("Adding all files...")
+    gitCtrl.add(True)
+
     gitCtrl.commit("update version", skip_question=True)
     gitCtrl.push()
 
