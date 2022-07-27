@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="cominnek",
-    version="1.3.1",
+    version="1.3.2",
     packages=find_packages(),
     url="https://github.com/Minnek-Digital-Studio/cominnek",
     license="MIT License",
