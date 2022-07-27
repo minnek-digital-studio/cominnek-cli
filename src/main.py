@@ -94,7 +94,7 @@ def update_version(args):
     print("Adding all files...")
     gitCtrl.add(True)
 
-    gitCtrl.commit("update version", skip_question=True)
+    gitCtrl.commit("build: Update theme version.", skip_question=True)
     gitCtrl.push()
 
     if(args.apply):

@@ -2,7 +2,7 @@ import argparse
 
 from .config import args
 
-_VERSION = "1.3.1"
+_VERSION = "1.3.2"
 
 def addArguments():
     parser = argparse.ArgumentParser('cominnek')
