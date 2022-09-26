@@ -41,7 +41,7 @@ func CheckFlow(mainCmd string) {
 		s.UpdateCharSet(spinner.CharSets[2])
 		s.Start()
 		s.Prefix = "Pulling lastest changes from origin..."
-		fmt.Println("\n\n")
+		fmt.Print("\n\n")
 		shell.ExecuteCommand(git_controller.Pull())
 		s.Stop()
 	}
