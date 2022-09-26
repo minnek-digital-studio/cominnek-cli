@@ -1,5 +1,5 @@
 package git_controller
 
-func Push(publish bool) string {
+func Push() string {
 	return "git push"
 }
