@@ -2,49 +2,67 @@ package checkers
 
 import (
 	"fmt"
-	"time"
+	"log"
 
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
-	"github.com/briandowns/spinner"
 	"github.com/fatih/color"
 )
 
-func fetchData(s *spinner.Spinner) {
-	s.Start()
-	s.Prefix = "Checking Origin..."
+func fetchData() {
+	loading.Start("Checking Origin ")
 	fetch := shell.ExecuteCommand("git fetch origin", false)
 
 	if fetch != "" {
-		s.Prefix = "Data updated"
+		loading.Update("Data updated")
+		loading.Stop()
 		fmt.Println(fetch)
 	}
-	s.Stop()
+
 }
 
 func CheckFlow(mainCmd string) {
-	s := spinner.New(spinner.CharSets[35], 100*time.Millisecond)
 	branch := "develop"
 
 	if !git_controller.CheckIfBranch(branch) {
-		color.HiBlue("\tSwitching to develop branch...")
+		loading.Start("Switching to develop branch ")
 		shell.ExecuteCommand("git checkout "+branch, false)
+		loading.Stop()
 		color.HiGreen("\tSwitched to develop\n")
 	}
 
 	color.HiYellowString("Fetching data from origin...")
 
-	fetchData(s)
+	fetchData()
 
 	if git_controller.CheckChangesFromOrigin() {
 		color.YellowString("\n\nThere are changes from origin.\n")
-		s.UpdateCharSet(spinner.CharSets[2])
-		s.Start()
-		s.Prefix = "Pulling lastest changes from origin..."
+		loading.Start("Pulling changes from origin ")
 		fmt.Print("\n\n")
-		shell.ExecuteCommand(git_controller.Pull())
-		s.Stop()
+
+		cmd := git_controller.Pull();
+		err, out, errout := shell.Out(cmd)
+		if err != nil {
+			fmt.Println(out)
+			fmt.Println(errout)
+			log.Fatal(errout)
+		}
+		
+		loading.Stop()
+		fmt.Println(out)
 	}
 
-	shell.ExecuteCommand(mainCmd)
+	loading.Start("Starting new flow ")
+
+	err, out, errout := shell.Out(mainCmd)
+	if err != nil {
+		fmt.Println(out)
+		fmt.Println(errout)
+		log.Fatal(errout)
+	}
+
+	loading.Stop()
+
+	fmt.Println(out)
 }

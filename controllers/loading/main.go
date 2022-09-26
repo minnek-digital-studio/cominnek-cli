@@ -13,6 +13,10 @@ func Start(prefix string) {
 	loader.Prefix = prefix
 }
 
+func Update(prefix string) {
+	loader.Prefix = prefix
+}
+
 func Stop() {
 	loader.Stop()
 }

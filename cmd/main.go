@@ -9,7 +9,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "cominnek",
-	Short: "An easiest way to use CLI for Github",
+	Short: "Manage your git flow using the conventional commit standard",
 	Version: "2.0.0",
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("cominnek is a CLI for Github")

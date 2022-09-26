@@ -8,7 +8,7 @@ import (
 
 var flowCmd = &cobra.Command{
 	Use:   "flow",
-	Short: "Add a new repository to your Github account",
+	Short: "Manage git flow",
 	Run: func(cmd *cobra.Command, args []string) {
 		git.Add()
 	},
@@ -16,5 +16,8 @@ var flowCmd = &cobra.Command{
 
 func init() {
 	flowCmd.AddCommand(flow.FlowFeatureCmd)
+	flowCmd.AddCommand(flow.FlowReleaseCmd)
+	flowCmd.AddCommand(flow.FlowHotfixCmd)
+	flowCmd.AddCommand(flow.FlowSupportCmd)
 	rootCmd.AddCommand(flowCmd)
 }
