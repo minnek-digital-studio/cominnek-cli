@@ -6,9 +6,15 @@ import (
 )
 
 var FlowReleaseCmd = &cobra.Command{
-	Use:   "release",
+	Use:   "release <name>",
+	Args: cobra.ExactArgs(1),
 	Short: "create a new release branch",
 	Run: func(cmd *cobra.Command, args []string) {
-		git.Release(args[0])
+		checker(args)
+
+		exec := func() {
+			git.Release(args[0])
+		}
+		middleware(exec)
 	},
 }

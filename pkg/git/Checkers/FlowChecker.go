@@ -10,7 +10,7 @@ import (
 	"github.com/fatih/color"
 )
 
-func fetchData() {
+func FetchData() {
 	loading.Start("Checking Origin ")
 	fetch := shell.ExecuteCommand("git fetch origin", false)
 
@@ -22,36 +22,36 @@ func fetchData() {
 
 }
 
-func CheckFlow(mainCmd string) {
-	branch := "develop"
-
-	if !git_controller.CheckIfBranch(branch) {
-		loading.Start("Switching to develop branch ")
-		shell.ExecuteCommand("git checkout "+branch, false)
-		loading.Stop()
-		color.HiGreen("\tSwitched to develop\n")
-	}
-
-	color.HiYellowString("Fetching data from origin...")
-
-	fetchData()
-
-	if git_controller.CheckChangesFromOrigin() {
+func GetChanges() {
+		if git_controller.CheckChangesFromOrigin() {
 		color.YellowString("\n\nThere are changes from origin.\n")
 		loading.Start("Pulling changes from origin ")
 		fmt.Print("\n\n")
 
-		cmd := git_controller.Pull();
+		cmd := git_controller.Pull()
 		err, out, errout := shell.Out(cmd)
 		if err != nil {
 			fmt.Println(out)
 			fmt.Println(errout)
 			log.Fatal(errout)
 		}
-		
+
 		loading.Stop()
 		fmt.Println(out)
 	}
+}
+
+func CheckFlow(mainCmd string) {
+	branch := "develop"
+
+	if !git_controller.CheckIfBranch(branch) {
+		git_controller.Switch(branch)
+	}
+
+	color.HiYellowString("Fetching data from origin...")
+	FetchData()
+
+	GetChanges()
 
 	loading.Start("Starting new flow ")
 
