@@ -6,6 +6,7 @@ import (
 
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 	"github.com/fatih/color"
 )
@@ -31,8 +32,12 @@ func GetChanges() {
 		cmd := git_controller.Pull()
 		err, out, errout := shell.Out(cmd)
 		if err != nil {
+			loading.Stop()
 			fmt.Println(out)
 			fmt.Println(errout)
+
+			pkg.App.Emit("cleanup")
+
 			log.Fatal(errout)
 		}
 
@@ -57,8 +62,12 @@ func CheckFlow(mainCmd string) {
 
 	err, out, errout := shell.Out(mainCmd)
 	if err != nil {
+		loading.Stop()
 		fmt.Println(out)
 		fmt.Println(errout)
+
+		pkg.App.Emit("cleanup")
+
 		log.Fatal(errout)
 	}
 

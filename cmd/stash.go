@@ -9,7 +9,8 @@ import (
 )
 
 var stashCmd = &cobra.Command{
-	Use:   "stash",
+	Use:   "stash <branch>",
+	Args: cobra.ExactArgs(1),
 	Short: "Stash changes and switch to a branch",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) > 0 {

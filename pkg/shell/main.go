@@ -6,6 +6,8 @@ import (
 	"log"
 	"os/exec"
 	"runtime"
+
+	"github.com/Minnek-Digital-Studio/cominnek/pkg"
 )
 
 func getShell() string {
@@ -38,6 +40,9 @@ func ExecuteCommand(cmd string, print ...bool) string {
 	if err != nil {
 		fmt.Println(out)
 		fmt.Println(errout)
+
+		pkg.App.Emit("cleanup")
+
 		log.Fatal("")
 	}
 

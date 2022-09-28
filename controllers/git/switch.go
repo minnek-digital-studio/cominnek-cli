@@ -8,7 +8,7 @@ import (
 
 func Switch(branch string) {
 	switchingMsg := "Switching to " + branch + " branch "
-	switchedMsg := "\tSwitched to " + branch + " branch\n"
+	switchedMsg := "\n\tSwitched to " + branch + " branch\n\n"
 	loading.Start(switchingMsg)
 
 	shell.ExecuteCommand("git checkout "+branch, false)

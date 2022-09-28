@@ -43,7 +43,7 @@ func Stash(branch string) {
 	if branch != "" {
 		loading.Start("Switching to " + branch + " ")
 
-		git_controller.Switch(branch)
+		Switch(branch)
 
 		loading.Stop()
 		StashApply()

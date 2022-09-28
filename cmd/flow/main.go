@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"os"
 
+	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 	"github.com/spf13/cobra"
 )
@@ -29,6 +32,19 @@ func checker(args []string) {
 }
 
 func middleware(callBack func()) {
+	loading.Start("Checking for uncommitted changes ")
+	originBranch := git_controller.GetCurrentBranch()
+	loading.Stop()
+
+	pkg.App.On("cleanup", func(...interface{}) {
+		fmt.Println("Cleaning up")
+
+		if stash {
+			git.Switch(originBranch)
+			git.StashApply()
+		}
+	})
+
 	if stash {
 		git.Stash("")
 	}
