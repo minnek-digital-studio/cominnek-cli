@@ -7,7 +7,7 @@ type AddFlags struct{}
 
 func (x AddFlags) Commit(_cmd *cobra.Command) {
 	_cmd.PersistentFlags().StringVarP(&body, "body", "m", "", "Commit body message")
-	_cmd.PersistentFlags().StringVarP(&feat, "feature", "F", "{false}", "Add a new feature")
+	_cmd.PersistentFlags().StringVarP(&feat, "feat", "F", "{false}", "Add a new feature")
 	_cmd.PersistentFlags().StringVarP(&fix, "fix", "f", "{false}", "Fix an existing issue")
 	_cmd.PersistentFlags().StringVarP(&docs, "docs", "d", "{false}", "Add documentation")
 	_cmd.PersistentFlags().StringVarP(&refactor, "refactor", "r", "{false}", "Refactor an existing issue")
