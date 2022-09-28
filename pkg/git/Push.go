@@ -5,10 +5,12 @@ import (
 	"log"
 
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 )
 
 func _push() {
+	loading.Start("Pushing to remote ")
 	cmd := git_controller.Push()
 	err, out, errout := shell.Out(cmd)
 	
@@ -18,6 +20,7 @@ func _push() {
 		log.Fatal(errout)
 	}
 
+	loading.Stop()
 	fmt.Println(out)
 }
 
@@ -28,4 +31,5 @@ func Push(msg string, body string, ctype string, scope string) {
 		Commit(msg, body, ctype, scope)
 	}
 	_push()
+	log.Println("Push complete")
 }

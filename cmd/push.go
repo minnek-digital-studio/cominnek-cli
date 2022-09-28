@@ -29,16 +29,14 @@ var pushCmd = &cobra.Command{
 		}
 
 		git.Push(msg, body, ctype, scope)
+
+		if merge != "" {
+			git.Merge(merge)
+		}
 	},
 }
 
 func init() {
-	pushCmd.PersistentFlags().StringVarP(&body, "body", "m", "", "Commit body message")
-	pushCmd.PersistentFlags().StringVarP(&feat, "feature", "F", "{false}", "Add a new feature")
-	pushCmd.PersistentFlags().StringVarP(&fix, "fix", "f", "{false}", "Fix an existing issue")
-	pushCmd.PersistentFlags().StringVarP(&docs, "docs", "d", "{false}", "Add documentation")
-	pushCmd.PersistentFlags().StringVarP(&refactor, "refactor", "r", "{false}", "Refactor an existing issue")
-	pushCmd.PersistentFlags().StringVarP(&test, "test", "t", "{false}", "Add tests")
-	pushCmd.PersistentFlags().StringVarP(&build, "build", "b", "{false}", "Build the project")
+	AddFlags{}.Push(pushCmd)
 	rootCmd.AddCommand(pushCmd)
 }

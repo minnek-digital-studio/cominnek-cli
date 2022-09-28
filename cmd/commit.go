@@ -7,7 +7,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var feat, fix, docs, refactor, test, build, body string
 var ctype string
 
 var commitCmd = &cobra.Command{
@@ -26,13 +25,7 @@ var commitCmd = &cobra.Command{
 }
 
 func init() {
-	commitCmd.PersistentFlags().StringVarP(&body, "body", "m", "", "Commit body message")
-	commitCmd.PersistentFlags().StringVarP(&feat, "feature", "F", "{false}", "Add a new feature")
-	commitCmd.PersistentFlags().StringVarP(&fix, "fix", "f", "{false}", "Fix an existing issue")
-	commitCmd.PersistentFlags().StringVarP(&docs, "docs", "d", "{false}", "Add documentation")
-	commitCmd.PersistentFlags().StringVarP(&refactor, "refactor", "r", "{false}", "Refactor an existing issue")
-	commitCmd.PersistentFlags().StringVarP(&test, "test", "t", "{false}", "Add tests")
-	commitCmd.PersistentFlags().StringVarP(&build, "build", "b", "{false}", "Build the project")
+	AddFlags{}.Commit(commitCmd)
 	rootCmd.AddCommand(commitCmd)
 }
 

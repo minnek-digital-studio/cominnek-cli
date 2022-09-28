@@ -1,6 +1,8 @@
 package github
 
 import (
+	"log"
+
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 )
 
@@ -12,4 +14,5 @@ func Publish(msg string, body string, ctype string,  scope string) {
 	}
 	git.PushPublish();
 	CreatePullRequest();
+	log.Println("Publish complete")
 }
