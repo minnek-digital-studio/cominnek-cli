@@ -176,7 +176,7 @@ cominnek pr
 
 ## Merge
 Merge the current branch into the received one. This will help you save time when you are working on a feature branch and you
-want to merge, for example, the feature branch into the `test` brach.
+want to merge, for example, the feature branch into the `test` branch.
 
 
 ```bash
