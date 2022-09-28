@@ -1,1 +1,255 @@
-# comminek-golang
+# Cominnek  [!["Pyhton"](https://img.shields.io/badge/go-1.18.3%20-gray.svg?longCache=true&logo=python&colorB=blue)](https://go.dev/doc/go1.18)
+
+Create commits & pull requests easily. `Cominnek` is based on the [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/) specification.
+## Index
+ - **[Requirements](#requirements)**
+     - **[Git-Flow (MacOS)](#git-flow-macos)**
+ - **[Install](#install)**
+ - **[First Step](#first-steps)**
+ - **[Usage](#usage)**
+ - **[Ticketing System](#ticketing-system)**
+
+# Requirements
+
+- **[Git](https://git-scm.com/)**
+- **[Git-Flow (MacOS)](#git-flow-macos)**
+
+## Git-Flow (MacOS)
+To install git flow run: 
+
+```bash
+brew install git-flow
+```
+
+# Install
+
+1. Clone the repository
+```bash
+git clone git@github.com:Minnek-Digital-Studio/cominnek.git
+```
+
+```bash
+cd ./cominnek
+```
+
+2. Install `cominnek` module
+
+```bash
+go install
+```
+3. Now you can run 
+```bash
+cominnek -v
+```
+
+# First steps:
+
+Login into your GitHub account
+
+```bash
+cominnek auth login
+```
+
+Then you can test the connection with:
+
+```bash
+cominnek auth test
+```
+
+# Usage
+
+<!-- - **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce. -->
+- **[Push](#push)**: Commit and push the branch to GitHub.
+- **[Publish](#publish)**: Commit, push and create the pull request as a draft to develop in GitHub.
+- **[Commit](#commit)**: Commit the changes to the branch.
+- **[Flow](#flow)**: Create a new branch and start the flow.
+- **[Stash](#stash)**: Stash changes from one branch to another one.
+- **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
+- **[Merge](#merge)**: Merge the branch into the received branch.
+  
+<!-- ## Update version
+Commit, push and publish the theme to BigCommerce. The commit going to be "update version" by default. 
+
+***Important:** Just use this in the test branch. This is exclusive for BigCommerce projects*
+
+```bash
+cominnek update-version -a
+```
+the commit will be: `update version`
+
+| flag               | type          | description                 |
+| ------------------ | ------------- | --------------------------- |
+| `-a --apply`       |Boolean        | Apply the theme automaticly | -->
+## Push
+Commit and push the branch to GitHub
+```bash
+cominnek push "do some modifications" --fix "home"
+```
+the commit will be: `fix(home):{Ticket} do some modifications`
+
+*{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `<message>`        |String         | Commit message                         |
+| `-F --feat`        |string         | make the commit with the prefix feat() |
+| `-f --fix`         |string         | make the commit with the prefix fix()  |
+| `-d --docs`        |string         | make the commit with the prefix docs() |
+| `-b --build`       |string         | make the commit with the prefix build()|
+| `-r --refactor`    |string         | make the commit with the prefix refactor()|
+| `-t --test`        |string         | make the commit with the prefix test()|
+| `-m --body`     |string        | Receives the commit body message            |
+| `-M --merge`       |string         | Receives a brach to merge the current branch in the received one  |
+
+*\* required*
+
+## Publish
+Commit, push and create the pull request as a draft to develop in GitHub.
+the commit will be: `feat(home):{Ticket} do some modifications`
+
+The usage is the same as [push](#push) just with the difference that this creates a pull request.
+```bash
+cominnek publish "do some modifications" --fix "home"
+```
+## Commit
+Will commit the changes to the branch.
+```bash
+cominnek commit "do some modifications" --fix "home"
+```
+the commit will be: `feat(home):{Ticket} do some modifications`
+
+*{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `<message>`        |String*         | Commit message                         |
+| `-F --feat`        |string         | make the commit with the prefix feat() |
+| `-f --fix`         |string         | make the commit with the prefix fix()  |
+| `-d --docs`        |string         | make the commit with the prefix docs() |
+| `-b --build`       |string         | make the commit with the prefix build()|
+| `-r --refactor`    |string         | make the commit with the prefix refactor()|
+
+*\* required*
+## Flow
+Create a new branch with the prefix `feature/`, `bugfix/`, `hotfix/` or `release/` and the name of the branch will be the ticket number.
+
+```bash
+cominnek flow feature "<Ticket>"
+```
+This the equivalent of: `git flow feature start {Ticket}` or `git-flow feature start {Ticket}` on MacOS
+
+| Command               | description                            |
+| ------------------ | ---------------------------------------|
+| `feature`       |  create a new feature branch |
+| `bugfix`        |  create a new bugfix branch |
+| `hotfix`        |  create a new hotfix branch |
+| `release`       |  create a new release branch |
+
+| Flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `<Ticket>`         |string*         |  ticket number |
+| `-s --stash`       |boolean        | take the changes in the current branch and apply it to the new feature's branch          |
+
+*\* required*
+
+## Stash
+Stash all the changes in the current branch and apply the changes to another branch.
+
+```bash
+cominnek stash "<Branch>"
+```
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `<Branch>`         |string*         |  branch name |
+## PR
+Create a pull request as a draft directly to develop
+
+```bash
+cominnek pr
+```
+<!-- The flag `--ticket` is optional. If it's not provided this will take the ticket number from the current branch.
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-t --ticket`      |string         | name of the feature that's will be applied the change     | -->
+
+## Merge
+Merge the current branch into the received one. This will help you save time when you are working on a feature branch and you
+want to merge, for example, the feature branch into the `test` brach.
+
+
+```bash
+cominnek merge "<branch>"
+```
+
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `<branch>`      |string*         | name of the branch that's will be applied the changes       |
+
+*\* required*
+## Examples and more
+
+You can add a body to commit using the `--message` flag twice.
+
+```bash
+cominnek push "Changes in home page" -f "home" -m "the title was aligned to right"
+```
+This is the same as
+`git commit -m "fix(home):{Ticket} Changes in home page" -m "the title was aligned to right"`
+
+*{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
+
+---
+To do a commit without a scope, use the flag and on windows, you should use it with a space. 
+
+Mac Os and Linux:
+```bash
+cominnek push "theme setup" -b
+```
+Windows:
+
+```powershell
+cominnek push "theme setup" -b " "
+```
+the commit will be: `build: theme setup`
+
+___ 
+Move your changes to a new feature branch
+
+```bash
+cominnek feature "<Ticket>" -s
+```
+
+# Ticketing system
+This takes the ticket number from the branch name. This is important to create the pull request with the correct ticket number.
+
+Example: 
+
+You are in the branch `feature/MJ-11` 
+
+The ticker number will be `MJ-11`
+
+If you execute the command:
+
+```bash
+cominnek push "Changes on homepage" -F "home"
+``` 
+
+the commit will be: `feat(home): MJ-11 Changes on homepage`
+
+### What about if I am not in a feature branch?
+This going to let you know that you are not in a feature branch and you will accept the commit without a ticket number.
+
+Example: You're in the branch `develop`
+
+```bash
+$ cominnek push "Changes in home page" -F "home"
+  This is not a feature. Do you want to continue? (yes or no)
+        Commit message: "feat(home): Changes in home page"
+```
+
+
+Cominnek `V2.0.0-alpha.1`
+> With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
