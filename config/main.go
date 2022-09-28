@@ -9,6 +9,7 @@ type IConfig struct {
 	AppPath   string
 	KeyPath   string
 	TokenPath string
+	Version   string
 }
 
 var userPath, _ = os.UserConfigDir();
@@ -18,4 +19,5 @@ var Public = IConfig{
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),
 	TokenPath: filepath.Join(cominnekPath,"auth.bin"),
 	AppPath:   cominnekPath,
+	Version:   "2.0.0-alpha.1",
 }
