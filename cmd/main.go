@@ -9,8 +9,8 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "cominnek",
-	Short: "Manage your git flow using the conventional commit standard",
+	Use:     "cominnek",
+	Short:   "Manage your git flow using the conventional commit standard",
 	Version: config.Public.Version,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("cominnek is a CLI for Github")
@@ -23,5 +23,9 @@ func Execute() {
 		os.Exit(1)
 	}
 
-	rootCmd.SetVersionTemplate("cominnek version {{.Version}}\n")
+}
+
+func init() {
+	rootCmd.SetVersionTemplate("cominnek v{{.Version}}")
+	rootCmd.VersionTemplate()
 }
