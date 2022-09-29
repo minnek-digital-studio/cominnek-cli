@@ -5,14 +5,24 @@ import (
 	"strings"
 )
 
+func _removeTwoSpaces(str string) string {
+	return strings.Replace(str, "  ", " ", -1)
+}
+
+func _getCommitMessage(msg string, ctype string, ticket string, scope string) string {
+	commit_message := fmt.Sprintf("-m \"%v(%v): %v %v\"", ctype, scope, ticket, msg)
+
+	if scope == "" {
+		commit_message = fmt.Sprintf("-m \"%v: %v %v\"", ctype, ticket, msg)
+	}
+
+	return _removeTwoSpaces(commit_message)
+}
+
 func Commit(msg string, _body string, ctype string, tiket string, scope string) string {
 	trimScope := strings.TrimSpace(scope)
 	body := strings.TrimSpace(_body)
-	commit_message := fmt.Sprintf("-m \"%v(%v): %v %v\"", ctype, trimScope, tiket, msg)
-
-	if trimScope == "" {
-		commit_message = fmt.Sprintf("-m \"%v: %v %v\"", ctype, tiket, msg)
-	}
+	commit_message := _getCommitMessage(msg, ctype, tiket, trimScope)
 
 	command := fmt.Sprintf("git commit %v", commit_message)
 

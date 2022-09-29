@@ -19,5 +19,5 @@ var Public = IConfig{
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),
 	TokenPath: filepath.Join(cominnekPath,"auth.bin"),
 	AppPath:   cominnekPath,
-	Version:   "2.0.0-alpha.1",
+	Version:   "2.0.0-alpha.2",
 }
