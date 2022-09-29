@@ -30,7 +30,7 @@ var publishCmd = &cobra.Command{
 			scope = getScope(false)
 		}
 
-		github.Publish(msg, body, ctype, scope)
+		github.Publish(msg, body, ctype, scope, ticket)
 
 		if merge != "" {
 			git.Merge(merge)
@@ -40,5 +40,6 @@ var publishCmd = &cobra.Command{
 
 func init() {
 	AddFlags{}.Push(publishCmd)
+	publishCmd.PersistentFlags().StringVarP(&ticket, "ticket", "t", "", "Ticket number")
 	rootCmd.AddCommand(publishCmd)
 }

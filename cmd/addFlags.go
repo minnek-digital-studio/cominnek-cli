@@ -2,7 +2,8 @@ package cmd
 
 import "github.com/spf13/cobra"
 
-var feat, fix, docs, refactor, test, build, body, merge string
+var feat, fix, docs, refactor, test, build, body, merge, ticket string
+
 type AddFlags struct{}
 
 func (x AddFlags) Commit(_cmd *cobra.Command) {
@@ -11,7 +12,6 @@ func (x AddFlags) Commit(_cmd *cobra.Command) {
 	_cmd.PersistentFlags().StringVarP(&fix, "fix", "f", "{false}", "Fix an existing issue")
 	_cmd.PersistentFlags().StringVarP(&docs, "docs", "d", "{false}", "Add documentation")
 	_cmd.PersistentFlags().StringVarP(&refactor, "refactor", "r", "{false}", "Refactor an existing issue")
-	_cmd.PersistentFlags().StringVarP(&test, "test", "t", "{false}", "Add tests")
 	_cmd.PersistentFlags().StringVarP(&build, "build", "b", "{false}", "Build the project")
 }
 
