@@ -1,12 +1,36 @@
 package git_controller
 
-import "fmt"
+import (
+	"github.com/Minnek-Digital-Studio/cominnek/config"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/files"
+	"github.com/Minnek-Digital-Studio/cominnek/helper"
+)
 
-func Pull_request(ticket string) string {
-	msg := fmt.Sprintf(`
+func Pull_request(ticket string, branch string) string {
+	variables := []helper.Variables{
+		{
+			Variable: "${ticket}",
+			Value:    ticket,
+		},
+		{
+			Variable: "${branch}",
+			Value:    branch,
+		},
+	}
+
+	bodyByte := files.Read(config.Public.PRBody)
+	body := string(bodyByte)
+
+	msg := helper.ReplaceValues(body, variables)
+
+	return msg
+}
+
+/*
+msg := fmt.Sprintf(`
 # Ticket information:
 - %v
-- https://minnekdigital.com/%v
+- https://minnek.atlassian.net/browse/%v
 
 ### Code Review Checklist
 
@@ -36,6 +60,4 @@ func Pull_request(ticket string) string {
 - Set a %v, to Code Review this pull request before merge to the %v branch. See the docs [here](https://github.com/Minnek-Digital-Studio/minnek-developer-handbook/blob/master/development/code-review.md).
 - Follow these Guides for Coding Standard: [SASS](https://github.com/bigcommerce/sass-style-guide), [JavaScript](https://developer.mozilla.org/en-US/docs/MDN/Guidelines/Code_guidelines/JavaScript) and [HTML5](https://developer.mozilla.org/en-US/docs/MDN/Guidelines/Code_guidelines/HTML#class_and_id_names).
 `, ticket, ticket, "`develop`", "`rem`", "`px`", "`lang`", "`console.logs`", `Feature/Ticket-ID`, "`develop`", "`developer`")
-
-	return msg
-}
+*/

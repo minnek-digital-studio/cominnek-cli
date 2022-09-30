@@ -2,7 +2,7 @@ package cmd
 
 import "github.com/spf13/cobra"
 
-var feat, fix, docs, refactor, test, build, body, merge, ticket string
+var feat, fix, docs, refactor, test, build, body, merge, ticket, baseBranch string
 
 type AddFlags struct{}
 
