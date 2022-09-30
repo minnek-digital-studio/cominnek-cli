@@ -1,5 +1,6 @@
 tmp
 build
+dist
 
 # Mac OS X files
 .DS_Store
