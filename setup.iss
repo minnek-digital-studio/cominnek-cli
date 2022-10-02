@@ -2,11 +2,10 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 #include "environment.iss"
 #define MyAppName "Cominnek"
-#define MyAppVersion "2.0.0-alpha.2"
+#define MyAppVersion "2.0.0-alpha.3"
 #define MyAppPublisher "Minnek Digital Studio"
 #define MyAppURL "https://github.com/Minnek-Digital-Studio/cominnek"
 #define MyAppExeName "cominnek.exe"
-#define env "COMINNEK_PAHT"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -26,7 +25,7 @@ LicenseFile=C:\Users\isaac\Minnek-Projects\cominnek\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\isaac\Minnek-Projects\cominnek\dist
-OutputBaseFilename=cominnek_2.0.0-alpha.2
+OutputBaseFilename=cominnek_2.0.0-alpha.3
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -52,7 +51,7 @@ begin
      then EnvAddPath(ExpandConstant('{app}'));
     
     if CurStep = ssPostInstall 
-     then EnvAddVariable(ExpandConstant('{env}'), ExpandConstant('{app}'));
+     then EnvAddVariable('COMINNEK_PAHT', ExpandConstant('{app}'));
 end;
 
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
@@ -61,5 +60,5 @@ begin
      then EnvRemovePath(ExpandConstant('{app}'));
 
     if CurUninstallStep = usPostUninstall 
-    then EnvRemoveVariable(ExpandConstant('{env}'));
+    then EnvRemoveVariable('COMINNEK_PAHT');
 end;

@@ -10,6 +10,11 @@ func Feature(ticket string) {
 	checkers.CheckFlow(cmd)
 }
 
+func Bugfix(ticket string) {
+	cmd := git_controller.Bugfix(ticket)
+	checkers.CheckFlow(cmd)
+}
+
 func Fix(ticket string) {
 	cmd := git_controller.Hotfix(ticket)
 	checkers.CheckFlow(cmd)

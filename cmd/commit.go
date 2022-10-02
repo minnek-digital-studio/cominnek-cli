@@ -42,9 +42,6 @@ func getScope(skipFatal bool) string {
 	} else if refactor != "{false}" {
 		ctype = "refactor"
 		return refactor
-	} else if test != "{false}" {
-		ctype = "test"
-		return test
 	} else if build != "{false}" {
 		ctype = "build"
 		return build

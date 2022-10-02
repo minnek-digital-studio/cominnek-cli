@@ -18,6 +18,7 @@ func SetFlags() {
 	addFlags(FlowReleaseCmd)
 	addFlags(FlowHotfixCmd)
 	addFlags(FlowSupportCmd)
+	addFlags(FlowBugfixCmd)
 }
 
 func addFlags(cmd *cobra.Command) {

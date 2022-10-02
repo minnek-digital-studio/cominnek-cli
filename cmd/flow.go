@@ -18,5 +18,6 @@ func init() {
 	flowCmd.AddCommand(flow.FlowReleaseCmd)
 	flowCmd.AddCommand(flow.FlowHotfixCmd)
 	flowCmd.AddCommand(flow.FlowSupportCmd)
+	flowCmd.AddCommand(flow.FlowBugfixCmd)
 	rootCmd.AddCommand(flowCmd)
 }

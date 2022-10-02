@@ -4,6 +4,10 @@ func Feature(ticket string) string {
 	return "git flow feature start " + ticket
 }
 
+func Bugfix(ticket string) string {
+	return "git flow bugfix start " + ticket
+}
+
 func Hotfix(ticket string) string {
 	return "git flow hotfix start " + ticket
 }
