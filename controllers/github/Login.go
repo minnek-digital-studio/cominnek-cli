@@ -12,7 +12,7 @@ var FileName string = config.Public.TokenPath
 func Login() {
 	flow := &oauth.Flow{
 		Host:     oauth.GitHubHost("https://github.com"),
-		ClientID: config.Private.GithubClient,	// this come from config.priv.go
+		ClientID: config.Private.GithubClient, // this come from config.priv.go
 		Scopes:   []string{"repo", "read:org", "repo:status", "user", "gist", "project"},
 	}
 
@@ -20,7 +20,6 @@ func Login() {
 	if err != nil {
 		panic(err)
 	}
-
 
 	encrypted := security.Encrypt(accessToken.Token, security.GetKey())
 	files.Create(encrypted, FileName)
