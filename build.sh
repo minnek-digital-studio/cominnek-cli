@@ -1,9 +1,12 @@
 VERSION=${1}
+DIST_DIR="./dist"
 
-mkdir ./build-MacOS/application;
-mkdir ./build-MacOS/target;
+if [ -z "${VERSION}" ]; then
+    echo "Usage: build.sh <version>"
+    exit 1
+fi
+
 go mod tidy;
-go build -o ./build-MacOS/application;
-rm build-MacOS/darwin/Resources/LICENSE.txt;
-cp ./LICENSE build-MacOS/darwin/Resources/LICENSE.txt;
-bash ./build-MacOS/build-macos-x64.sh cominnek ${VERSION};
+go build -o ./build/bin;
+rm -f ${DIST_DIR}/cominnek-${VERSION}.zip;
+hdiutil create -fs HFS+ -srcfolder "./build" -volname "cominnek-${VERSION}" "${DIST_DIR}/cominnek-${VERSION}.dmg"

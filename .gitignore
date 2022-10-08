@@ -1,5 +1,6 @@
 tmp
-build
+/build/bin/*
+!/build/bin/.gitinclude
 dist
 build-MacOS/target
 build-MacOS/application
