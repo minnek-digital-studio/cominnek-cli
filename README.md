@@ -25,10 +25,10 @@ brew install git-flow
 
 1. Dowload installer
 
-[![Macos](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/download/v2.0.0/cominnek-2.0.0.dmg)
+[![Macos](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.0.1.dmg)
 
 [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
-)](https://github.com/Minnek-Digital-Studio/cominnek/releases/download/v2.0.0/cominnek-2.0.0.exe)
+)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.0.1.exe)
 
 2. Run installer
 
