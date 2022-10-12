@@ -1,74 +1,18 @@
-# Cominnek  [!["Pyhton"](https://img.shields.io/badge/python-3.9.1%20-gray.svg?longCache=true&logo=python&colorB=yellow)](https://www.python.org/downloads/release/python-391/)
+# Cominnek  [!["Pyhton"](https://img.shields.io/badge/go-1.18.3%20-gray.svg?longCache=true&logo=python&colorB=blue)](https://go.dev/doc/go1.18)
 
-Create commits & pull requests easily. `Cominnek` is based on the [Git Version Control](https://docs.minnekdigital.com/development/git-version-control.html)
-
+Create commits & pull requests easily. `Cominnek` is based on the [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 ## Index
  - **[Requirements](#requirements)**
- - **[First Step](#first-steps)**
-     - **[Github CLI](#install-github-cli)**
      - **[Git-Flow (MacOS)](#git-flow-macos)**
  - **[Install](#install)**
+ - **[First Step](#first-steps)**
  - **[Usage](#usage)**
  - **[Ticketing System](#ticketing-system)**
 
 # Requirements
 
 - **[Git](https://git-scm.com/)**
-- **[Python 3.9.1](https://www.python.org/downloads/release/python-391/) (or higher)**
-- **[Github CLI](#install-github-cli)**
 - **[Git-Flow (MacOS)](#git-flow-macos)**
-
-# First steps:
-## Install github-cli
-`Comminek` uses GitHub-CLI to interact with GitHub. For Example, create the `pull requests`. **[See more here](https://git-scm.com/)**
-
-### macOS
-`gh` is available via [Homebrew](https://brew.sh/), [MacPorts](https://www.macports.org/), [Conda](https://docs.conda.io/en/latest/), [Spack](https://spack.io/), and as a downloadable binary from the [releases page](https://github.com/cli/cli/releases/latest).
-
-#### Homebrew
-
-| Install:          | Upgrade:          |
-| ----------------- | ----------------- |
-| `brew install gh` | `brew upgrade gh` |
-#### Conda
-
-| Install:                                 | Upgrade:                                |
-|------------------------------------------|-----------------------------------------|
-| `conda install gh --channel conda-forge` | `conda update gh --channel conda-forge` |
-
-Additional Conda installation options are available on the [gh-feedstock page](https://github.com/conda-forge/gh-feedstock#installing-gh).
-
-#### Spack
-
-| Install:           | Upgrade:                                 |
-| ------------------ | ---------------------------------------- |
-| `spack install gh` | `spack uninstall gh && spack install gh` |
-### Windows
-
-`gh` is available via [WinGet](https://github.com/microsoft/winget-cli), [scoop](https://scoop.sh/), [Chocolatey](https://chocolatey.org/), and as downloadable MSI.
-
-#### WinGet
-
-| Install:            | Upgrade:            |
-| ------------------- | --------------------|
-| `winget install --id GitHub.cli` | `winget upgrade --id GitHub.cli` |
-
-#### scoop
-
-| Install:           | Upgrade:           |
-| ------------------ | ------------------ |
-| `scoop install gh` | `scoop update gh`  |
-
-#### Chocolatey
-
-| Install:           | Upgrade:           |
-| ------------------ | ------------------ |
-| `choco install gh` | `choco upgrade gh` |
-
-#### Signed MSI
-
-MSI installers are available for download on the [releases page](https://github.com/cli/cli/releases/latest).
-
 
 ## Git-Flow (MacOS)
 To install git flow run: 
@@ -91,25 +35,34 @@ cd ./cominnek
 2. Install `cominnek` module
 
 ```bash
-python setup.py install
+go install
 ```
-or
-```bash
-python3 setup.py install
-```
-*Keep in mind you should run `sudo` on unix*
-
 3. Now you can run 
 ```bash
 cominnek -v
 ```
+
+# First steps:
+
+Login into your GitHub account
+
+```bash
+cominnek auth login
+```
+
+Then you can test the connection with:
+
+```bash
+cominnek auth test
+```
+
 # Usage
 
 - **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce.
 - **[Push](#push)**: Commit and push the branch to GitHub.
 - **[Publish](#publish)**: Commit, push and create the pull request as a draft to develop in GitHub.
 - **[Commit](#commit)**: Commit the changes to the branch.
-- **[Feature](#feature)**: Create a new feature branch.
+- **[Flow](#flow)**: Create a new branch and start the flow.
 - **[Stash](#stash)**: Stash changes from one branch to another one.
 - **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
 - **[Merge](#merge)**: Merge the branch into the received branch.
@@ -120,29 +73,34 @@ Commit, push and publish the theme to BigCommerce. The commit going to be "updat
 ***Important:** Just use this in the test branch. This is exclusive for BigCommerce projects*
 
 ```bash
-cominnek update-version -a
+cominnek update-version <version> -a
 ```
 the commit will be: `update version`
 
 | flag               | type          | description                 |
 | ------------------ | ------------- | --------------------------- |
+| `<version>`         |String         | The version to update       |
 | `-a --apply`       |Boolean        | Apply the theme automaticly |
 ## Push
 Commit and push the branch to GitHub
 ```bash
-cominnek push --feat "home" --message "do some modifications"
+cominnek push "do some modifications" --fix "home"
 ```
-the commit will be: `feat(home):{Ticket} do some modifications`
+the commit will be: `fix(home):{Ticket} do some modifications`
 
 *{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
+| `<message>`        |String         | Commit message                         |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
-| `-m --message`     |string*        | Receives the commit message            |
+| `-d --docs`        |string         | make the commit with the prefix docs() |
+| `-b --build`       |string         | make the commit with the prefix build()|
+| `-r --refactor`    |string         | make the commit with the prefix refactor()|
+| `-t --test`        |string         | make the commit with the prefix test()|
+| `-m --body`     |string        | Receives the commit body message            |
 | `-M --merge`       |string         | Receives a brach to merge the current branch in the received one  |
-| `-y --yes`         |Boolean (false)| Skip the confirmation question         |
 
 *\* required*
 
@@ -152,12 +110,12 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 The usage is the same as [push](#push) just with the difference that this creates a pull request.
 ```bash
-cominnek publish --feat "home" --message "do some modifications"
+cominnek publish "do some modifications" --fix "home"
 ```
 ## Commit
 Will commit the changes to the branch.
 ```bash
-cominnek commit --feat "home" --message "do some modifications"
+cominnek commit "do some modifications" --fix "home"
 ```
 the commit will be: `feat(home):{Ticket} do some modifications`
 
@@ -165,23 +123,32 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
+| `<message>`        |String*         | Commit message                         |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
-| `-m --message`     |string*        | Receives the commit message            |
-| `-y --yes`         |Boolean (false)| Skip the confirmation question         |
-| `-a --add-all`     |Boolean (false)| will add to stash all changes          |
+| `-d --docs`        |string         | make the commit with the prefix docs() |
+| `-b --build`       |string         | make the commit with the prefix build()|
+| `-r --refactor`    |string         | make the commit with the prefix refactor()|
 
 *\* required*
-## Feature
-Create a new feature branch using git flow. Also, this going to checkout `develop` branch if it isn't checked out.
+## Flow
+Create a new branch with the prefix `feature/`, `bugfix/`, `hotfix/` or `release/` and the name of the branch will be the ticket number.
 
 ```bash
-cominnek feature --ticket "{Ticket}"
+cominnek flow feature "<Ticket>"
 ```
 This the equivalent of: `git flow feature start {Ticket}` or `git-flow feature start {Ticket}` on MacOS
-| flag               | type          | description                            |
+
+| Command               | description                            |
+| ------------------ | ---------------------------------------|
+| `feature`       |  create a new feature branch |
+| `bugfix`        |  create a new bugfix branch |
+| `hotfix`        |  create a new hotfix branch |
+| `release`       |  create a new release branch |
+
+| Flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `-t --ticket`      |string*        | name to assign to the feature          |
+| `<Ticket>`         |string*         |  ticket number |
 | `-s --stash`       |boolean        | take the changes in the current branch and apply it to the new feature's branch          |
 
 *\* required*
@@ -190,44 +157,37 @@ This the equivalent of: `git flow feature start {Ticket}` or `git-flow feature s
 Stash all the changes in the current branch and apply the changes to another branch.
 
 ```bash
-cominnek stash --ticket "{Ticket}"
+cominnek stash "<Branch>"
 ```
-*For features* Ex: `feature/{Ticket}`
-
-```bash
-cominnek stash --branch "{branch}"
-```
-*For branch that is not a feature* Ex: `develop`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `-t --ticket`      |string         | name of the feature that's will be applied the change     |
-| `-b --branch`      |string         | name of the branch that's will be applied the changes       |
+| `<Branch>`         |string*         |  branch name |
 ## PR
 Create a pull request as a draft directly to develop
 
 ```bash
 cominnek pr
 ```
-The flag `--ticket` is optional. If it's not provided this will take the ticket number from the current branch.
+<!-- The flag `--ticket` is optional. If it's not provided this will take the ticket number from the current branch.
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `-t --ticket`      |string         | name of the feature that's will be applied the change     |
+| `-t --ticket`      |string         | name of the feature that's will be applied the change     | -->
 
 ## Merge
 Merge the current branch into the received one. This will help you save time when you are working on a feature branch and you
-want to merge, for example, the feature branch into `test`.
+want to merge, for example, the feature branch into the `test` branch.
 
 
 ```bash
-cominnek merge --branch "{branch}"
+cominnek merge "<branch>"
 ```
 
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `-b --branch`      |string*         | name of the branch that's will be applied the changes       |
+| `<branch>`      |string*         | name of the branch that's will be applied the changes       |
 
 *\* required*
 ## Examples and more
@@ -235,24 +195,32 @@ cominnek merge --branch "{branch}"
 You can add a body to commit using the `--message` flag twice.
 
 ```bash
-cominnek push -f "home" -m "Changes in home page" -m "the title was aligned to right"
+cominnek push "Changes in home page" -f "home" -m "the title was aligned to right"
 ```
-This is the same as `git commit` -m "fix(home):{Ticket} Changes in home page" -m "the title was aligned to right"`
+This is the same as
+`git commit -m "fix(home):{Ticket} Changes in home page" -m "the title was aligned to right"`
 
 *{Ticket} is the ticket number* See more information in the [Ticketing system](#ticketing-system)
 
 ---
-To do a commit without a scope, use the flag `-f, --fix` or `-F, --feat` with a space. 
+To do a commit without a scope, use the flag and on windows, you should use it with a space. 
+
+Mac Os and Linux:
 ```bash
-cominnek push -F " " -m "theme setup"
+cominnek push "theme setup" -b
 ```
-the commit will be: `feat(): theme setup`
+Windows:
+
+```powershell
+cominnek push "theme setup" -b " "
+```
+the commit will be: `build: theme setup`
 
 ___ 
 Move your changes to a new feature branch
 
 ```bash
-cominnek feature --ticket "{Ticket}" -s
+cominnek feature "<Ticket>" -s
 ```
 
 # Ticketing system
@@ -267,10 +235,10 @@ The ticker number will be `MJ-11`
 If you execute the command:
 
 ```bash
-cominnek push -F "home" -m "Changes in home page"
+cominnek push "Changes on homepage" -F "home"
 ``` 
 
-the commit will be: `feat(home):MJ-11 Changes in home page`
+the commit will be: `feat(home): MJ-11 Changes on homepage`
 
 ### What about if I am not in a feature branch?
 This going to let you know that you are not in a feature branch and you will accept the commit without a ticket number.
@@ -278,11 +246,11 @@ This going to let you know that you are not in a feature branch and you will acc
 Example: You're in the branch `develop`
 
 ```bash
-$ cominnek push -F "home" -m "Changes in home page"
+$ cominnek push "Changes in home page" -F "home"
   This is not a feature. Do you want to continue? (yes or no)
         Commit message: "feat(home): Changes in home page"
 ```
 
 
-Cominnek `V1.3.2`
+Cominnek `V2.0.0-alpha.1`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)

@@ -1,4 +1,26 @@
-dist
+tmp
 build
-cominnek.egg-info
-__pycache__
+dist
+
+# Mac OS X files
+.DS_Store
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.priv.go
+
+# Test binary, build with ?   	github.com/Minnek-Digital-Studio/cominnek	[no test files]
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+.env
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+cominnek
+.vscode/settings.json
