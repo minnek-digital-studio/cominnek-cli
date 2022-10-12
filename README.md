@@ -53,7 +53,7 @@ cominnek auth test
 
 # Usage
 
-- **[Update version](#update-version)**: Commit, push and publish the theme to BigCommerce.
+- **[Update version](#update-version)**: Create and push a commit with the correct template for conventional commits.
 - **[Push](#push)**: Commit and push the branch to GitHub.
 - **[Publish](#publish)**: Commit, push and create the pull request as a draft to develop in GitHub.
 - **[Commit](#commit)**: Commit the changes to the branch.
@@ -63,19 +63,16 @@ cominnek auth test
 - **[Merge](#merge)**: Merge the branch into the received branch.
   
 ## Update version
-Commit, push and publish the theme to BigCommerce. The commit going to be "update version" by default. 
-
-***Important:** Just use this in the test branch. This is exclusive for BigCommerce projects*
+Create and push a commit with the correct template for conventional commits.
 
 ```bash
-cominnek update-version <version> -a
+cominnek update-version <version>
 ```
-the commit will be: `update version`
+the commit will be: `build(version): update version`
 
 | flag               | type          | description                 |
 | ------------------ | ------------- | --------------------------- |
 | `<version>`         |String         | The version to update       |
-| `-a --apply`       |Boolean        | Apply the theme automaticly |
 ## Push
 Commit and push the branch to GitHub
 ```bash
