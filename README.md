@@ -4,7 +4,7 @@ Create commits & pull requests easily. `Cominnek` is based on the [Semantic Comm
 ## Index
  - **[Requirements](#requirements)**
      - **[Git-Flow (MacOS)](#git-flow-macos)**
- - **[Install](#install)**
+ - **[Install](#installation)**
  - **[First Step](#first-steps)**
  - **[Usage](#usage)**
  - **[Ticketing System](#ticketing-system)**
@@ -21,22 +21,17 @@ To install git flow run:
 brew install git-flow
 ```
 
-# Install
+# Installation
 
-1. Clone the repository
-```bash
-git clone git@github.com:Minnek-Digital-Studio/cominnek.git
-```
+1. Dowload installer
 
-```bash
-cd ./cominnek
-```
+[![Macos](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/download/v2.0.0/cominnek-2.0.0.dmg)
 
-2. Install `cominnek` module
+[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
+)](https://github.com/Minnek-Digital-Studio/cominnek/releases/download/v2.0.0/cominnek-2.0.0.exe)
 
-```bash
-go install
-```
+2. Run installer
+
 3. Now you can run 
 ```bash
 cominnek -v
