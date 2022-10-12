@@ -26,23 +26,7 @@ func FetchData() {
 func GetChanges() {
 		if git_controller.CheckChangesFromOrigin() {
 		color.YellowString("\n\nThere are changes from origin.\n")
-		loading.Start("Pulling changes from origin ")
-		fmt.Print("\n\n")
-
-		cmd := git_controller.Pull()
-		err, out, errout := shell.Out(cmd)
-		if err != nil {
-			loading.Stop()
-			fmt.Println(out)
-			fmt.Println(errout)
-
-			pkg.App.Emit("cleanup")
-
-			log.Fatal(errout)
-		}
-
-		loading.Stop()
-		fmt.Println(out)
+		git_controller.Pull()
 	}
 }
 

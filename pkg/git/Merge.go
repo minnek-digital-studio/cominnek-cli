@@ -7,6 +7,7 @@ import (
 
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 	"github.com/fatih/color"
 )
@@ -53,6 +54,14 @@ func _merge(currentBranch string, branch string) string {
 func Merge(branch string) {
 	currentBranch := _getCurrentBranch()
 	git_controller.Switch(branch)
+
+	pkg.App.On("cleanup", func(...interface{}) {
+		fmt.Println("Cleaning up")
+		fmt.Println("You have some conflicts to resolve. After you have resolved them, run the following command to continue:")
+		fmt.Println("git merge " + currentBranch)
+	})
+
+	git_controller.Pull()
 
 	out := _merge(currentBranch, branch)
 
