@@ -7,7 +7,7 @@ import (
 
 var updateVersion = &cobra.Command{
 	Use:   "update-version <version>",
-	Short: "BigCommerce update version",
+	Short: "Create a commit for update version following conventional commits",
 	Run: func(cmd *cobra.Command, args []string) {
 		version := args[0]
 		extras.UpdateVersion(version)
