@@ -1,9 +1,6 @@
 tmp
-/build/bin/*
-!/build/bin/.gitinclude
+build
 dist
-build-MacOS/target
-build-MacOS/application
 
 # Mac OS X files
 .DS_Store
