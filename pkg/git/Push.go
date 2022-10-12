@@ -13,7 +13,7 @@ func _push() {
 	loading.Start("Pushing to remote ")
 	cmd := git_controller.Push()
 	err, out, errout := shell.Out(cmd)
-	
+
 	if err != nil {
 		fmt.Println(out)
 		fmt.Println(errout)
@@ -29,6 +29,16 @@ func Push(msg string, body string, ctype string, scope string) {
 		Add()
 		Status()
 		Commit(msg, body, ctype, scope)
+	}
+	_push()
+	log.Println("Push complete")
+}
+
+func PushWithOutTicket(msg string, body string, ctype string, scope string) {
+	if msg != "" {
+		Add()
+		Status()
+		CommitWithoutTicket(msg, body, ctype, scope)
 	}
 	_push()
 	log.Println("Push complete")

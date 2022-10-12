@@ -26,3 +26,4 @@ build-MacOS/application
 # vendor/
 
 cominnek
+.vscode/settings.json

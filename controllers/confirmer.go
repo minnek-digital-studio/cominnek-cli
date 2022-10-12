@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"strings"
 )
 
 func Confirm(msg string, defaultAnswer ...string) bool {
@@ -28,6 +29,7 @@ func yesOrNo(defaultAnswer ...string) string {
 	noText := "n"
 
 	if len(defaultAnswer) > 0 {
+		defaultAnswer[0] = strings.ToLower(defaultAnswer[0])
 		if defaultAnswer[0] == "yes" || defaultAnswer[0] == "y" {
 			yesText = "Y"
 		}

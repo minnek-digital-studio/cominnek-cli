@@ -21,5 +21,5 @@ var Public = IConfig{
 	TokenPath: filepath.Join(cominnekPath, "auth.bin"),
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),
 	AppPath:   cominnekPath,
-	Version:   "2.0.0-alpha.4",
+	Version:   "2.0.0-alpha.5",
 }

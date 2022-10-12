@@ -54,3 +54,11 @@ func Commit(msg string, body string, ctype string, scope string) {
 	loading.Stop()
 	fmt.Println(out)
 }
+
+func CommitWithoutTicket(msg string, body string, ctype string, scope string) {
+	loading.Start("Commiting files ")
+	out := _commit(msg, body, ctype, scope, "")
+
+	loading.Stop()
+	fmt.Println(out)
+}
