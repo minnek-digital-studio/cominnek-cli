@@ -2,11 +2,13 @@ package controllers
 
 import (
 	"fmt"
+	"os"
 	"runtime"
 	"strings"
 
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/bridge"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/files"
 	github_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/github"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
@@ -95,12 +97,32 @@ func mountDisk(route string, name string) (string, string) {
 	return disk, mounted
 }
 
+func checkUpdated(latestVersion string) {
+	loading.Start("🔎 Checking if cominnek has been updated")
+	err, out, _ := shell.Out("cominnek -v")
+
+	if err != nil {
+		loading.Stop()
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	loading.Stop()
+	if strings.Contains(out, latestVersion) {
+		fmt.Println("🥳🎈 cominnek was successfully updated")
+	} else {
+		fmt.Println("🤔 Something went wrong, try to update again")
+	}
+}
+
 func installUpdates(route string, fileName string) {
+	latestVersion := github_controller.GetLatestVersion()
+
 	if osName == "windows" {
 		shell.ExecuteCommand(`Start-Process -FilePath "`+route+`" -Argument "/silent" -PassThru`, false)
 
 		if allOk {
-			color.HiBlue("\n🎉🎉🎉 cominnek " + github_controller.GetLatestVersion() + " has been downloaded successfully! 🎉🎉🎉")
+			color.HiBlue("\n🎉🎉🎉 cominnek " + latestVersion + " has been downloaded successfully! 🎉🎉🎉")
 		}
 	}
 
@@ -114,9 +136,9 @@ func installUpdates(route string, fileName string) {
 
 		loading.Stop()
 
-		if allOk {
-			color.HiBlue("\n🎉🎉🎉 cominnek " + github_controller.GetLatestVersion() + " has been updated successfully! 🎉🎉🎉")
-		}
+		checkUpdated(latestVersion)
+
+		files.Delete(route)
 	}
 }
 
