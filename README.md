@@ -14,7 +14,7 @@ Create commits & pull requests easily. `Cominnek` is based on the [Semantic Comm
 - **[Git](https://git-scm.com/)**
 - **[Git-Flow (MacOS)](#git-flow-macos)**
 
-## Git-Flow (MacOS)
+### Git-Flow (MacOS)
 To install git flow run: 
 
 ```bash
@@ -25,9 +25,7 @@ brew install git-flow
 
 1. Dowload installer
 
-[![Macos](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.0.1.dmg)
-
-[![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
+[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.0.1.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
 )](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.0.1.exe)
 
 2. Run installer
@@ -62,7 +60,12 @@ cominnek auth test
 - **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
 - **[Merge](#merge)**: Merge the branch into the received branch.
 - **[Update](#update)**: Update the cominnek version.
-  
+- **[Config](#config)**: Configure the cominnek.
+  - **[PR](#pr-1)**: Configure the pull request template.\
+- **[Auth](#auth)**: Configure the GitHub authentication.
+  - **[Login](#login)**: Login into your GitHub account.
+  - **[Test](#test)**: Test the connection with GitHub.
+  - **[Logout](#logout)**: Logout from your GitHub account.
 ## Update version
 Create and push a commit with the correct template for conventional commits.
 
@@ -169,8 +172,7 @@ cominnek pr
 | `-t --ticket`      |string         | name of the feature that's will be applied the change     | -->
 
 ## Merge
-Merge the current branch into the received one. This will help you save time when you are working on a feature branch and you
-want to merge, for example, the feature branch into the `test` branch.
+Merge the current branch into the received one. This will help you save time when you are working on a feature branch and you want to merge, for example, the feature branch into the `test` branch.
 
 
 ```bash
@@ -191,6 +193,68 @@ Update the cominnek version.
 cominnek update
 ```
 
+## Config
+
+Configure the cominnek.
+  
+  ```bash
+  cominnek config -h
+  ```
+### PR
+This command will help you to modify the pull request template.
+
+```bash
+cominnek config pr -b path/to/template.md
+```
+
+| Flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-b --body`       |string*        | path to the template file |
+
+*\* required*
+#### Template file Example:
+In some cases, you will want to set some dynamic values, for example, ticket number.
+
+| Key                | description    |
+| ------------------ | -------------  |
+| `${ticket}`        | ticket number  |
+
+```markdown
+# Example
+
+- Ticket: ${ticket}
+```
+## Auth
+
+This command will help you to set the GitHub token.
+
+```bash
+cominnek auth -h
+```
+
+### Login
+This command will help you to set the GitHub token.
+
+```bash
+cominnek auth login
+```
+
+### Test
+This command will help you to test the GitHub token.
+
+```bash
+cominnek auth test
+```
+
+### Logout
+
+This command will help you to remove the GitHub token.
+
+```bash
+cominnek auth logout
+```
+
+----
 ## Examples and more
 
 You can add a body to commit using the `--message` flag twice.
