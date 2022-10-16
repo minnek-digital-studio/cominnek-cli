@@ -1,13 +1,10 @@
 package config
 
 import (
-	"github.com/Minnek-Digital-Studio/cominnek/controllers/files"
+	data_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/data"
 	"github.com/Minnek-Digital-Studio/cominnek/helper"
 )
 
 func Defaults() {
-	if !files.CheckExist(Public.PRBody) {
-		bufer := []byte(helper.PRBody)
-		files.Create(bufer, Public.PRBody)
-	}
+	data_controller.SavePrBody(helper.PRBody, Public.PRBody, false)
 }
