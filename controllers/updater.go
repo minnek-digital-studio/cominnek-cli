@@ -12,11 +12,12 @@ import (
 )
 
 var currentVersion = config.Public.Version
-var latestVersion = github_controller.GetLatestVersion()
 var allOk = true
 var osName = runtime.GOOS
 
 func CheckUpdates(printMessage bool) bool {
+	latestVersion := github_controller.GetLatestVersion()
+
 	if currentVersion != latestVersion {
 		if printMessage {
 			fmt.Print("\n\n")
@@ -52,6 +53,6 @@ func Update() {
 	}
 
 	if allOk {
-		color.HiBlue("\n🎉🎉🎉 cominnek " + latestVersion + " has been downloaded successfully! 🎉🎉🎉")
+		color.HiBlue("\n🎉🎉🎉 cominnek " + github_controller.GetLatestVersion() + " has been downloaded successfully! 🎉🎉🎉")
 	}
 }
