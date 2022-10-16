@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 #include "environment.iss"
 #define MyAppName "Cominnek"
-#define MyAppVersion "2.0.1"
+#define MyAppVersion "2.1.0"
 #define MyAppPublisher "Minnek Digital Studio"
 #define MyAppURL "https://github.com/Minnek-Digital-Studio/cominnek"
 #define MyAppExeName "cominnek.exe"
@@ -24,7 +24,7 @@ LicenseFile=C:\Users\isaac\Minnek-Projects\cominnek\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\isaac\Minnek-Projects\cominnek\dist
-OutputBaseFilename=cominnek-2.0.1
+OutputBaseFilename=cominnek-2.1.0
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern

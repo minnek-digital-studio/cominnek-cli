@@ -26,5 +26,5 @@ var Public = IConfig{
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),
 	AppPath:   cominnekPath,
 	TempPath:  cominnekTempPath,
-	Version:   "v2.0.1",
+	Version:   "v2.1.0",
 }
