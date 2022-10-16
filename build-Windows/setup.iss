@@ -2,20 +2,19 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 #include "environment.iss"
 #define MyAppName "Cominnek"
-#define MyAppVersion "2.0.1"
+#define MyAppVersion "2.1.0"
 #define MyAppPublisher "Minnek Digital Studio"
 #define MyAppURL "https://github.com/Minnek-Digital-Studio/cominnek"
 #define MyAppExeName "cominnek.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
-; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
+; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)iscc 
 AppId={{8C704EC9-0C93-4AF5-BEDD-6B90152B76E0}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
-AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
@@ -25,7 +24,7 @@ LicenseFile=C:\Users\isaac\Minnek-Projects\cominnek\LICENSE
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\isaac\Minnek-Projects\cominnek\dist
-OutputBaseFilename=cominnek-2.0.1
+OutputBaseFilename=cominnek-2.1.0
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -40,9 +39,6 @@ Source: "C:\Users\isaac\Minnek-Projects\cominnek\build\{#MyAppExeName}"; DestDir
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-
-[Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [Code]
 procedure CurStepChanged(CurStep: TSetupStep);

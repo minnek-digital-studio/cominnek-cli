@@ -23,5 +23,6 @@ func init() {
 
 	authCmd.AddCommand(auth.LoginCmd)
 	authCmd.AddCommand(auth.TestCmd)
+	authCmd.AddCommand(auth.LogoutCmd)
 	rootCmd.AddCommand(authCmd)
 }
