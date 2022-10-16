@@ -61,6 +61,7 @@ cominnek auth test
 - **[Stash](#stash)**: Stash changes from one branch to another one.
 - **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
 - **[Merge](#merge)**: Merge the branch into the received branch.
+- **[Update](#update)**: Update the cominnek version.
   
 ## Update version
 Create and push a commit with the correct template for conventional commits.
@@ -182,6 +183,14 @@ cominnek merge "<branch>"
 | `<branch>`      |string*         | name of the branch that's will be applied the changes       |
 
 *\* required*
+
+## Update
+Update the cominnek version.
+
+```bash
+cominnek update
+```
+
 ## Examples and more
 
 You can add a body to commit using the `--message` flag twice.
