@@ -215,14 +215,17 @@ cominnek config pr -b path/to/template.md
 #### Template file Example:
 In some cases, you will want to set some dynamic values, for example, ticket number.
 
-| Key                | description    |
-| ------------------ | -------------  |
-| `${ticket}`        | ticket number  |
+| Key                |    description     |
+| ------------------ | ------------------ |
+| `${ticket}`        | Ticket number      |
+| `${branch}`        | Head branch name   |
+
 
 ```markdown
 # Example
 
 - Ticket: ${ticket}
+- Branch: ${branch}
 ```
 ## Auth
 
