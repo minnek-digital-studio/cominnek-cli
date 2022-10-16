@@ -10,7 +10,8 @@ import (
 )
 
 func getReleases() []*github.RepositoryRelease {
-	releases, _, err := client().Repositories.ListReleases(ctx, "minnek-Digital-Studio", "cominnek", nil)
+	client := github.NewClient(nil)
+	releases, _, err := client.Repositories.ListReleases(ctx, "minnek-Digital-Studio", "cominnek", nil)
 
 	if err != nil {
 		fmt.Println(err)
