@@ -61,7 +61,7 @@ cominnek auth test
 - **[Merge](#merge)**: Merge the branch into the received branch.
 - **[Update](#update)**: Update the cominnek version.
 - **[Config](#config)**: Configure the cominnek.
-  - **[PR](#pr-1)**: Configure the pull request template.\
+  - **[PR](#pr-1)**: Configure the pull request template.
 - **[Auth](#auth)**: Configure the GitHub authentication.
   - **[Login](#login)**: Login into your GitHub account.
   - **[Test](#test)**: Test the connection with GitHub.
