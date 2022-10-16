@@ -7,6 +7,7 @@ import (
 
 type IConfig struct {
 	AppPath   string
+	TempPath  string
 	KeyPath   string
 	TokenPath string
 	Version   string
@@ -14,12 +15,16 @@ type IConfig struct {
 }
 
 var userPath, _ = os.UserConfigDir()
+var tempPath, _ = os.UserCacheDir()
+
 var cominnekPath = filepath.Join(userPath, ".cominnek")
+var cominnekTempPath = filepath.Join(tempPath, ".cominnek")
 
 var Public = IConfig{
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),
 	TokenPath: filepath.Join(cominnekPath, "auth.bin"),
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),
 	AppPath:   cominnekPath,
-	Version:   "2.0.1",
+	TempPath:  cominnekTempPath,
+	Version:   "v2.0.0",
 }

@@ -8,6 +8,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var IgnoreCheckVersion = false
+
 var rootCmd = &cobra.Command{
 	Use:     "cominnek",
 	Short:   "Manage your git flow using the conventional commit standard",
@@ -22,10 +24,9 @@ func Execute() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-
 }
 
 func init() {
-	rootCmd.SetVersionTemplate("cominnek v{{.Version}}")
+	rootCmd.SetVersionTemplate("cominnek {{.Version}}")
 	rootCmd.VersionTemplate()
 }
