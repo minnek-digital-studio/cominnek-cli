@@ -42,8 +42,8 @@ var _PRBody string = `
 # Ticket information: 
 
 [![Jira](https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white)](https://minnek.atlassian.net/browse/${ticket})
+
 - ${ticket}
-- https://minnek.atlassian.net/browse/${ticket}
 
 ### Code Review Checklist
 
