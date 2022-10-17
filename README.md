@@ -43,7 +43,7 @@ Login into your GitHub account
 cominnek auth login
 ```
 
-Then you can test the connection with:
+Then you can test the connection with the:
 
 ```bash
 cominnek auth test
@@ -306,7 +306,7 @@ If you execute the command:
 cominnek push "Changes on homepage" -F "home"
 ``` 
 
-the commit will be: `feat(home): MJ-11 Changes on homepage`
+the commit will be: `feat(home): MJ-11 Changes on the homepage`
 
 ### What about if I am not in a feature branch?
 This going to let you know that you are not in a feature branch and you will accept the commit without a ticket number.
