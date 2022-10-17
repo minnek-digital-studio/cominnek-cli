@@ -23,7 +23,7 @@ brew install git-flow
 
 # Installation
 
-1. Dowload installer
+1. Download installer
 
 [![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.1.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
 )](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.1.0.exe)
@@ -165,11 +165,11 @@ Create a pull request as a draft directly to develop
 ```bash
 cominnek pr
 ```
-<!-- The flag `--ticket` is optional. If it's not provided this will take the ticket number from the current branch.
+The flag `--ticket` is optional. If it's not provided this will take the ticket number from the current branch.
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `-t --ticket`      |string         | name of the feature that's will be applied the change     | -->
+| `-t --ticket`      |string         | name of the feature that's will be applied the change     |
 
 ## Merge
 Merge the current branch into the received one. This will help you save time when you are working on a feature branch and you want to merge, for example, the feature branch into the `test` branch.
@@ -187,7 +187,7 @@ cominnek merge "<branch>"
 *\* required*
 
 ## Update
-Update the cominnek version.
+Update the Cominnek version.
 
 ```bash
 cominnek update
