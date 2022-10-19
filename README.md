@@ -1,4 +1,4 @@
-# Cominnek  [!["Go"](https://img.shields.io/badge/go-1.18.3%20-gray.svg?longCache=true&logo=python&colorB=blue)](https://go.dev/doc/go1.18)
+# Cominnek  [!["Go"](https://img.shields.io/badge/go-1.18.3%20-gray.svg?longCache=true&logo=go&colorB=blue)](https://go.dev/doc/go1.18)
 
 Create commits & pull requests easily. `Cominnek` is based on the [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 ## Index
