@@ -119,7 +119,8 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `<message>`        |String*         | Commit message                         |
+| `<message>`        |String*        | Commit message                         |
+| `-a --all`         |bolean         | Add all files to the commit            |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
 | `-d --docs`        |string         | make the commit with the prefix docs() |
