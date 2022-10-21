@@ -8,6 +8,7 @@ import (
 )
 
 var ctype string
+var addAll bool
 
 var commitCmd = &cobra.Command{
 	Use:   "commit <message>",
@@ -20,11 +21,16 @@ var commitCmd = &cobra.Command{
 			log.Fatal("No commit message specified")
 		}
 
+		if addAll {
+			git.Add()
+		}
+
 		git.Commit(msg, body, ctype, getScope(false))
 	},
 }
 
 func init() {
+	commitCmd.PersistentFlags().BoolVarP(&addAll, "all", "a", false, "Add all files changed to commit")
 	AddFlags{}.Commit(commitCmd)
 	rootCmd.AddCommand(commitCmd)
 }
