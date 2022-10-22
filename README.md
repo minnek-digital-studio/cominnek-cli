@@ -88,15 +88,20 @@ the commit will be: `fix(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `<message>`        |String         | Commit message                         |
+| `<message>`        |string *         | Commit message                         |
+| `-m --body`     |string        | Receives the commit body message            |
+| `-M --merge`       |string         | Receives a brach to merge the current branch in the received one  |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
 | `-d --docs`        |string         | make the commit with the prefix docs() |
-| `-b --build`       |string         | make the commit with the prefix build()|
+| `   --style`       |string         | make the commit with the prefix style()|
 | `-r --refactor`    |string         | make the commit with the prefix refactor()|
-| `-t --test`        |string         | make the commit with the prefix test()|
-| `-m --body`     |string        | Receives the commit body message            |
-| `-M --merge`       |string         | Receives a brach to merge the current branch in the received one  |
+| `   --perf`        |string         | make the commit with the prefix perf()|
+| `   --test`        |string         | make the commit with the prefix test()|
+| `-b --build`       |string         | make the commit with the prefix build()|
+| `   --ci`          |string         | make the commit with the prefix ci()   |
+| `   --chore`       |string         | make the commit with the prefix chore()|
+| `   --revert`      |string         | make the commit with the prefix revert()|
 
 *\* required*
 
@@ -119,13 +124,20 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `<message>`        |String*        | Commit message                         |
+| `<message>`        |string*        | Commit message                         |
+| `-m --body`        |string         | Receives the commit body message       |
 | `-a --all`         |bolean         | Add all files to the commit            |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
 | `-d --docs`        |string         | make the commit with the prefix docs() |
-| `-b --build`       |string         | make the commit with the prefix build()|
+| `   --style`       |string         | make the commit with the prefix style()|
 | `-r --refactor`    |string         | make the commit with the prefix refactor()|
+| `   --perf`        |string         | make the commit with the prefix perf()|
+| `   --test`        |string         | make the commit with the prefix test()|
+| `-b --build`       |string         | make the commit with the prefix build()|
+| `   --ci`          |string         | make the commit with the prefix ci()   |
+| `   --chore`       |string         | make the commit with the prefix chore()|
+| `   --revert`      |string         | make the commit with the prefix revert()|
 
 *\* required*
 ## Flow
