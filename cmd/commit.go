@@ -2,12 +2,15 @@ package cmd
 
 import (
 	"log"
+	"os"
 
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
 var ctype string
+var addAll bool
 
 var commitCmd = &cobra.Command{
 	Use:   "commit <message>",
@@ -20,37 +23,83 @@ var commitCmd = &cobra.Command{
 			log.Fatal("No commit message specified")
 		}
 
+		if addAll {
+			git.Add()
+		}
+
 		git.Commit(msg, body, ctype, getScope(false))
 	},
 }
 
 func init() {
+	commitCmd.PersistentFlags().BoolVarP(&addAll, "all", "a", false, "Add all files changed to commit")
 	AddFlags{}.Commit(commitCmd)
 	rootCmd.AddCommand(commitCmd)
 }
 
 func getScope(skipFatal bool) string {
-	if feat != "{false}" {
+	if feat != "" {
 		ctype = "feat"
 		return feat
-	} else if fix != "{false}" {
+	}
+
+	if fix != "" {
 		ctype = "fix"
 		return fix
-	} else if docs != "{false}" {
+	}
+
+	if docs != "" {
 		ctype = "docs"
 		return docs
-	} else if refactor != "{false}" {
+	}
+
+	if refactor != "" {
 		ctype = "refactor"
 		return refactor
-	} else if build != "{false}" {
+	}
+
+	if build != "" {
 		ctype = "build"
 		return build
-	} else {
-		if !skipFatal {
-			log.Fatal("No commit type specified")
-			return ""
-		} else {
-			return ""
-		}
 	}
+
+	if style != "" {
+		ctype = "style"
+		return style
+	}
+
+	if chore != "" {
+		ctype = "chore"
+		return chore
+	}
+
+	if ci != "" {
+		ctype = "ci"
+		return ci
+	}
+
+	if perf != "" {
+		ctype = "perf"
+		return perf
+	}
+
+	if revert != "" {
+		ctype = "revert"
+		return revert
+	}
+
+	if test != "" {
+		ctype = "test"
+		return test
+	}
+
+	if !skipFatal {
+		println(color.HiRedString("No commit type specified"))
+		println("Use --feat, --fix, --docs, --refactor, --build, --style, --chore, --ci, --perf, --revert, --test")
+		os.Exit(1)
+		return ""
+	} else {
+		return ""
+	}
+
 }
