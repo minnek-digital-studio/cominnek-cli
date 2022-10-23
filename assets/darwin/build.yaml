@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  prod:
+    cmds:
+      - bash ./assets/darwin/build.sh
+    silent: true

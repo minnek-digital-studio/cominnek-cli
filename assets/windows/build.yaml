@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  prod:
+    cmds:
+      - powershell -noprofile -c ./assets/windows/build.ps1
+    silent: true
