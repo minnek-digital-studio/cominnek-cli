@@ -3,5 +3,5 @@ version: '3'
 tasks:
   prod:
     cmds:
-      - bash ./assets/darwin/build.sh
+      - bash ./assets/darwin/build.sh {{.CLI_ARGS}}
     silent: true
