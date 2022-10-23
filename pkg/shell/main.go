@@ -68,7 +68,7 @@ func ExecuteCommand(cmd string, print ...bool) string {
 		fmt.Println(out)
 		fmt.Println(errout)
 
-		pkg.App.Emit("cleanup")
+		pkg.AppEvent.Emit("cleanup")
 
 		log.Fatal("")
 	}

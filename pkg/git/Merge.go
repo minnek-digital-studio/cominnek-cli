@@ -55,7 +55,7 @@ func Merge(branch string) {
 	currentBranch := _getCurrentBranch()
 	git_controller.Switch(branch)
 
-	pkg.App.On("cleanup", func(...interface{}) {
+	pkg.AppEvent.On("cleanup", func(...interface{}) {
 		fmt.Println("Cleaning up")
 		fmt.Println("You have some conflicts to resolve. After you have resolved them, run the following command to continue:")
 		fmt.Println("git merge " + currentBranch)

@@ -37,7 +37,7 @@ func middleware(callBack func()) {
 	originBranch := git_controller.GetCurrentBranch()
 	loading.Stop()
 
-	pkg.App.On("cleanup", func(...interface{}) {
+	pkg.AppEvent.On("cleanup", func(...interface{}) {
 		fmt.Println("Cleaning up")
 
 		if stash {

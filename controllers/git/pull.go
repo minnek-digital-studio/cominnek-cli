@@ -21,7 +21,7 @@ func Pull() {
 		fmt.Println(out)
 		fmt.Println(errout)
 
-		pkg.App.Emit("cleanup")
+		pkg.AppEvent.Emit("cleanup")
 
 		log.Fatal(errout)
 	}

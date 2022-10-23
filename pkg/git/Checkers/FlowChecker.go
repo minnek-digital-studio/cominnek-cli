@@ -24,7 +24,7 @@ func FetchData() {
 }
 
 func GetChanges() {
-		if git_controller.CheckChangesFromOrigin() {
+	if git_controller.CheckChangesFromOrigin() {
 		color.YellowString("\n\nThere are changes from origin.\n")
 		git_controller.Pull()
 	}
@@ -50,7 +50,7 @@ func CheckFlow(mainCmd string) {
 		fmt.Println(out)
 		fmt.Println(errout)
 
-		pkg.App.Emit("cleanup")
+		pkg.AppEvent.Emit("cleanup")
 
 		log.Fatal(errout)
 	}
