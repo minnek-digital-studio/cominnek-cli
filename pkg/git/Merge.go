@@ -39,7 +39,7 @@ func _mergeErr(currentBranch string, branch string, out string) {
 func _merge(currentBranch string, branch string) string {
 	loading.Start("Merging " + currentBranch + " into " + branch)
 	cmd := git_controller.Merge(currentBranch)
-	err, out, _ := shell.Out(cmd)
+	out, _, err := shell.Out(cmd)
 
 	if err != nil {
 		loading.Stop()

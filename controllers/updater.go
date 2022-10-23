@@ -84,7 +84,7 @@ func getMountedDisc(mountOut string, name string, num int) string {
 }
 
 func mountDisk(route string, name string) (string, string) {
-	err, out, _ := shell.Out("hdiutil attach " + route)
+	out, _, err := shell.Out("hdiutil attach " + route)
 
 	if err != nil {
 		fmt.Println(err)
@@ -99,7 +99,7 @@ func mountDisk(route string, name string) (string, string) {
 
 func checkUpdated(latestVersion string) {
 	loading.Start("🔎 Checking if cominnek has been updated")
-	err, out, _ := shell.Out("cominnek -v")
+	out, _, err := shell.Out("cominnek -v")
 
 	if err != nil {
 		loading.Stop()

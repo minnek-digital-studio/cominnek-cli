@@ -10,7 +10,7 @@ import (
 
 func GetCurrentBranch() string {
 	cmd := "git rev-parse --abbrev-ref HEAD"
-	err, out, errout := shell.Out(cmd)
+	out, errout, err := shell.Out(cmd)
 
 	if err != nil {
 		fmt.Println(out)
@@ -22,7 +22,7 @@ func GetCurrentBranch() string {
 }
 
 func GetTicketNumber() string {
-	currentBranch := GetCurrentBranch();
+	currentBranch := GetCurrentBranch()
 
 	if strings.HasPrefix(currentBranch, "feature/") {
 		return strings.TrimPrefix(currentBranch, "feature/")

@@ -15,7 +15,7 @@ func Pull() {
 	loading.Start("Pulling changes from origin ")
 	fmt.Print("\n\n")
 
-	err, out, errout := shell.Out(cmd)
+	out, errout, err := shell.Out(cmd)
 	if err != nil {
 		loading.Stop()
 		fmt.Println(out)

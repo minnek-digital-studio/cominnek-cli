@@ -23,7 +23,7 @@ func getShell() string {
 
 var shellToUse = getShell()
 
-func Out(command string) (error, string, string) {
+func Out(command string) (string, string, error) {
 	var stdout, stderr bytes.Buffer
 	cmd := exec.Command(shellToUse, "-c", command)
 	cmd.Stdout = &stdout
@@ -32,7 +32,7 @@ func Out(command string) (error, string, string) {
 	cmd.Start()
 	err := cmd.Wait()
 
-	return err, stdout.String(), stderr.String()
+	return stdout.String(), stderr.String(), err
 }
 
 func OutLive(command string) {
@@ -62,7 +62,7 @@ func OutLive(command string) {
 /*Execute a command and return the output*/
 func ExecuteCommand(cmd string, print ...bool) string {
 	var ignore bool
-	err, out, errout := Out(cmd)
+	out, errout, err := Out(cmd)
 
 	if err != nil {
 		fmt.Println(out)

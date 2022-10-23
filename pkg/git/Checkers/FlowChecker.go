@@ -44,7 +44,7 @@ func CheckFlow(mainCmd string) {
 
 	loading.Start("Starting new flow ")
 
-	err, out, errout := shell.Out(mainCmd)
+	out, errout, err := shell.Out(mainCmd)
 	if err != nil {
 		loading.Stop()
 		fmt.Println(out)

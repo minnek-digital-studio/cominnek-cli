@@ -12,7 +12,7 @@ import (
 func _push() {
 	loading.Start("Pushing to remote ")
 	cmd := git_controller.Push()
-	err, out, errout := shell.Out(cmd)
+	out, errout, err := shell.Out(cmd)
 
 	if err != nil {
 		fmt.Println(out)

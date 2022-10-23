@@ -9,9 +9,9 @@ import (
 )
 
 func CheckIfBranch(branch string) bool {
-	currentBranch := GetCurrentBranch();
+	currentBranch := GetCurrentBranch()
 
-	if(currentBranch != branch) {
+	if currentBranch != branch {
 		fmt.Println("This is not " + branch + " branch")
 		return false
 	}
@@ -20,7 +20,7 @@ func CheckIfBranch(branch string) bool {
 }
 
 func CheckChangesFromOrigin() bool {
-	err, out, errout := shell.Out("git status");
+	out, errout, err := shell.Out("git status")
 
 	if err != nil {
 		fmt.Println(out)
