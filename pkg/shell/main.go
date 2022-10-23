@@ -9,7 +9,7 @@ import (
 	"runtime"
 
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
-	"github.com/Minnek-Digital-Studio/cominnek/pkg"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 )
 
 func getShell() string {
@@ -68,7 +68,7 @@ func ExecuteCommand(cmd string, print ...bool) string {
 		fmt.Println(out)
 		fmt.Println(errout)
 
-		pkg.AppEvent.Emit("cleanup")
+		events.App.Emit("cleanup")
 
 		log.Fatal("")
 	}

@@ -6,7 +6,7 @@ import (
 
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
-	"github.com/Minnek-Digital-Studio/cominnek/pkg"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 	"github.com/spf13/cobra"
 )
@@ -37,7 +37,7 @@ func middleware(callBack func()) {
 	originBranch := git_controller.GetCurrentBranch()
 	loading.Stop()
 
-	pkg.AppEvent.On("cleanup", func(...interface{}) {
+	events.App.On("cleanup", func(...interface{}) {
 		fmt.Println("Cleaning up")
 
 		if stash {

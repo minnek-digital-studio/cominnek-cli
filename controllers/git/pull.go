@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
-	"github.com/Minnek-Digital-Studio/cominnek/pkg"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 )
 
@@ -21,7 +21,7 @@ func Pull() {
 		fmt.Println(out)
 		fmt.Println(errout)
 
-		pkg.AppEvent.Emit("cleanup")
+		events.App.Emit("cleanup")
 
 		log.Fatal(errout)
 	}

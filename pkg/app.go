@@ -1,5 +1,9 @@
 package pkg
 
-import "github.com/kataras/go-events"
+import (
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/cli"
+)
 
-var AppEvent = events.New()
+func App() {
+	cli.Main()
+}
