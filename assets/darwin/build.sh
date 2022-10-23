@@ -7,7 +7,7 @@ if [ -z "${VERSION}" ]; then
     exit 1
 fi
 
-cp ./build-MacOS/* ./build
+cp ./assets/darwin/bin/* ./build
 mkdir -p ./build/bin
 rm -rf ./build/bin/*
 go mod tidy;
