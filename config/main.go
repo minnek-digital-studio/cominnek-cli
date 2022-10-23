@@ -5,6 +5,15 @@ import (
 	"path/filepath"
 )
 
+type IAppData struct {
+	Action string
+	Commit struct {
+		Message string
+		Files   []string
+		AddAll  bool
+	}
+}
+
 type IConfig struct {
 	AppPath   string
 	TempPath  string
@@ -28,3 +37,5 @@ var Public = IConfig{
 	TempPath:  cominnekTempPath,
 	Version:   "v2.2.0",
 }
+
+var AppData = IAppData{}
