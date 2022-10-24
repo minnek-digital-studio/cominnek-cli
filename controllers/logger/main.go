@@ -24,8 +24,9 @@ func PrintLn(args ...string) {
 
 func Danger(args ...string) {
 	if config.Public.Logs {
+		print(color.HiRedString("❌ "))
 		for i, arg := range args {
-			print(color.HiRedString("❌ "), color.HiRedString(arg), addSpace(i, args...))
+			print(color.HiRedString(arg), addSpace(i, args...))
 		}
 
 		println("")
@@ -34,8 +35,9 @@ func Danger(args ...string) {
 
 func Warning(args ...string) {
 	if config.Public.Logs {
+		print(color.HiYellowString("⚠️ "))
 		for i, arg := range args {
-			print(color.HiYellowString("⚠️ "), color.HiYellowString(arg), addSpace(i, args...))
+			print(color.HiYellowString(arg), addSpace(i, args...))
 		}
 
 		println("")
@@ -44,8 +46,9 @@ func Warning(args ...string) {
 
 func Success(args ...string) {
 	if config.Public.Logs {
+		print(color.HiGreenString("✅ "))
 		for i, arg := range args {
-			print(color.HiGreenString("✅ "), color.HiGreenString(arg), addSpace(i, args...))
+			print(color.HiGreenString(arg), addSpace(i, args...))
 		}
 
 		println("")
