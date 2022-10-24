@@ -1,6 +1,7 @@
 package pkg_action
 
 import (
+	"os"
 	"strconv"
 	"strings"
 
@@ -70,12 +71,19 @@ func getLists(unstaged, list []string, log bool) (defaults []string, listUnstage
 	return
 }
 
+func addToStage() {
+	if len(config.AppData.Commit.Files) > 0 {
+		git_controller.Reset()
+	}
+}
+
 func Commit() {
 	list, raw := git_controller.ListChanges()
 	unstaged := git_controller.ListUnstageChanges()
-
+	
 	if len(raw) == 0 {
 		println("No changes to commit ✅")
+		os.Exit(0)
 		return
 	}
 
@@ -90,11 +98,8 @@ func Commit() {
 	}
 
 	countChangesMsg := func() string {
-		_list, _ := git_controller.ListChanges()
-		_unstaged := git_controller.ListUnstageChanges()
-		_defaults, _listUnstaged := getLists(_unstaged, _list, false)
-		lenDefaults := len(_defaults)
-		lenListUnstaged := len(_listUnstaged)
+		lenDefaults := len(defaults)
+		lenListUnstaged := len(listUnstaged)
 
 		coloredLenDefaults := color.HiRedString(strconv.Itoa(lenDefaults))
 		coloredLenListUnstaged := color.HiGreenString(strconv.Itoa(lenListUnstaged))
@@ -113,4 +118,6 @@ func Commit() {
 		FilterMessage: "Type to filter files",
 		Default:       defaults,
 	}, &config.AppData.Commit.Files, survey.WithValidator(survey.Required))
+
+	addToStage()
 }
