@@ -7,22 +7,56 @@ import (
 	"github.com/fatih/color"
 )
 
-func cleanChangesData(data string) string {
-	untraked := strings.ReplaceAll(data, "??", color.HiGreenString("U"))
-	deleted := strings.ReplaceAll(untraked, "D", color.HiRedString("D"))
-	modified := strings.ReplaceAll(deleted, "M", color.HiYellowString("M"))
-	added := strings.ReplaceAll(modified, "A", color.HiBlueString("A"))
-	trim := strings.TrimSpace(added)
+func style(data string) string {
+	datas := strings.Split(data, ",")
+	newData := ""
 
-	return trim
+	for i, _data := range datas {
+		_data = crossOutDeleted(_data)
+		coma := ","
+
+		if i == len(datas)-1 {
+			coma = ""
+		}
+
+		newData += _data + coma
+	}
+
+	return newData
+}
+
+func crossOutDeleted(data string) string {
+	crossOut := color.New(color.CrossedOut).Add(color.Bold).Add(color.FgRed).SprintFunc()
+	datas := strings.Split(data, "D ")
+
+	for i, data := range datas {
+		if i == 0 {
+			continue
+		}
+
+		datas[i] = crossOut(data)
+	}
+
+	return strings.Join(datas, "D ")
+}
+
+func cleanChangesData(data string) string {
+	data = strings.ReplaceAll(data, "?? ", color.HiGreenString("U "))
+	data = strings.ReplaceAll(data, "D ", color.HiRedString("D "))
+	data = strings.ReplaceAll(data, "M ", color.HiYellowString("M "))
+	data = strings.ReplaceAll(data, "A ", color.HiBlueString("A "))
+
+	data = strings.TrimSpace(data)
+
+	return data
 }
 
 func cleanRaw(data string) string {
-	// just keep route
-	data = strings.ReplaceAll(data, "A", "")
-	data = strings.ReplaceAll(data, "M", "")
-	data = strings.ReplaceAll(data, "D", "")
-	data = strings.ReplaceAll(data, "U", "")
+	data = strings.ReplaceAll(data, "A ", "")
+	data = strings.ReplaceAll(data, "M ", "")
+	data = strings.ReplaceAll(data, "D ", "")
+	data = strings.ReplaceAll(data, "U ", "")
+	data = strings.ReplaceAll(data, "?? ", "")
 	data = strings.ReplaceAll(data, " ", "")
 
 	return data
@@ -45,7 +79,19 @@ func ListUnstageChanges() (raw []string) {
 
 	raw = strings.Split(out, ",")
 
-	return raw
+	keys := make(map[string]bool)
+	list := []string{}
+
+	for _, entry := range raw {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			list = append(list, entry)
+		}
+	}
+
+	raw = list
+
+	return
 }
 
 func ListChanges() (styled []string, raw []string) {
@@ -64,7 +110,9 @@ func ListChanges() (styled []string, raw []string) {
 	out = strings.ReplaceAll(out, "\n", ",")
 	out = strings.TrimSuffix(out, ",")
 
-	styled = strings.Split(cleanChangesData(out), ",")
 	raw = strings.Split(cleanRaw(out), ",")
+
+	out = style(out)
+	styled = strings.Split(cleanChangesData(out), ",")
 	return styled, raw
 }

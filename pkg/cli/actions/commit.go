@@ -2,49 +2,37 @@ package pkg_action
 
 import (
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/logger"
 	"github.com/fatih/color"
 )
 
-func getLists(unstaged, list []string, log bool) (defaults []string, listUnstaged []string) {
-	printLog := func(args ...string) {
-		if log {
-			for i, arg := range args {
-				addSpace := func() string {
-					if i > 0 && i < len(args)-1 {
-						return " "
-					}
-
-					return ""
-				}
-				print(arg, addSpace())
-			}
-			println("")
-		}
-	}
-
+func getLists(unstaged, list []string) (defaults []string, listUnstaged []string) {
 	if len(unstaged) == len(list) {
 		listUnstaged = list
+		logger.Warning("All files are unstaged")
 		return
 	}
 
 	if len(unstaged) > 0 {
 		for _, item := range list {
 			match := ""
-			printLog("{")
-			printLog("\titem: ", item)
-			printLog("\tCheking: [")
+			logger.PrintLn("{")
+			logger.PrintLn("\titem: ", item)
+			logger.PrintLn("\tCheking: [")
 			for i, unstagedItem := range unstaged {
 				if unstagedItem == "" {
 					continue
 				}
 
-				printLog("\t\t" + unstagedItem)
+				logger.PrintLn("\t\t" + unstagedItem)
 
 				if strings.Contains(item, unstagedItem) {
 					match = unstagedItem
@@ -52,52 +40,78 @@ func getLists(unstaged, list []string, log bool) (defaults []string, listUnstage
 					break
 				}
 			}
-			printLog("\t]")
+			logger.PrintLn("\t]")
 
 			if match != "" {
 				listUnstaged = append(listUnstaged, item)
-				printLog("\tMatch: ", color.HiGreenString("Yes"))
+				logger.PrintLn("\tUntraked: ", color.HiGreenString("Yes"))
+				logger.PrintLn("}")
 				continue
 			}
 
-			printLog("\tMatch: ", color.HiRedString("No"), item)
+			logger.PrintLn("\tUntraked: ", color.HiRedString("No"))
 			defaults = append(defaults, item)
-			printLog("}")
+			logger.PrintLn("}")
 		}
 	} else {
-		listUnstaged = list
+		defaults = list
+		logger.Warning("All files are staged")
 	}
 
 	return
 }
 
-func addToStage() {
-	if len(config.AppData.Commit.Files) > 0 {
+func addToStage(raw []string) {
+	loading.Start("Adding files to stage ")
+	files := config.AppData.Commit.Files
+	filesLen := len(files)
+	rawLen := len(raw)
+
+	defer loading.Stop()
+	defer logger.Success("Successfully staged " + strconv.Itoa(filesLen) + " files")
+
+	if filesLen == rawLen {
+		git_controller.AddAll()
+		return
+	}
+
+	if filesLen > 0 {
 		git_controller.Reset()
+	}
+
+	for _, _file := range raw {
+		if filesLen == 0 {
+			break
+		}
+
+		for i, file := range files {
+			if strings.Contains(file, _file) {
+				git_controller.AddSpecific(filepath.Join("./", _file))
+				files = append(files[:i], files[i+1:]...)
+				break
+			}
+		}
 	}
 }
 
-func Commit() {
-	list, raw := git_controller.ListChanges()
-	unstaged := git_controller.ListUnstageChanges()
-	
+func processFiles(raw []string, unstaged []string, list []string) (newList []string, changesMsg string, defaults []string) {
 	if len(raw) == 0 {
 		println("No changes to commit ✅")
 		os.Exit(0)
 		return
 	}
 
-	defaults, listUnstaged := getLists(unstaged, list, false)
+	defaults, listUnstaged := getLists(unstaged, list)
 
-	getList := func() []string {
+	newList = func() []string {
 		if len(defaults) > len(listUnstaged) {
 			return append(listUnstaged, defaults...)
 		} else {
 			return append(defaults, listUnstaged...)
 		}
-	}
+	}()
 
-	countChangesMsg := func() string {
+	changesMsg = func() string {
 		lenDefaults := len(defaults)
 		lenListUnstaged := len(listUnstaged)
 
@@ -109,15 +123,25 @@ func Commit() {
 		}
 
 		return "(Changes to commit: " + coloredLenListUnstaged + ")"
-	}
+	}()
 
+	return
+}
+
+func Commit() {
+	loading.Start("Checking files status ")
+	list, raw := git_controller.ListChanges()
+	unstaged := git_controller.ListUnstageChanges()
+	newList, changesMsg, defaults := processFiles(raw, unstaged, list)
+
+	loading.Stop()
 	survey.AskOne(&survey.MultiSelect{
-		Message:       "Select files to commit " + countChangesMsg() + ":",
-		Options:       getList(),
+		Message:       "Select files to commit " + changesMsg + ":",
+		Options:       newList,
 		Help:          "Use space to select files, enter to continue",
 		FilterMessage: "Type to filter files",
 		Default:       defaults,
 	}, &config.AppData.Commit.Files, survey.WithValidator(survey.Required))
 
-	addToStage()
+	addToStage(raw)
 }
