@@ -21,6 +21,7 @@ type IConfig struct {
 	TokenPath string
 	Version   string
 	PRBody    string
+	Logs      bool
 }
 
 var userPath, _ = os.UserConfigDir()
@@ -36,6 +37,7 @@ var Public = IConfig{
 	AppPath:   cominnekPath,
 	TempPath:  cominnekTempPath,
 	Version:   "v2.2.0",
+	Logs:      true,
 }
 
 var AppData = IAppData{}
