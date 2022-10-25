@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"log"
 	"os"
 
-	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
+	"github.com/Minnek-Digital-Studio/cominnek/config"
+	pkg_action "github.com/Minnek-Digital-Studio/cominnek/pkg/cli/actions"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -13,21 +13,27 @@ var ctype string
 var addAll bool
 
 var commitCmd = &cobra.Command{
-	Use:   "commit <message>",
+	Use:   "commit",
 	Short: "Commit changes to Git",
-	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		msg := args[0]
+		msg := ""
+		body := ""
 
-		if msg == "" {
-			log.Fatal("No commit message specified")
+		if len(message) > 0 {
+			msg = message[0]
 		}
 
-		if addAll {
-			git.Add()
+		if len(message) > 1 {
+			body = message[1]
 		}
 
-		git.Commit(msg, body, ctype, getScope(false))
+		config.AppData.Commit.AddAll = addAll
+		config.AppData.Commit.Message = msg
+		config.AppData.Commit.Scope = getScope(true)
+		config.AppData.Commit.Type = ctype
+		config.AppData.Commit.Body = body
+
+		pkg_action.Commit()
 	},
 }
 

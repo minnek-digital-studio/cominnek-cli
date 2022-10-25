@@ -5,12 +5,19 @@ import (
 	"path/filepath"
 )
 
+type ICommit struct {
+	Types []string
+}
+
 type IAppData struct {
 	Action string
 	Commit struct {
 		Message string
 		Files   []string
 		AddAll  bool
+		Body    string
+		Type    string
+		Scope   string
 	}
 }
 
@@ -20,6 +27,7 @@ type IConfig struct {
 	KeyPath   string
 	TokenPath string
 	Version   string
+	Commits   ICommit
 	PRBody    string
 	Logs      bool
 }
@@ -37,7 +45,22 @@ var Public = IConfig{
 	AppPath:   cominnekPath,
 	TempPath:  cominnekTempPath,
 	Version:   "v2.2.0",
-	Logs:      true,
+	Logs:      false,
+	Commits: ICommit{
+		Types: []string{
+			"feat",
+			"fix",
+			"docs",
+			"style",
+			"refactor",
+			"perf",
+			"test",
+			"build",
+			"ci",
+			"chore",
+			"revert",
+		},
+	},
 }
 
 var AppData = IAppData{}

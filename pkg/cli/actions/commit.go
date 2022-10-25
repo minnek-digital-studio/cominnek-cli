@@ -11,6 +11,8 @@ import (
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/logger"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 	"github.com/fatih/color"
 )
 
@@ -128,20 +130,77 @@ func processFiles(raw []string, unstaged []string, list []string) (newList []str
 	return
 }
 
+func commitQuestions(list, raw []string) {
+	if !config.AppData.Commit.AddAll {
+		unstaged := git_controller.ListUnstageChanges()
+		newList, changesMsg, defaults := processFiles(raw, unstaged, list)
+
+		loading.Stop()
+
+		if len(config.AppData.Commit.Files) < 1 {
+			ask.One(&survey.MultiSelect{
+				Message:       "Select files to commit " + changesMsg + ":",
+				Options:       newList,
+				Help:          "Use space to select files, enter to continue",
+				FilterMessage: "Type to filter files",
+				Default:       defaults,
+			}, &config.AppData.Commit.Files, survey.WithValidator(survey.Required))
+		}
+	}
+
+	if config.AppData.Commit.Type == "" {
+		ask.One(&survey.Select{
+			Message:       "Select Type :",
+			Options:       config.Public.Commits.Types,
+			Help:          "Use space to select files, enter to continue",
+			FilterMessage: "Type to filter files",
+		}, &config.AppData.Commit.Type, survey.WithValidator(survey.Required))
+	}
+
+	if config.AppData.Commit.Scope == "" {
+		ask.One(&survey.Input{
+			Message: "Enter scope :",
+		}, &config.AppData.Commit.Scope)
+	}
+
+	if config.AppData.Commit.Message == "" {
+		ask.One(&survey.Input{
+			Message: "Commit message:",
+			Help:    "Enter commit message",
+		}, &config.AppData.Commit.Message, survey.WithValidator(survey.Required))
+	}
+
+	if config.AppData.Commit.Body == "" {
+		ask.One(&survey.Multiline{
+			Message: "Commit body:",
+			Help:    "Enter commit body",
+		}, &config.AppData.Commit.Body)
+	}
+}
+
 func Commit() {
-	loading.Start("Checking files status ")
-	list, raw := git_controller.ListChanges()
-	unstaged := git_controller.ListUnstageChanges()
-	newList, changesMsg, defaults := processFiles(raw, unstaged, list)
+	raw := []string{}
+	list := []string{}
 
-	loading.Stop()
-	survey.AskOne(&survey.MultiSelect{
-		Message:       "Select files to commit " + changesMsg + ":",
-		Options:       newList,
-		Help:          "Use space to select files, enter to continue",
-		FilterMessage: "Type to filter files",
-		Default:       defaults,
-	}, &config.AppData.Commit.Files, survey.WithValidator(survey.Required))
+	if !config.AppData.Commit.AddAll {
+		loading.Start("Checking files status ")
+		list, raw = git_controller.ListChanges()
+	}
 
-	addToStage(raw)
+	commitQuestions(list, raw)
+
+	// helper.PrintName()
+
+	msg := config.AppData.Commit.Message
+	body := config.AppData.Commit.Body
+	ctype := config.AppData.Commit.Type
+	scope := config.AppData.Commit.Scope
+
+	if !config.AppData.Commit.AddAll {
+		addToStage(raw)
+	} else {
+		git_controller.AddAll()
+	}
+
+	git.Commit(msg, body, ctype, scope)
 }

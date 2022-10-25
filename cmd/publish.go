@@ -12,11 +12,12 @@ var publishCmd = &cobra.Command{
 	Use:   "publish <message>",
 	Short: "Publish a branch to GitHub and create a pull request as Draft",
 	Run: func(cmd *cobra.Command, args []string) {
-		msg := ""
 		scope := ""
+		msg := message[0]
+		body := ""
 
-		if len(args) > 0 {
-			msg = args[0]
+		if len(message) > 1 {
+			body = message[1]
 		}
 
 		if msg == "" {

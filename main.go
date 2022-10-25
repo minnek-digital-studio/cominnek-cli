@@ -5,13 +5,17 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/logger"
+	"github.com/Minnek-Digital-Studio/cominnek/helper"
 	"github.com/fatih/color"
 )
 
 func main() {
+	helper.PrintName()
+
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 	logger.PrintLn(color.HiRedString("!!!!!"), color.HiYellowString("Logs Are Enable"), color.HiRedString("!!!!!!"))
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
+
 	config.Defaults()
 	cmd.Execute()
 

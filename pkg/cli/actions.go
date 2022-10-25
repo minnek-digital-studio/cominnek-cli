@@ -5,6 +5,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/Minnek-Digital-Studio/cominnek/config"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
 	pkg_action "github.com/Minnek-Digital-Studio/cominnek/pkg/cli/actions"
 )
 
@@ -19,7 +20,7 @@ func askActions() {
 	}
 
 	if config.AppData.Action == "" {
-		survey.AskOne(&survey.Select{
+		ask.One(&survey.Select{
 			Message: "What do you want to do?",
 			Options: actions,
 		}, &config.AppData.Action, nil)
