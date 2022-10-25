@@ -1,3 +1,14 @@
+<p align="center">
+  <a href="https://minnekdigital.com/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://assets.minnekdigital.com/logo-md.jpg">
+      <img alt="Minnek Logo" src="https://assets.minnekdigital.com/logo-md.jpg">
+    </picture>    
+  </a>
+</p>
+
+---
+
 # Cominnek  [!["Go"](https://img.shields.io/badge/go-1.18.3%20-gray.svg?longCache=true&logo=go&colorB=blue)](https://go.dev/doc/go1.18)
 
 <img src="./assets/banner.png" />
@@ -337,3 +348,23 @@ $ cominnek push "Changes in home page" -F "home"
 
 Cominnek `V2.2.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
+
+## About
+
+<a href="https://minnekdigital.com/">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://assets.minnekdigital.com/logo-sm.jpg">
+    <img alt="Minnek Logo" src="https://assets.minnekdigital.com/logo-sm.jpg">
+  </picture>
+</a>
+
+This project is maintained and funded by Minnek.
+
+We ❤️ open source and do our part in sharing our work with the community!
+See [our other projects][community] or [hire our team][hire] to help build your product.
+
+Want to join? [Check out our Jobs][jobs]!
+
+[community]: https://github.com/Minnek-Digital-Studio
+[hire]: https://minnekdigital.com/
+[jobs]: https://minnekdigital.com/careers
