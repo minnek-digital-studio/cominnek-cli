@@ -1,9 +1,13 @@
 version: '3'
 
 tasks:
-  start:
+  run:
     cmds:
       - go run main.go {{.CLI_ARGS}}
+    silent: true
+  deps:
+    cmds:
+      - go mod download
     silent: true
 
 includes:
