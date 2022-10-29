@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  prod:
+    cmds:
+      - bash ./assets/linux/build.sh {{.CLI_ARGS}}
+    silent: true

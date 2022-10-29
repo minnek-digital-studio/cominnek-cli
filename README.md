@@ -16,7 +16,7 @@
 Create commits & pull requests easily. `Cominnek` is based on the [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 ## Index
  - **[Requirements](#requirements)**
-     - **[Git-Flow (MacOS)](#git-flow-macos)**
+     - **[Git-Flow](#git-flow-macos)**
  - **[Install](#installation)**
  - **[First Step](#first-steps)**
  - **[Usage](#usage)**
@@ -25,13 +25,21 @@ Create commits & pull requests easily. `Cominnek` is based on the [Semantic Comm
 # Requirements
 
 - **[Git](https://git-scm.com/)**
-- **[Git-Flow (MacOS)](#git-flow-macos)**
+- **[Git-Flow](#git-flow)**
 
-### Git-Flow (MacOS)
+### Git-Flow
 To install git flow run: 
+
+#### MacOS
 
 ```bash
 brew install git-flow
+```
+
+#### Linux
+
+```bash
+sudo apt install git-flow
 ```
 
 # Installation
@@ -39,7 +47,7 @@ brew install git-flow
 1. Download installer
 
 [![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
-)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.exe)
+)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.deb)
 
 2. Run installer
 
@@ -345,6 +353,9 @@ $ cominnek push "Changes in home page" -F "home"
         Commit message: "feat(home): Changes in home page"
 ```
 
+## Contributing
+
+If you want to contribute to this project, please read the [contributing guide](/CONTRIBUTING.md)
 
 Cominnek `V2.2.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
