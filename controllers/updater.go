@@ -140,6 +140,13 @@ func installUpdates(route string, fileName string) {
 
 		files.Delete(route)
 	}
+
+	if osName == "linux" {
+		shell.ExecuteCommand("sudo dpkg -i "+route, false)
+
+		checkUpdated(latestVersion)
+		files.Delete(route)
+	}
 }
 
 func Update() {
