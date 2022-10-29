@@ -21,7 +21,6 @@ Create commits & pull requests easily. `Cominnek` is based on the [Semantic Comm
  - **[First Step](#first-steps)**
  - **[Usage](#usage)**
  - **[Ticketing System](#ticketing-system)**
- - **[How to install on linux](#how-to-install-on-linux)**
 
 # Requirements
 
@@ -48,9 +47,9 @@ sudo apt install git-flow
 1. Download installer
 
 [![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
-)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.tar.gz)
+)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.deb)
 
-2. Run installer (See how to install for Linux [here](#how-to-install-on-linux))
+2. Run installer
 
 3. Now you can run 
 ```bash
@@ -352,15 +351,6 @@ Example: You're in the branch `develop`
 $ cominnek push "Changes in home page" -F "home"
   This is not a feature. Do you want to continue? (yes or no)
         Commit message: "feat(home): Changes in home page"
-```
-
-## How to install on Linux
-
-For Linux, you will need to extract `cominnek-version.tar.gz` and run the `installer.sh` script as sudo
-
-
-```bash
-sudo bash installer.sh
 ```
 
 ## Contributing
