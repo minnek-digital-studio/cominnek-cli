@@ -22,6 +22,9 @@ type IAppData struct {
 	Push struct {
 		Merge string
 	}
+	Publish struct {
+		Ticket string
+	}
 }
 
 type IConfig struct {

@@ -37,4 +37,8 @@ func askActions() {
 	if config.AppData.Action == "Push" {
 		pkg_action.Push()
 	}
+
+	if config.AppData.Action == "Publish" {
+		pkg_action.Publish()
+	}
 }
