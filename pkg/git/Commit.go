@@ -14,7 +14,7 @@ import (
 
 func _commit(msg string, body string, ctype string, scope string, ticket string) string {
 	cmd := git_controller.Commit(msg, body, ctype, ticket, scope)
-	out, _, err := shell.Out(cmd)
+	out, outErr, err := shell.Out(cmd)
 
 	if err != nil {
 		loading.Stop()
@@ -25,7 +25,7 @@ func _commit(msg string, body string, ctype string, scope string, ticket string)
 
 			os.Exit(1)
 		} else {
-			fmt.Println(out)
+			fmt.Println(outErr)
 			log.Fatal("Commit failed")
 		}
 	}
