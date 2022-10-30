@@ -33,7 +33,7 @@ var commitCmd = &cobra.Command{
 		config.AppData.Commit.Type = ctype
 		config.AppData.Commit.Body = body
 
-		pkg_action.Commit()
+		pkg_action.Commit(true)
 	},
 }
 

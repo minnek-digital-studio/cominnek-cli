@@ -36,10 +36,11 @@ func _commit(msg string, body string, ctype string, scope string, ticket string)
 func _checkTicket(ticket string) string {
 	if ticket == "" {
 		loading.Stop()
-		if !controllers.Confirm("No ticket number found. Commit anyway?", "n") {
+		if !controllers.Confirm("No ticket number found. Commit anyway?", false) {
 			fmt.Println("Aborting commit")
 			os.Exit(0)
 		}
+
 		loading.Start("Commiting files ")
 	}
 

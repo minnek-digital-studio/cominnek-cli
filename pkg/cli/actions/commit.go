@@ -16,6 +16,8 @@ import (
 	"github.com/fatih/color"
 )
 
+var commitRaw []string
+
 func getLists(unstaged, list []string) (defaults []string, listUnstaged []string) {
 	if len(unstaged) == len(list) {
 		listUnstaged = list
@@ -178,7 +180,22 @@ func commitQuestions(list, raw []string) {
 	}
 }
 
-func Commit() {
+func executeCommit() {
+	msg := config.AppData.Commit.Message
+	body := config.AppData.Commit.Body
+	ctype := config.AppData.Commit.Type
+	scope := config.AppData.Commit.Scope
+
+	if !config.AppData.Commit.AddAll {
+		addToStage(commitRaw)
+	} else {
+		git_controller.AddAll()
+	}
+
+	git.Commit(msg, body, ctype, scope)
+}
+
+func Commit(exec bool) {
 	raw := []string{}
 	list := []string{}
 
@@ -189,18 +206,9 @@ func Commit() {
 
 	commitQuestions(list, raw)
 
-	// helper.PrintName()
+	commitRaw = raw
 
-	msg := config.AppData.Commit.Message
-	body := config.AppData.Commit.Body
-	ctype := config.AppData.Commit.Type
-	scope := config.AppData.Commit.Scope
-
-	if !config.AppData.Commit.AddAll {
-		addToStage(raw)
-	} else {
-		git_controller.AddAll()
+	if exec {
+		executeCommit()
 	}
-
-	git.Commit(msg, body, ctype, scope)
 }
