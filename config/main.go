@@ -57,7 +57,7 @@ var cominnekPath = filepath.Join(userPath, ".cominnek")
 var cominnekTempPath = filepath.Join(tempPath, ".cominnek")
 
 var Public = IConfig{
-	Version:   "v2.3.0",
+	Version:   "v2.3.1",
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),
 	TokenPath: filepath.Join(cominnekPath, "auth.bin"),
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),
