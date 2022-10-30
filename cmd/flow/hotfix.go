@@ -1,20 +1,19 @@
 package flow
 
 import (
-	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
+	"github.com/Minnek-Digital-Studio/cominnek/config"
+	pkg_action "github.com/Minnek-Digital-Studio/cominnek/pkg/cli/actions"
 	"github.com/spf13/cobra"
 )
 
 var FlowHotfixCmd = &cobra.Command{
 	Use:   "hotfix <name>",
-	Args: cobra.ExactArgs(1),
 	Short: "create a new hotfix branch",
 	Run: func(cmd *cobra.Command, args []string) {
-		checker(args)
-		
-		exec := func() {
-			git.Fix(args[0])
-		}
-		middleware(exec)
+		config.AppData.Flow.Type = "hotfix"
+		config.AppData.Flow.Stash = stash
+		setTicket(args)
+
+		pkg_action.Flow()
 	},
 }

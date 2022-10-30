@@ -12,7 +12,7 @@ import (
 func _push() {
 	loading.Start("Pushing to remote ")
 	cmd := git_controller.Push()
-	err, out, errout := shell.Out(cmd)
+	out, errout, err := shell.Out(cmd)
 
 	if err != nil {
 		fmt.Println(out)
@@ -24,12 +24,7 @@ func _push() {
 	fmt.Println(out)
 }
 
-func Push(msg string, body string, ctype string, scope string) {
-	if msg != "" {
-		Add()
-		Status()
-		Commit(msg, body, ctype, scope)
-	}
+func Push() {
 	_push()
 	log.Println("Push complete")
 }

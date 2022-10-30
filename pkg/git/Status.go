@@ -12,7 +12,7 @@ import (
 func Status() {
 	loading.Start("Checking status of files ")
 
-	err, out, errout := shell.Out(git_controller.Status())
+	out, errout, err := shell.Out(git_controller.Status())
 	if err != nil {
 		fmt.Println(out)
 		fmt.Println(errout)
@@ -20,10 +20,10 @@ func Status() {
 	}
 
 	loading.Stop()
-	
-	if(out == "") {
+
+	if out == "" {
 		fmt.Println("No changes to commit")
-	} else {	
+	} else {
 		fmt.Println(out)
 	}
 }

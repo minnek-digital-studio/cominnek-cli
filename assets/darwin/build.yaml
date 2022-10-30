@@ -5,3 +5,6 @@ tasks:
     cmds:
       - bash ./assets/darwin/build.sh {{.CLI_ARGS}}
     silent: true
+  dev:
+    cmds:
+      - go build -o ./build/;

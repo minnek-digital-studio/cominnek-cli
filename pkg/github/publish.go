@@ -17,7 +17,7 @@ func _checkBranch() []string {
 		log.Fatal("You can't create a pull request from the master branch")
 	}
 
-	if strings.Contains(currentBranch, "hotfix") || strings.Contains(currentBranch, "release"){
+	if strings.Contains(currentBranch, "hotfix") || strings.Contains(currentBranch, "release") {
 		branch = append(branch, "master")
 		branch = append(branch, "develop")
 	}
@@ -39,12 +39,7 @@ func _createPullRequest(ticket string, baseBranch string) {
 	}
 }
 
-func Publish(msg string, body string, ctype string, scope string, ticket string) {
-	if msg != "" {
-		git.Add()
-		git.Status()
-		git.Commit(msg, body, ctype, scope)
-	}
+func Publish(ticket string) {
 	git.PushPublish()
 	_createPullRequest(ticket, "")
 	log.Println("Publish complete")

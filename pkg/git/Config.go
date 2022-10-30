@@ -9,16 +9,16 @@ import (
 )
 
 func Config(name string, email string) {
-	cmd := git_controller.Config(name, email);
+	cmd := git_controller.Config(name, email)
 
-	err, out, errout := shell.Out(cmd)
-	
+	out, errout, err := shell.Out(cmd)
+
 	if err != nil {
-		fmt.Println(out);
-		fmt.Println(errout);
-		log.Fatal(errout);
+		fmt.Println(out)
+		fmt.Println(errout)
+		log.Fatal(errout)
 	}
 
-	fmt.Println(out);
-	fmt.Println(errout);
+	fmt.Println(out)
+	fmt.Println(errout)
 }

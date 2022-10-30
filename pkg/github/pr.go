@@ -1,7 +1,6 @@
 package github
 
 import (
-	"fmt"
 	"log"
 	"strings"
 
@@ -12,17 +11,6 @@ import (
 )
 
 func _checkTicket(ticket string) string {
-	_ticket := git_controller.GetTicketNumber()
-	if ticket != "" && _ticket != "" {
-		loading.Stop()
-		fmt.Println("This branch is linked to a ticket, you can't use the -t flag")
-		log.Fatal("ticket number: ", _ticket)
-	}
-
-	if _ticket != "" {
-		ticket = _ticket
-	}
-
 	if ticket == "" {
 		loading.Stop()
 		color.HiRed("This is branch is not linked to a ticket. Please use the -t flag to specify a ticket number")

@@ -6,7 +6,7 @@ import (
 
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
-	"github.com/Minnek-Digital-Studio/cominnek/pkg"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 	"github.com/fatih/color"
 )
@@ -24,7 +24,7 @@ func FetchData() {
 }
 
 func GetChanges() {
-		if git_controller.CheckChangesFromOrigin() {
+	if git_controller.CheckChangesFromOrigin() {
 		color.YellowString("\n\nThere are changes from origin.\n")
 		git_controller.Pull()
 	}
@@ -44,13 +44,13 @@ func CheckFlow(mainCmd string) {
 
 	loading.Start("Starting new flow ")
 
-	err, out, errout := shell.Out(mainCmd)
+	out, errout, err := shell.Out(mainCmd)
 	if err != nil {
 		loading.Stop()
 		fmt.Println(out)
 		fmt.Println(errout)
 
-		pkg.App.Emit("cleanup")
+		events.App.Emit("cleanup")
 
 		log.Fatal(errout)
 	}

@@ -109,9 +109,7 @@ the commit will be: `fix(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `<message>`        |string *         | Commit message                         |
-| `-m --body`     |string        | Receives the commit body message            |
-| `-M --merge`       |string         | Receives a brach to merge the current branch in the received one  |
+| `-m --message`     |string[]       | Receives the commit messange & body message |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
 | `-d --docs`        |string         | make the commit with the prefix docs() |
@@ -145,8 +143,7 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `<message>`        |string*        | Commit message                         |
-| `-m --body`        |string         | Receives the commit body message       |
+| `-m --message`     |string[]       | Receives the commit messange & body message |
 | `-a --all`         |bolean         | Add all files to the commit            |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
