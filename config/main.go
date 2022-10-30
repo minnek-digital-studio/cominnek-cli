@@ -29,6 +29,11 @@ type IAppData struct {
 		Ticket string
 		Base   string
 	}
+	Flow struct {
+		Type   string
+		Ticket string
+		Stash  bool
+	}
 }
 
 type IConfig struct {

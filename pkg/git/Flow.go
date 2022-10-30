@@ -15,7 +15,7 @@ func Bugfix(ticket string) {
 	checkers.CheckFlow(cmd)
 }
 
-func Fix(ticket string) {
+func HotFix(ticket string) {
 	cmd := git_controller.Hotfix(ticket)
 	checkers.CheckFlow(cmd)
 }

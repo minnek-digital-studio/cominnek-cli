@@ -45,4 +45,8 @@ func askActions() {
 	if config.AppData.Action == "Pull Request" {
 		pkg_action.PullRequest()
 	}
+
+	if config.AppData.Action == "Create Branch" {
+		pkg_action.Flow()
+	}
 }

@@ -1,20 +1,19 @@
 package flow
 
 import (
-	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
+	"github.com/Minnek-Digital-Studio/cominnek/config"
+	pkg_action "github.com/Minnek-Digital-Studio/cominnek/pkg/cli/actions"
 	"github.com/spf13/cobra"
 )
+
 var FlowFeatureCmd = &cobra.Command{
 	Use:   "feature <name>",
-	Args: cobra.ExactArgs(1),
 	Short: "create a new feature branch",
 	Run: func(cmd *cobra.Command, args []string) {
-		checker(args)
-		
-		exec := func() {
-			git.Feature(args[0])
-		}
+		config.AppData.Flow.Type = "feature"
+		config.AppData.Flow.Stash = stash
+		setTicket(args)
 
-		middleware(exec)
+		pkg_action.Flow()
 	},
 }
