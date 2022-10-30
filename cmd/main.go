@@ -16,7 +16,6 @@ var rootCmd = &cobra.Command{
 	Short:   "Manage your git flow using the conventional commit standard",
 	Version: config.Public.Version,
 	Run: func(cmd *cobra.Command, args []string) {
-		// fmt.Println("cominnek is a CLI for Github")
 		pkg.App()
 	},
 }
@@ -29,6 +28,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.SetVersionTemplate("cominnek {{.Version}}")
+	rootCmd.SetVersionTemplate("cominnek {{.Version}}\n")
 	rootCmd.VersionTemplate()
 }
