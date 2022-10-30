@@ -58,11 +58,18 @@ func GetLatestFileName() string {
 			if index < assetsLength-1 {
 				continue
 			}
-		} else {
+		} else if os == "darwin" {
 			if strings.Contains(asset.GetName(), ".dmg") {
 				fileName = asset.GetName()
 				break
 			}
+		} else if os == "linux" {
+			if strings.Contains(asset.GetName(), ".deb") {
+				fileName = asset.GetName()
+				break
+			}
+		} else {
+			log.Fatal("Your OS is not supported yet")
 		}
 
 		log.Fatalln("Sorry 😢 No file found for your OS")
