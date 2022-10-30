@@ -31,6 +31,10 @@ func askActions() {
 	}
 
 	if config.AppData.Action == "Commit" {
-		pkg_action.Commit()
+		pkg_action.Commit(true)
+	}
+
+	if config.AppData.Action == "Push" {
+		pkg_action.Push()
 	}
 }
