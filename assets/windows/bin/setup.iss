@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 #include "environment.iss"
 #define MyAppName "Cominnek"
-#define MyAppVersion "2.3.0"
+#define MyAppVersion "2.3.1"
 #define MyAppPublisher "Minnek Digital Studio"
 #define MyAppURL "https://github.com/Minnek-Digital-Studio/cominnek"
 #define MyAppExeName "cominnek.exe"

@@ -63,16 +63,22 @@ func GetLatestFileName() string {
 				fileName = asset.GetName()
 				break
 			}
+
+			if index < assetsLength-1 {
+				continue
+			}
 		} else if os == "linux" {
 			if strings.Contains(asset.GetName(), ".deb") {
 				fileName = asset.GetName()
 				break
 			}
-		} else {
-			log.Fatal("Your OS is not supported yet")
+
+			if index < assetsLength-1 {
+				continue
+			}
 		}
 
-		log.Fatalln("Sorry 😢 No file found for your OS")
+		log.Fatalln("No compatible version found for your OS 😢")
 	}
 
 	return fileName
