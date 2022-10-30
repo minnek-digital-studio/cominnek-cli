@@ -19,6 +19,9 @@ type IAppData struct {
 		Type    string
 		Scope   string
 	}
+	Push struct {
+		Merge string
+	}
 }
 
 type IConfig struct {
@@ -39,12 +42,12 @@ var cominnekPath = filepath.Join(userPath, ".cominnek")
 var cominnekTempPath = filepath.Join(tempPath, ".cominnek")
 
 var Public = IConfig{
+	Version:   "v2.2.0",
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),
 	TokenPath: filepath.Join(cominnekPath, "auth.bin"),
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),
 	AppPath:   cominnekPath,
 	TempPath:  cominnekTempPath,
-	Version:   "v2.2.0",
 	Logs:      false,
 	Commits: ICommit{
 		Types: []string{
