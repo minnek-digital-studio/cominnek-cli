@@ -46,8 +46,8 @@ sudo apt install git-flow
 
 1. Download installer
 
-[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
-)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.2.0.deb)
+[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.3.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
+)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.3.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.3.0.deb)
 
 2. Run installer
 
@@ -109,9 +109,7 @@ the commit will be: `fix(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `<message>`        |string *         | Commit message                         |
-| `-m --body`     |string        | Receives the commit body message            |
-| `-M --merge`       |string         | Receives a brach to merge the current branch in the received one  |
+| `-m --message`     |string[]       | Receives the commit messange & body message |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
 | `-d --docs`        |string         | make the commit with the prefix docs() |
@@ -145,8 +143,7 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `<message>`        |string*        | Commit message                         |
-| `-m --body`        |string         | Receives the commit body message       |
+| `-m --message`     |string[]       | Receives the commit messange & body message |
 | `-a --all`         |bolean         | Add all files to the commit            |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
@@ -357,7 +354,7 @@ $ cominnek push "Changes in home page" -F "home"
 
 If you want to contribute to this project, please read the [contributing guide](/CONTRIBUTING.md)
 
-Cominnek `V2.2.0`
+Cominnek `V2.3.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
 
 ## About

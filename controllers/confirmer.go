@@ -1,43 +1,17 @@
 package controllers
 
 import (
-	"fmt"
-	"strings"
+	"github.com/AlecAivazis/survey/v2"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
 )
 
-func Confirm(msg string, defaultAnswer ...string) bool {
-	var answer string
-	yesOrNo := yesOrNo(defaultAnswer...)
+func Confirm(msg string, defaultAnswer bool) bool {
+	response := defaultAnswer
 
-	fmt.Println(msg + yesOrNo)
-	fmt.Scanln(&answer)
+	ask.One(&survey.Confirm{
+		Message: msg,
+		Default: false,
+	}, &response)
 
-	if len(defaultAnswer) > 0 && answer == "" {
-		answer = defaultAnswer[0]
-	}
-
-	for answer != "y" && answer != "n" && answer != "yes" && answer != "no" {
-		fmt.Println("Please enter yes or no")
-		fmt.Scanln(&answer)
-	}
-
-	return answer == "y"
-}
-
-func yesOrNo(defaultAnswer ...string) string {
-	yesText := "y"
-	noText := "n"
-
-	if len(defaultAnswer) > 0 {
-		defaultAnswer[0] = strings.ToLower(defaultAnswer[0])
-		if defaultAnswer[0] == "yes" || defaultAnswer[0] == "y" {
-			yesText = "Y"
-		}
-
-		if defaultAnswer[0] == "no" || defaultAnswer[0] == "n" {
-			noText = "N"
-		}
-	}
-
-	return fmt.Sprintf(" [%s/%s]", yesText, noText)
+	return response
 }

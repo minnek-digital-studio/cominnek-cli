@@ -10,17 +10,17 @@ import (
 )
 
 func Add() {
-    loading.Start("Adding files to commit ")
-    cmd := git_controller.Add();
-    err, out, errout := shell.Out(cmd);
-    
-    if err != nil {
-        fmt.Println(out)
-        fmt.Println(errout)
-        log.Fatal(errout)
-    }
+	loading.Start("Adding files to commit ")
+	cmd := git_controller.Add()
+	out, errout, err := shell.Out(cmd)
 
-    loading.Stop()
-    
-    fmt.Println("Added files to commit")
+	if err != nil {
+		fmt.Println(out)
+		fmt.Println(errout)
+		log.Fatal(errout)
+	}
+
+	loading.Stop()
+
+	fmt.Println("Added files to commit")
 }

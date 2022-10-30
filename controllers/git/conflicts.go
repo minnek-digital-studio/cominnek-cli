@@ -6,14 +6,14 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 )
 
-//create a class
+// create a class
 type Conflict struct {
 }
 
 func (x Conflict) GetFiles() string {
 	cmd := "git diff --name-only --diff-filter=U --relative"
-	
-	err, out, _ := shell.Out(cmd)
+
+	out, _, err := shell.Out(cmd)
 
 	if err != nil {
 		fmt.Println("Error getting conflicts files")

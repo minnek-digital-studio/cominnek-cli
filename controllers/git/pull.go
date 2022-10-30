@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
-	"github.com/Minnek-Digital-Studio/cominnek/pkg"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 )
 
@@ -15,13 +15,13 @@ func Pull() {
 	loading.Start("Pulling changes from origin ")
 	fmt.Print("\n\n")
 
-	err, out, errout := shell.Out(cmd)
+	out, errout, err := shell.Out(cmd)
 	if err != nil {
 		loading.Stop()
 		fmt.Println(out)
 		fmt.Println(errout)
 
-		pkg.App.Emit("cleanup")
+		events.App.Emit("cleanup")
 
 		log.Fatal(errout)
 	}

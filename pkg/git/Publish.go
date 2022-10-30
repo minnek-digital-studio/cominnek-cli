@@ -14,7 +14,7 @@ func PushPublish() {
 	currentBranch := git_controller.GetCurrentBranch()
 	cmd := git_controller.Publish(currentBranch)
 
-	err, out, errout := shell.Out(cmd)
+	out, errout, err := shell.Out(cmd)
 	if err != nil {
 		fmt.Println(out)
 		fmt.Println(errout)

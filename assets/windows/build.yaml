@@ -5,3 +5,6 @@ tasks:
     cmds:
       - powershell -noprofile -c ./assets/windows/build.ps1
     silent: true
+  dev:
+    cmds:
+      - go build -o ./build/;

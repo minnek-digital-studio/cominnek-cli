@@ -14,7 +14,7 @@ import (
 
 func _commit(msg string, body string, ctype string, scope string, ticket string) string {
 	cmd := git_controller.Commit(msg, body, ctype, ticket, scope)
-	err, out, _ := shell.Out(cmd)
+	out, outErr, err := shell.Out(cmd)
 
 	if err != nil {
 		loading.Stop()
@@ -25,7 +25,7 @@ func _commit(msg string, body string, ctype string, scope string, ticket string)
 
 			os.Exit(1)
 		} else {
-			fmt.Println(out)
+			fmt.Println(outErr)
 			log.Fatal("Commit failed")
 		}
 	}
@@ -36,10 +36,11 @@ func _commit(msg string, body string, ctype string, scope string, ticket string)
 func _checkTicket(ticket string) string {
 	if ticket == "" {
 		loading.Stop()
-		if !controllers.Confirm("No ticket number found. Commit anyway?", "n") {
+		if !controllers.Confirm("No ticket number found. Commit anyway?", false) {
 			fmt.Println("Aborting commit")
 			os.Exit(0)
 		}
+
 		loading.Start("Commiting files ")
 	}
 

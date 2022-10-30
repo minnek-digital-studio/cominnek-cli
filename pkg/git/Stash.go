@@ -12,7 +12,7 @@ import (
 func _stash() {
 	cmd := git_controller.Stash()
 	loading.Start("Stashing changes ")
-	err, out, errout := shell.Out(cmd)
+	out, errout, err := shell.Out(cmd)
 	if err != nil {
 		fmt.Println(out)
 		fmt.Println(errout)
@@ -26,7 +26,7 @@ func _stash() {
 func StashApply() {
 	cmd := git_controller.StashApply()
 	loading.Start("Applying stashed changes ")
-	err, out, errout := shell.Out(cmd)
+	out, errout, err := shell.Out(cmd)
 	if err != nil {
 		fmt.Println(out)
 		fmt.Println(errout)

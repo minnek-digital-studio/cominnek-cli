@@ -1,9 +1,8 @@
 package cmd
 
 import (
-	"fmt"
-
-	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
+	"github.com/Minnek-Digital-Studio/cominnek/config"
+	pkg_action "github.com/Minnek-Digital-Studio/cominnek/pkg/cli/actions"
 	"github.com/spf13/cobra"
 )
 
@@ -12,27 +11,24 @@ var pushCmd = &cobra.Command{
 	Short: "push a branch to GitHub",
 	Run: func(cmd *cobra.Command, args []string) {
 		msg := ""
-		scope := ""
+		body := ""
 
-		if len(args) > 0 {
-			msg = args[0]
+		if len(message) > 0 {
+			msg = message[0]
 		}
 
-		if msg == "" {
-			scope = getScope(true)
-			fmt.Println("Not commit message provided")
-			fmt.Print("Commit aborted\n\n")
+		if len(message) > 1 {
+			body = message[1]
 		}
 
-		if msg != "" {
-			scope = getScope(false)
-		}
+		config.AppData.Commit.AddAll = addAll
+		config.AppData.Commit.Message = msg
+		config.AppData.Commit.Scope = getScope(true)
+		config.AppData.Commit.Type = ctype
+		config.AppData.Commit.Body = body
+		config.AppData.Push.Merge = merge
 
-		git.Push(msg, body, ctype, scope)
-
-		if merge != "" {
-			git.Merge(merge)
-		}
+		pkg_action.Push()
 	},
 }
 

@@ -28,7 +28,7 @@ func GetOrigin() *IOriginInfo {
 }
 
 func getOrigin() *IOriginInfo {
-	err, out, errout := shell.Out("git ls-remote --get-url")
+	out, errout, err := shell.Out("git ls-remote --get-url")
 	sshRepo := "git@github.com:"
 	httpsRepo := "https://github.com/"
 
@@ -56,7 +56,7 @@ func getOrigin() *IOriginInfo {
 
 	return &IOriginInfo{
 		Original: out,
-		Owner: owner,
-		Repo:  repo,
+		Owner:    owner,
+		Repo:     repo,
 	}
 }
