@@ -34,6 +34,9 @@ type IAppData struct {
 		Ticket string
 		Stash  bool
 	}
+	Stash struct {
+		Branch string
+	}
 }
 
 type IConfig struct {

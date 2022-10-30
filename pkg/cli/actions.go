@@ -16,6 +16,7 @@ func askActions() {
 		"Pull Request",
 		"Publish",
 		"Push",
+		"Stash",
 		"Exit",
 	}
 
@@ -48,5 +49,9 @@ func askActions() {
 
 	if config.AppData.Action == "Create Branch" {
 		pkg_action.Flow()
+	}
+
+	if config.AppData.Action == "Stash" {
+		pkg_action.Stash()
 	}
 }
