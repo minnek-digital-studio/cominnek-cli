@@ -41,4 +41,8 @@ func askActions() {
 	if config.AppData.Action == "Publish" {
 		pkg_action.Publish()
 	}
+
+	if config.AppData.Action == "Pull Request" {
+		pkg_action.PullRequest()
+	}
 }

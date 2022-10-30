@@ -25,6 +25,10 @@ type IAppData struct {
 	Publish struct {
 		Ticket string
 	}
+	PullRequest struct {
+		Ticket string
+		Base   string
+	}
 }
 
 type IConfig struct {
