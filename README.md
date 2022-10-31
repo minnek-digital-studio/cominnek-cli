@@ -101,7 +101,7 @@ the commit will be: `build(version): update version`
 ## Push
 Commit and push the branch to GitHub
 ```bash
-cominnek push "do some modifications" --fix "home"
+cominnek push -m "do some modifications" --fix "home"
 ```
 the commit will be: `fix(home):{Ticket} do some modifications`
 
@@ -135,7 +135,7 @@ cominnek publish "do some modifications" --fix "home"
 ## Commit
 Will commit the changes to the branch.
 ```bash
-cominnek commit "do some modifications" --fix "home"
+cominnek commit -m "do some modifications" --fix "home"
 ```
 the commit will be: `feat(home):{Ticket} do some modifications`
 
