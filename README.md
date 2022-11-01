@@ -101,7 +101,7 @@ the commit will be: `build(version): update version`
 ## Push
 Commit and push the branch to GitHub
 ```bash
-cominnek push "do some modifications" --fix "home"
+cominnek push -m "do some modifications" --fix "home"
 ```
 the commit will be: `fix(home):{Ticket} do some modifications`
 
@@ -110,6 +110,7 @@ the commit will be: `fix(home):{Ticket} do some modifications`
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
 | `-m --message`     |string[]       | Receives the commit messange & body message |
+| `-M --merge`       |string         | Receives a Branch to merge after end the push|
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
 | `-d --docs`        |string         | make the commit with the prefix docs() |
@@ -130,12 +131,12 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 The usage is the same as [push](#push) just with the difference that this creates a pull request.
 ```bash
-cominnek publish "do some modifications" --fix "home"
+cominnek publish -m "do some modifications" --fix "home"
 ```
 ## Commit
 Will commit the changes to the branch.
 ```bash
-cominnek commit "do some modifications" --fix "home"
+cominnek commit -m "do some modifications" --fix "home"
 ```
 the commit will be: `feat(home):{Ticket} do some modifications`
 
