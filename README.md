@@ -16,7 +16,7 @@
 Create commits & pull requests easily. `Cominnek` is based on the [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 ## Index
  - **[Requirements](#requirements)**
-     - **[Git-Flow](#git-flow-macos)**
+     - **[Git-Flow](#git-flow)**
  - **[Install](#installation)**
  - **[First Step](#first-steps)**
  - **[Usage](#usage)**
@@ -49,11 +49,28 @@ sudo apt install git-flow
 [![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.3.1.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
 )](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.3.1.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.3.1.deb)
 
-2. Run installer
+2. Run installer ([See MAC Os steps](#how-to-install-on-mac))
 
 3. Now you can run 
 ```bash
 cominnek -v
+```
+## How to install on Mac
+
+After mounting the installer maybe you would have some issues at the moment to run the installer on Mac since OS blocks the installer app. So you will need to run the `installer.sh` manually. 
+
+### Install manually
+
+1. Open the terminal.
+
+2. Move into `Volumes` directory.
+```bash
+$ cd  /Volumes/cominnek-$version/
+```
+
+3. Run the bash installer
+```bash
+$ sudo bash installer.sh
 ```
 
 # First steps:
@@ -69,6 +86,7 @@ Then you can test the connection with the:
 ```bash
 cominnek auth test
 ```
+
 
 # Usage
 
