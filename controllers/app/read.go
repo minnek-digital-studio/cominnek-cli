@@ -1,11 +1,9 @@
 package app
 
 import (
-	"encoding/json"
-	"strings"
-
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/files"
+	"github.com/spf13/viper"
 )
 
 type _assert struct {
@@ -16,22 +14,48 @@ type _assert struct {
 }
 
 type _PR struct {
-	DefaultBranch string    `json:"default_branch"`
-	Asserts       []_assert `json:"asserts"`
+	Asserts []_assert `json:"asserts"`
 }
 
-type IConfigLocal struct {
-	ProjectKey string `json:"project_key"`
-	PR         _PR    `json:"pr"`
+type IFlag struct {
+	Short    string      `json:"short"`
+	Long     string      `json:"long"`
+	Type     string      `json:"type"`
+	Help     string      `json:"help"`
+	Default  interface{} `json:"default"`
+	Required bool        `json:"required"`
+}
+
+type IScripts struct {
+	Name    string     `json:"command"`
+	Help    string     `json:"help"`
+	Exec    string     `json:"exec"`
+	Flags   []IFlag    `json:"flags"`
+	Scripts []IScripts `json:"scripts"`
+}
+
+type IPlugin struct {
+	Name    string     `json:"name"`
+	Path    string     `json:"path"`
+	Help    string     `json:"help"`
+	Version string     `json:"version"`
+	Flags   []IFlag    `json:"flags"`
+	Scripts []IScripts `json:"scripts"`
 }
 
 type IConfigGlobal struct {
+	PR      _PR       `json:"pr"`
+	Plugins []IPlugin `json:"plugins"`
+}
+
+type IConfigLocal struct {
 	PR _PR `json:"pr"`
 }
 
 var ConfigLocal IConfigLocal
 var ConfigGlobal IConfigGlobal
 var defaultGlb string = `{
+  "plugins": [],
   "pr": {
     "asserts": [
       {
@@ -56,35 +80,23 @@ var defaultGlb string = `{
   }
 }`
 
-func getFile(file string) []byte {
-	if files.CheckExist(file) {
-		return files.Read(file)
-	}
-
-	return nil
-}
-
 func ConfigReader() {
-	local := config.Public.ConfigFile.Name
 	global := config.Public.ConfigFile.GlobalPath
-	var localFile = getFile(local)
-	var globalFile = getFile(global)
 
-	if globalFile == nil {
-		defaultGlb = strings.ReplaceAll(defaultGlb, "${{default_body}}", config.Public.PRBody)
+	if !files.CheckExist(global) {
 		files.Create([]byte(defaultGlb), global)
 	}
 
-	json.Unmarshal(localFile, &ConfigLocal)
-	json.Unmarshal(globalFile, &ConfigGlobal)
+	viper.SetConfigName(".cominnekrc")
+	viper.SetConfigType("json")
+	viper.AddConfigPath(config.Public.HomePath)
+	viper.AddConfigPath(config.Public.AppPath)
 
-	for i, assert := range ConfigGlobal.PR.Asserts {
-		println("{")
-		println("\tid:", i)
-		println("\ttype:", assert.Type)
-		println("\ttitle:", assert.Title)
-		println("\tbody:", assert.Body)
-		println("\tbase_branch:", "[", strings.Join(assert.BaseBranch, ", "), "]")
-		println("}")
+	err := viper.ReadInConfig()
+
+	if err != nil {
+		panic(err)
 	}
+
+	viper.Unmarshal(&ConfigGlobal)
 }

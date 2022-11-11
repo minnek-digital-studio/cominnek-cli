@@ -42,18 +42,19 @@ type IAppData struct {
 type IConfigFile struct {
 	Name       string
 	GlobalPath string
+	UserPath   string
 }
 type IConfig struct {
 	AppPath    string
 	TempPath   string
 	KeyPath    string
 	TokenPath  string
-	JiraKey    string
 	Version    string
 	Commits    ICommit
 	PRBody     string
 	Logs       bool
 	ConfigFile IConfigFile
+	HomePath   string
 }
 
 var userPath, _ = os.UserConfigDir()
@@ -67,11 +68,12 @@ var Public = IConfig{
 	Version: "v2.3.1",
 	ConfigFile: IConfigFile{
 		Name:       configFileName,
-		GlobalPath: filepath.Join(homePath, configFileName),
+		GlobalPath: filepath.Join(cominnekPath, configFileName),
+		UserPath:   filepath.Join(homePath, configFileName),
 	},
+	HomePath:  homePath,
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),
 	TokenPath: filepath.Join(cominnekPath, "auth.bin"),
-	JiraKey:   filepath.Join(cominnekPath, "jira.bin"),
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),
 	AppPath:   cominnekPath,
 	TempPath:  cominnekTempPath,
