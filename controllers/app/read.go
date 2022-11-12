@@ -87,28 +87,6 @@ var defaultGlb string = `{
   }
 }`
 
-func ConfigReader() {
-	global := config.Public.ConfigFile.GlobalPath
-
-	if !files.CheckExist(global) {
-		files.Create([]byte(defaultGlb), global)
-	}
-
-	viper.SetConfigName(".cominnekrc")
-	viper.SetConfigType("json")
-	viper.AddConfigPath(config.Public.HomePath)
-	viper.AddConfigPath(config.Public.AppPath)
-
-	err := viper.ReadInConfig()
-
-	if err != nil {
-		panic(err)
-	}
-
-	viper.Unmarshal(&ConfigGlobal)
-	pluginsReader()
-}
-
 func pluginScriptsExec(pluginConfig []IScripts, pluginPath string, process string) {
 	var cmd string
 
@@ -179,4 +157,26 @@ func pluginsReader() {
 
 		commandProcessor(pluginPath, pluginConfig)
 	}
+}
+
+func ConfigReader() {
+	global := config.Public.ConfigFile.GlobalPath
+
+	if !files.CheckExist(global) {
+		files.Create([]byte(defaultGlb), global)
+	}
+
+	viper.SetConfigName(".cominnekrc")
+	viper.SetConfigType("json")
+	viper.AddConfigPath(config.Public.HomePath)
+	viper.AddConfigPath(config.Public.AppPath)
+
+	err := viper.ReadInConfig()
+
+	if err != nil {
+		panic(err)
+	}
+
+	viper.Unmarshal(&ConfigGlobal)
+	pluginsReader()
 }
