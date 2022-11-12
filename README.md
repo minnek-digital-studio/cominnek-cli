@@ -46,8 +46,8 @@ sudo apt install git-flow
 
 1. Download installer
 
-[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.3.1.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
-)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.3.1.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.3.1.deb)
+[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.4.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
+)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.4.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.4.0.deb)
 
 2. Run installer ([See MAC Os steps](#how-to-install-on-mac))
 
@@ -111,7 +111,7 @@ Create and push a commit with the correct template for conventional commits.
 ```bash
 cominnek update-version <version>
 ```
-the commit will be: `build(version): update version`
+the commit will be: `build: update version to <version>`
 
 | flag               | type          | description                 |
 | ------------------ | ------------- | --------------------------- |
@@ -140,6 +140,8 @@ the commit will be: `fix(home):{Ticket} do some modifications`
 | `   --ci`          |string         | make the commit with the prefix ci()   |
 | `   --chore`       |string         | make the commit with the prefix chore()|
 | `   --revert`      |string         | make the commit with the prefix revert()|
+| `   --skip-commit` |string         | Skip the commit and only push the branch|
+
 
 *\* required*
 
@@ -373,7 +375,7 @@ $ cominnek push "Changes in home page" -F "home"
 
 If you want to contribute to this project, please read the [contributing guide](/CONTRIBUTING.md)
 
-Cominnek `V2.3.1`
+Cominnek `V2.4.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
 
 ## About

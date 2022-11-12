@@ -3,6 +3,8 @@ package git_controller
 import (
 	"fmt"
 	"strings"
+
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 )
 
 func _removeTwoSpaces(str string) string {
@@ -17,6 +19,20 @@ func _getCommitMessage(msg string, ctype string, ticket string, scope string) st
 	}
 
 	return _removeTwoSpaces(commit_message)
+}
+
+func CheckChanges() bool {
+	out, _, err := shell.Out(Status())
+
+	if err != nil {
+		return false
+	}
+
+	if out == "" {
+		return false
+	}
+
+	return true
 }
 
 func Commit(msg string, _body string, ctype string, tiket string, scope string) string {

@@ -38,7 +38,6 @@ var commitCmd = &cobra.Command{
 }
 
 func init() {
-	commitCmd.PersistentFlags().BoolVarP(&addAll, "all", "a", false, "Add all files changed to commit")
 	AddFlags{}.Commit(commitCmd)
 	rootCmd.AddCommand(commitCmd)
 }
