@@ -111,7 +111,7 @@ Create and push a commit with the correct template for conventional commits.
 ```bash
 cominnek update-version <version>
 ```
-the commit will be: `build(version): update version`
+the commit will be: `build: update version to <version>`
 
 | flag               | type          | description                 |
 | ------------------ | ------------- | --------------------------- |
