@@ -22,6 +22,7 @@ func Pull_request(ticket string, branch string) string {
 	body := string(bodyByte)
 
 	msg := helper.ReplaceValues(body, variables)
+	msg = msg + `\n\n <small>Created with <a href="https://github.com/Minnek-Digital-Studio/cominnek" target="_blank">Cominnek 🔥</a></small>`
 
 	return msg
 }
