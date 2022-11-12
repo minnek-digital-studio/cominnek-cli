@@ -5,7 +5,7 @@ import (
 )
 
 func UpdateVersion(version string) {
-	msg := "update version"
+	msg := "update version to " + version
 
-	git.PushWithOutTicket(msg, "", "build", version)
+	git.PushWithOutTicket(msg, "", "build", "")
 }
