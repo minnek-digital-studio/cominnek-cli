@@ -28,12 +28,17 @@ func publishQuestions() {
 }
 
 func Publish() {
-	Commit(false)
+	if git_controller.CheckChanges() {
+		Commit(false)
+	}
 
 	pushQuestion()
 	publishQuestions()
 
-	executeCommit()
+	if git_controller.CheckChanges() {
+		executeCommit()
+	}
+
 	github.Publish(config.AppData.Publish.Ticket)
 
 	if config.AppData.Push.Merge != "" {
