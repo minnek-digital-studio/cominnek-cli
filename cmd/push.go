@@ -36,7 +36,7 @@ var pushCmd = &cobra.Command{
 }
 
 func init() {
-	pushCmd.Flags().BoolVar(&skipCommit, "skip-commit", false, "skip commit")
+	pushCmd.Flags().BoolVar(&skipCommit, "skip-commit", false, "Skip the commit and only push the branch")
 	AddFlags{}.Push(pushCmd)
 	rootCmd.AddCommand(pushCmd)
 }
