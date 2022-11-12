@@ -5,6 +5,7 @@ import (
 
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/files"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/folders"
 	"github.com/spf13/viper"
 )
 
@@ -58,6 +59,7 @@ type IConfigLocal struct {
 var ConfigLocal IConfigLocal
 var ConfigGlobal IConfigGlobal
 var PluginsConfig []IPlugin
+var fileName = "index.cmk"
 
 var defaultGlb string = `{
   "plugins": [],
@@ -140,12 +142,29 @@ func commandProcessor(pluginPath string, pluginConfig IPlugin) {
 	PluginsConfig = append(PluginsConfig, pluginConfig)
 }
 
+func getPlugin(plugin string) string {
+	pluginPath := filepath.Join(config.Public.ConfigFile.PluginPath, plugin)
+
+	if !folders.CheckExists(pluginPath) || !files.CheckExist(filepath.Join(pluginPath, fileName)) {
+		println("Plugin " + plugin + " not found")
+		return ""
+	}
+
+	return pluginPath
+}
+
 func pluginsReader() {
+
 	for _, plugin := range ConfigGlobal.Plugins {
 		pluginViper := viper.New()
 
-		pluginPath := filepath.Join(config.Public.ConfigFile.PluginPath, plugin)
-		pluginViper.SetConfigName("index.cmk")
+		pluginPath := getPlugin(plugin)
+
+		if pluginPath == "" {
+			continue
+		}
+
+		pluginViper.SetConfigName(fileName)
 		pluginViper.SetConfigType("json")
 		pluginViper.AddConfigPath(pluginPath)
 
