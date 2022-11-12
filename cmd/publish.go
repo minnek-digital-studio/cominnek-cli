@@ -29,6 +29,7 @@ var publishCmd = &cobra.Command{
 		config.AppData.Commit.Body = body
 		config.AppData.Push.Merge = merge
 		config.AppData.Publish.Ticket = ticket
+		config.AppData.Push.IgnoreCommit = skipCommit
 
 		pkg_action.Publish()
 
@@ -41,5 +42,6 @@ var publishCmd = &cobra.Command{
 func init() {
 	AddFlags{}.Push(publishCmd)
 	publishCmd.PersistentFlags().StringVarP(&ticket, "ticket", "t", "", "Ticket number")
+	publishCmd.Flags().BoolVar(&skipCommit, "skip-commit", false, "Skip the commit and only push the branch")
 	rootCmd.AddCommand(publishCmd)
 }

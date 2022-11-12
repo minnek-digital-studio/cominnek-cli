@@ -20,10 +20,12 @@ type IAppData struct {
 		Scope   string
 	}
 	Push struct {
-		Merge string
+		Merge        string
+		IgnoreCommit bool
 	}
 	Publish struct {
-		Ticket string
+		Ticket       string
+		IgnoreCommit bool
 	}
 	PullRequest struct {
 		Ticket string
@@ -35,6 +37,9 @@ type IAppData struct {
 		Stash  bool
 	}
 	Stash struct {
+		Branch string
+	}
+	Merge struct {
 		Branch string
 	}
 }
@@ -65,7 +70,7 @@ var cominnekPath = filepath.Join(userPath, ".cominnek")
 var cominnekTempPath = filepath.Join(tempPath, ".cominnek")
 var configFileName = ".cominnekrc"
 var Public = IConfig{
-	Version: "v2.3.1",
+	Version: "v2.4.0",
 	ConfigFile: IConfigFile{
 		Name:       configFileName,
 		GlobalPath: filepath.Join(cominnekPath, configFileName),

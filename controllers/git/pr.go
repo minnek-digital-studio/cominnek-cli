@@ -50,6 +50,10 @@ func Pull_request(ticket string, branch string, baseBranch string) (body, title 
 	_body := string(bodyByte)
 
 	body = helper.ReplaceValues(_body, variables)
+	body = body + `
+
+<small>Created with <a href="https://github.com/Minnek-Digital-Studio/cominnek" target="_blank">Cominnek 🔥</a></small>`
+
 	title = helper.ReplaceValues(_title, variables)
 
 	return

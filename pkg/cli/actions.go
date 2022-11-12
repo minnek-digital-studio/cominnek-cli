@@ -13,6 +13,7 @@ func askActions() {
 	actions := []string{
 		"Commit",
 		"Create Branch",
+		"Merge",
 		"Pull Request",
 		"Publish",
 		"Push",
@@ -53,5 +54,9 @@ func askActions() {
 
 	if config.AppData.Action == "Stash" {
 		pkg_action.Stash()
+	}
+
+	if config.AppData.Action == "Merge" {
+		pkg_action.Merge()
 	}
 }

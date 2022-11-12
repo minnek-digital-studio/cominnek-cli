@@ -20,6 +20,7 @@ func (x AddFlags) Commit(_cmd *cobra.Command) {
 	_cmd.PersistentFlags().StringVarP(&ci, "ci", "", "", "Changes to our CI configuration files and scripts ⚙️")
 	_cmd.PersistentFlags().StringVarP(&chore, "chore", "c", "", "Other changes that don't modify src or test files ♻️")
 	_cmd.PersistentFlags().StringVarP(&revert, "revert", "", "", "Reverts a previous commit 🗑")
+	_cmd.PersistentFlags().BoolVarP(&addAll, "all", "a", false, "Add all files changed to commit")
 }
 
 func (x AddFlags) Push(_cmd *cobra.Command) {

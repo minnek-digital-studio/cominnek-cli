@@ -28,12 +28,21 @@ func publishQuestions() {
 }
 
 func Publish() {
-	Commit(false)
+	if !config.AppData.Publish.IgnoreCommit {
+		config.AppData.Publish.IgnoreCommit = !git_controller.CheckChanges()
+	}
+
+	if !config.AppData.Publish.IgnoreCommit {
+		Commit(false)
+	}
 
 	pushQuestion()
 	publishQuestions()
 
-	executeCommit()
+	if !config.AppData.Publish.IgnoreCommit {
+		executeCommit()
+	}
+
 	github.Publish(config.AppData.Publish.Ticket)
 
 	if config.AppData.Push.Merge != "" {
