@@ -11,8 +11,10 @@ import (
 )
 
 func main() {
-	app.ConfigReader()
 	helper.PrintName()
+
+	app.Init()
+	app.ConfigReader()
 
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 	logger.PrintLn(color.HiRedString("!!!!!"), color.HiYellowString("Logs Are Enable"), color.HiRedString("!!!!!!"))
