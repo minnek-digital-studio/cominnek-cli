@@ -44,25 +44,41 @@ type IAppData struct {
 	}
 }
 
+type IConfigFile struct {
+	Name       string
+	GlobalPath string
+	UserPath   string
+	PluginPath string
+}
 type IConfig struct {
-	AppPath   string
-	TempPath  string
-	KeyPath   string
-	TokenPath string
-	Version   string
-	Commits   ICommit
-	PRBody    string
-	Logs      bool
+	AppPath    string
+	TempPath   string
+	KeyPath    string
+	TokenPath  string
+	Version    string
+	Commits    ICommit
+	PRBody     string
+	Logs       bool
+	ConfigFile IConfigFile
+	HomePath   string
 }
 
 var userPath, _ = os.UserConfigDir()
 var tempPath, _ = os.UserCacheDir()
+var homePath, _ = os.UserHomeDir()
 
 var cominnekPath = filepath.Join(userPath, ".cominnek")
 var cominnekTempPath = filepath.Join(tempPath, ".cominnek")
-
+var configFileName = ".cominnekrc"
 var Public = IConfig{
-	Version:   "v2.4.0",
+	Version: "v2.4.0",
+	ConfigFile: IConfigFile{
+		Name:       configFileName,
+		GlobalPath: filepath.Join(cominnekPath, configFileName),
+		UserPath:   filepath.Join(homePath, configFileName),
+		PluginPath: filepath.Join(cominnekPath, "plugins"),
+	},
+	HomePath:  homePath,
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),
 	TokenPath: filepath.Join(cominnekPath, "auth.bin"),
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),

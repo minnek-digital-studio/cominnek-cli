@@ -4,6 +4,7 @@ import (
 	"log"
 	"strings"
 
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/app"
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	github_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/github"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
@@ -30,25 +31,13 @@ func _getBranch(_baseBranch string, currentBranch string) string {
 	return baseBranch
 }
 
-func _getTitle(currentBranch string, baseBranch string) string {
-	title := currentBranch
-
-	if strings.Contains(currentBranch, "release") || strings.Contains(currentBranch, "hotfix") {
-		title = currentBranch + " " + baseBranch
-	}
-
-	return title
-}
-
-func CreatePullRequest(_ticket string, _baseBranch string) {
+func __createPullRequest(_ticket, currentBranch, _baseBranch string) {
 	origin := git_controller.GetOrigin()
 
 	loading.Start("Preparing your pull request ")
-	currentBranch := git_controller.GetCurrentBranch()
 	ticket := _checkTicket(_ticket)
-	body := git_controller.Pull_request(ticket, currentBranch)
 	baseBranch := _getBranch(_baseBranch, currentBranch)
-	title := _getTitle(currentBranch, baseBranch)
+	body, title := git_controller.Pull_request(ticket, currentBranch, baseBranch)
 	loading.Stop()
 
 	github_controller.CreatePullRequest(github_controller.NewPullRequest{
@@ -58,6 +47,28 @@ func CreatePullRequest(_ticket string, _baseBranch string) {
 		Body:  body,
 		Owner: origin.Owner,
 		Repo:  origin.Repo,
-		Draft: true,
+		// Draft: true,
 	})
+}
+
+func CreatePullRequest(_ticket string, _baseBranch string) {
+	asserts := app.ConfigGlobal.PR.Asserts
+	branch := git_controller.GetCurrentBranch()
+	baseBranch := []string{_baseBranch}
+
+	for _, assert := range asserts {
+		if assert.Type == "*" {
+			baseBranch = assert.BaseBranch
+		}
+
+		if strings.Contains(branch, assert.Type) {
+			baseBranch = assert.BaseBranch
+			break
+		}
+	}
+
+	for _, _branch := range baseBranch {
+		__createPullRequest(_ticket, branch, _branch)
+	}
+
 }
