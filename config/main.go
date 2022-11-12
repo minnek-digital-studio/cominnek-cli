@@ -20,10 +20,12 @@ type IAppData struct {
 		Scope   string
 	}
 	Push struct {
-		Merge string
+		Merge        string
+		IgnoreCommit bool
 	}
 	Publish struct {
-		Ticket string
+		Ticket       string
+		IgnoreCommit bool
 	}
 	PullRequest struct {
 		Ticket string

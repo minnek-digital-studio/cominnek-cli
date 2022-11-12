@@ -34,13 +34,17 @@ func pushQuestion() {
 }
 
 func Push() {
-	if git_controller.CheckChanges() {
+	if !config.AppData.Push.IgnoreCommit {
+		config.AppData.Push.IgnoreCommit = !git_controller.CheckChanges()
+	}
+
+	if !config.AppData.Push.IgnoreCommit {
 		Commit(false)
 	}
 
 	pushQuestion()
 
-	if git_controller.CheckChanges() {
+	if !config.AppData.Push.IgnoreCommit {
 		executeCommit()
 	}
 

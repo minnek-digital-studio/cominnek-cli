@@ -28,14 +28,18 @@ func publishQuestions() {
 }
 
 func Publish() {
-	if git_controller.CheckChanges() {
+	if !config.AppData.Publish.IgnoreCommit {
+		config.AppData.Publish.IgnoreCommit = !git_controller.CheckChanges()
+	}
+
+	if !config.AppData.Publish.IgnoreCommit {
 		Commit(false)
 	}
 
 	pushQuestion()
 	publishQuestions()
 
-	if git_controller.CheckChanges() {
+	if !config.AppData.Publish.IgnoreCommit {
 		executeCommit()
 	}
 
