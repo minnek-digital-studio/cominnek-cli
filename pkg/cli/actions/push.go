@@ -34,11 +34,20 @@ func pushQuestion() {
 }
 
 func Push() {
-	Commit(false)
+	if !config.AppData.Push.IgnoreCommit {
+		config.AppData.Push.IgnoreCommit = !git_controller.CheckChanges()
+	}
+
+	if !config.AppData.Push.IgnoreCommit {
+		Commit(false)
+	}
 
 	pushQuestion()
 
-	executeCommit()
+	if !config.AppData.Push.IgnoreCommit {
+		executeCommit()
+	}
+
 	git.Push()
 
 	if config.AppData.Push.Merge != "" {
