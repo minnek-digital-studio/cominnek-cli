@@ -37,6 +37,9 @@ type IAppData struct {
 	Stash struct {
 		Branch string
 	}
+	Merge struct {
+		Branch string
+	}
 }
 
 type IConfig struct {
