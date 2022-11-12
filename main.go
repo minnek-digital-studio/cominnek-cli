@@ -6,12 +6,13 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/controllers"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/app"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/logger"
+	"github.com/Minnek-Digital-Studio/cominnek/helper"
 	"github.com/fatih/color"
 )
 
 func main() {
 	app.ConfigReader()
-	// helper.PrintName()
+	helper.PrintName()
 
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 	logger.PrintLn(color.HiRedString("!!!!!"), color.HiYellowString("Logs Are Enable"), color.HiRedString("!!!!!!"))

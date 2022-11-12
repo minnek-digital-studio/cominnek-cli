@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/app"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 	"github.com/spf13/cobra"
 )
 
@@ -22,11 +23,13 @@ func mainLoader(plugin app.IPlugin) cobra.Command {
 		Short:   plugin.Help,
 		Version: plugin.Version,
 		Run: func(cmd *cobra.Command, args []string) {
-			println("Hello from plugin", plugin.Name)
-
+			var _flags string
 			for _, flag := range flags {
-				fmt.Println(GetData(flag.Long, *cmd))
+				_flags += fmt.Sprintf(" --%s %s", flag.Long, GetData(flag, *cmd))
 			}
+
+			// println(plugin.Exec + _flags)
+			shell.OutLive(plugin.Exec + _flags)
 		},
 	}
 
@@ -34,36 +37,44 @@ func mainLoader(plugin app.IPlugin) cobra.Command {
 	return cmd
 }
 
-func subLoader(subCommad app.IScripts) cobra.Command {
+func subLoader(subCommad app.IScripts, path string) cobra.Command {
+
+	path += " " + subCommad.Name
+	if subCommad.Exec != "" {
+		path = " " + subCommad.Exec
+	}
+
 	cmd := cobra.Command{
 		Use:   subCommad.Name,
 		Short: subCommad.Help,
 		Run: func(cmd *cobra.Command, args []string) {
-			println("Hello from plugin subcommand", subCommad.Name)
-
 			for _, index := range indexer {
 				if index.Name != subCommad.Name {
 					continue
 				}
 
 				flg := subFlags[index.Index]
+				var _flags string
 
 				for _, flag := range flg {
-					fmt.Println(GetData(flag.Long, *cmd))
+					_flags += fmt.Sprintf(" --%s %s", flag.Long, GetData(flag, *cmd))
 				}
+
+				// println(path + _flags)
+				shell.OutLive(path + _flags)
 			}
 		},
 	}
 
-	setSubCommand(&cmd, subCommad.Scripts)
+	setSubCommand(&cmd, subCommad.Scripts, path)
 
 	return cmd
 }
 
-func setSubCommand(cmd *cobra.Command, sub []app.IScripts) {
+func setSubCommand(cmd *cobra.Command, sub []app.IScripts, path string) {
 	if len(sub) > 0 {
 		for _, sub := range sub {
-			subLoad := subLoader(sub)
+			subLoad := subLoader(sub, path)
 			pos := len(subFlags)
 			subFlags = append(subFlags, sub.Flags)
 			indexer = append(indexer, struct {
@@ -95,18 +106,26 @@ func FlagLoader(flag app.IFlag, cmd *cobra.Command) {
 	}
 }
 
-func GetData(name string, cmd cobra.Command) interface{} {
-	return cmd.PersistentFlags().Lookup(name).Value
+func GetData(flag app.IFlag, cmd cobra.Command) interface{} {
+	val := cmd.PersistentFlags().Lookup(flag.Long).Value
+
+	if flag.Type == "string" {
+		if val.String() == "" {
+			return `" "`
+		}
+		return `"` + val.String() + `"`
+	}
+	return val
 }
 
 func init() {
 	app.ConfigReader()
-	plugins := app.ConfigGlobal.Plugins
+	plugins := app.PluginsConfig
 
 	for _, plugin := range plugins {
 		mainLoad := mainLoader(plugin)
 
-		setSubCommand(&mainLoad, plugin.Scripts)
+		setSubCommand(&mainLoad, plugin.Scripts, plugin.Exec)
 
 		flags = plugin.Flags
 

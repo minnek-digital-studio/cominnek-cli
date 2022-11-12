@@ -48,6 +48,7 @@ type IConfigFile struct {
 	Name       string
 	GlobalPath string
 	UserPath   string
+	PluginPath string
 }
 type IConfig struct {
 	AppPath    string
@@ -75,6 +76,7 @@ var Public = IConfig{
 		Name:       configFileName,
 		GlobalPath: filepath.Join(cominnekPath, configFileName),
 		UserPath:   filepath.Join(homePath, configFileName),
+		PluginPath: filepath.Join(cominnekPath, "plugins"),
 	},
 	HomePath:  homePath,
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),

@@ -1,6 +1,8 @@
 package app
 
 import (
+	"path/filepath"
+
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/files"
 	"github.com/spf13/viper"
@@ -27,7 +29,7 @@ type IFlag struct {
 }
 
 type IScripts struct {
-	Name    string     `json:"command"`
+	Name    string     `json:"name"`
 	Help    string     `json:"help"`
 	Exec    string     `json:"exec"`
 	Flags   []IFlag    `json:"flags"`
@@ -35,17 +37,18 @@ type IScripts struct {
 }
 
 type IPlugin struct {
-	Name    string     `json:"name"`
-	Path    string     `json:"path"`
-	Help    string     `json:"help"`
 	Version string     `json:"version"`
+	Process string     `json:"process"`
+	Name    string     `json:"name"`
+	Help    string     `json:"help"`
+	Exec    string     `json:"exec"`
 	Flags   []IFlag    `json:"flags"`
 	Scripts []IScripts `json:"scripts"`
 }
 
 type IConfigGlobal struct {
-	PR      _PR       `json:"pr"`
-	Plugins []IPlugin `json:"plugins"`
+	PR      _PR      `json:"pr"`
+	Plugins []string `json:"plugins"`
 }
 
 type IConfigLocal struct {
@@ -54,6 +57,8 @@ type IConfigLocal struct {
 
 var ConfigLocal IConfigLocal
 var ConfigGlobal IConfigGlobal
+var PluginsConfig []IPlugin
+
 var defaultGlb string = `{
   "plugins": [],
   "pr": {
@@ -99,4 +104,60 @@ func ConfigReader() {
 	}
 
 	viper.Unmarshal(&ConfigGlobal)
+	pluginsReader()
+}
+
+func pluginScriptsExec(pluginConfig []IScripts, pluginPath string, process string) {
+	var cmd string
+
+	for i, script := range pluginConfig {
+		if pluginConfig[i].Exec != "" {
+			cmd = `"` + filepath.Join(pluginPath, script.Exec) + `"`
+
+			if process != "" {
+				cmd = process + " " + cmd
+			}
+
+			pluginConfig[i].Exec = cmd
+
+			if len(script.Scripts) > 0 {
+				pluginScriptsExec(script.Scripts, pluginPath, process)
+			}
+		}
+	}
+}
+
+func commandProcessor(pluginPath string, pluginConfig IPlugin) {
+	cmd := `"` + filepath.Join(pluginPath, pluginConfig.Exec) + `"`
+
+	if pluginConfig.Process != "" {
+		cmd = pluginConfig.Process + " " + cmd
+	}
+
+	pluginConfig.Exec = cmd
+
+	pluginScriptsExec(pluginConfig.Scripts, pluginPath, pluginConfig.Process)
+	PluginsConfig = append(PluginsConfig, pluginConfig)
+}
+
+func pluginsReader() {
+	for _, plugin := range ConfigGlobal.Plugins {
+		pluginViper := viper.New()
+
+		pluginPath := filepath.Join(config.Public.ConfigFile.PluginPath, plugin)
+		pluginViper.SetConfigName("index.cmk")
+		pluginViper.SetConfigType("json")
+		pluginViper.AddConfigPath(pluginPath)
+
+		err := pluginViper.ReadInConfig()
+
+		if err != nil {
+			panic(err)
+		}
+
+		var pluginConfig IPlugin
+		pluginViper.Unmarshal(&pluginConfig)
+
+		commandProcessor(pluginPath, pluginConfig)
+	}
 }
