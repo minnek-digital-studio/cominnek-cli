@@ -111,7 +111,7 @@ Create and push a commit with the correct template for conventional commits.
 ```bash
 cominnek update-version <version>
 ```
-the commit will be: `build(version): update version`
+the commit will be: `build: update version to <version>`
 
 | flag               | type          | description                 |
 | ------------------ | ------------- | --------------------------- |
@@ -140,6 +140,8 @@ the commit will be: `fix(home):{Ticket} do some modifications`
 | `   --ci`          |string         | make the commit with the prefix ci()   |
 | `   --chore`       |string         | make the commit with the prefix chore()|
 | `   --revert`      |string         | make the commit with the prefix revert()|
+| `   --skip-commit` |string         | Skip the commit and only push the branch|
+
 
 *\* required*
 
