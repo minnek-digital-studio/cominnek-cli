@@ -17,8 +17,8 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\isaac\Minnek-Projects\cominnek\LICENSE
-OutputDir=C:\Users\isaac\Minnek-Projects\cominnek\dist
+LicenseFile={#SourcePath}..\..\..\LICENSE
+OutputDir={#SourcePath}..\..\..\dist
 OutputBaseFilename=cominnek-{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
@@ -29,7 +29,7 @@ ChangesEnvironment=true
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "C:\Users\isaac\Minnek-Projects\cominnek\build\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourcePath}..\..\..\build\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"

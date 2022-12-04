@@ -1,4 +1,4 @@
-$setupFile="$env:userprofile\Minnek-Projects\cominnek\assets\windows\bin\setup.iss"
+$setupFile="$pwd\assets\windows\bin\setup.iss"
 
 go mod tidy; go build -o .\Build
 
