@@ -14,19 +14,18 @@ import (
 )
 
 func _commit(msg string, body string, ctype string, scope string, ticket string) string {
+	println("\nCommiting files\n")
 	cmd := git_controller.Commit(msg, body, ctype, ticket, scope)
-	out, outErr, err := shell.Out(cmd)
+	out, _, err := shell.OutLive(cmd)
 
 	if err != nil {
 		loading.Stop()
 
 		if strings.Contains(out, "nothing to commit") {
-			fmt.Println(out)
-			fmt.Println("Aborting commit...")
+			fmt.Println("\nAborting commit...")
 
 			os.Exit(1)
 		} else {
-			fmt.Println(outErr)
 			log.Fatal("Commit failed")
 		}
 	}
@@ -62,16 +61,14 @@ func Commit(msg string, body string, ctype string, scope string) {
 	}
 
 	ticket := _checkTicket(git_controller.GetTicketNumber())
-	out := _commit(msg, body, ctype, scope, ticket)
-
 	loading.Stop()
-	fmt.Println(out)
+	_commit(msg, body, ctype, scope, ticket)
+
 }
 
 func CommitWithoutTicket(msg string, body string, ctype string, scope string) {
 	loading.Start("Commiting files ")
-	out := _commit(msg, body, ctype, scope, "")
-
+	
 	loading.Stop()
-	fmt.Println(out)
+	_commit(msg, body, ctype, scope, "")
 }
