@@ -37,7 +37,7 @@ jobs:
       - name: Create config.priv.go (Windows)
         if: runner.os == 'Windows'
         run: |
-           echo "package config; type IConfigPrivate struct {GithubClient string;EncryptKey string};var Private = IConfigPrivate{GithubClient: "some",EncryptKey:"some",}" | Out-File -FilePath .\config\config.priv.go
+          echo "package config; type IConfigPrivate struct {GithubClient string;EncryptKey string};var Private = IConfigPrivate{GithubClient: `"some`",EncryptKey:`"some`",}" | Out-File -FilePath .\config\config.priv.go
 
       - name: Download dependencies
         run: go mod download
