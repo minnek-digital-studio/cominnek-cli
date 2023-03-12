@@ -198,6 +198,21 @@ func executeCommit() {
 func Commit(exec bool) {
 	raw := []string{}
 	list := []string{}
+	currentBranch := git_controller.GetCurrentBranch()
+
+	if strings.HasPrefix(currentBranch, "bugfix/") {
+		config.Public.Commits.Types = []string{
+			"fix",
+			"docs",
+			"style",
+			"refactor",
+			"perf",
+			"test",
+			"ci",
+			"chore",
+			"revert",
+		}
+	}
 
 	if !config.AppData.Commit.AddAll {
 		loading.Start("Checking files status ")

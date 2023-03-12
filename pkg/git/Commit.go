@@ -10,6 +10,7 @@ import (
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
+	"github.com/fatih/color"
 )
 
 func _commit(msg string, body string, ctype string, scope string, ticket string) string {
@@ -49,6 +50,17 @@ func _checkTicket(ticket string) string {
 
 func Commit(msg string, body string, ctype string, scope string) {
 	loading.Start("Commiting files ")
+	currentBranch := git_controller.GetCurrentBranch()
+
+	if strings.HasPrefix(currentBranch, "bugfix/") {
+		if ctype == "feat" {
+			loading.Stop()
+			color.HiRed("Error:")
+			log.Fatal("Bugfix branch cannot have a feature commit")
+			os.Exit(1)
+		}
+	}
+
 	ticket := _checkTicket(git_controller.GetTicketNumber())
 	out := _commit(msg, body, ctype, scope, ticket)
 
