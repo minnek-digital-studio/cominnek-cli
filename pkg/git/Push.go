@@ -5,15 +5,15 @@ import (
 
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
+	"github.com/fatih/color"
 )
 
 func _push() {
+	color.Yellow("\nPushing to remote\n")
 	cmd := git_controller.Push()
 	_, _, err := shell.OutLive(cmd)
 
 	if err != nil {
-		// fmt.Println(out)
-		// fmt.Println(errout)
 		log.Fatal("Error pushing to remote")
 	}
 
