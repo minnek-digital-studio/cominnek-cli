@@ -364,7 +364,7 @@ $ cominnek push "Changes in home page" -F "home"
 
 If you want to contribute to this project, please read the [contributing guide](/CONTRIBUTING.md)
 
-Cominnek `V2.5.0`
+Cominnek `V3.0.0-alpha.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
 
 ## About
