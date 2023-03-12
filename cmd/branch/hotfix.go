@@ -1,4 +1,4 @@
-package flow
+package branch
 
 import (
 	"github.com/Minnek-Digital-Studio/cominnek/config"
@@ -6,14 +6,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var FlowSupportCmd = &cobra.Command{
-	Use:   "support <name>",
-	Short: "create a new support branch",
+var BranchHotfixCmd = &cobra.Command{
+	Use:   "hotfix <name>",
+	Short: "create a new hotfix branch from master",
 	Run: func(cmd *cobra.Command, args []string) {
-		config.AppData.Flow.Type = "support"
-		config.AppData.Flow.Stash = stash
+		config.AppData.Branch.Type = "hotfix"
+		config.AppData.Branch.Stash = stash
 		setTicket(args)
 
-		pkg_action.Flow()
+		pkg_action.Branch()
 	},
 }
