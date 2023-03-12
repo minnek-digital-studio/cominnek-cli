@@ -25,7 +25,7 @@ func _checkBranch() []string {
 	return branch
 }
 
-func _createPullRequest(ticket string, baseBranch string) {
+func NewCreatePullRequest(ticket string, baseBranch string) {
 	loading.Start("Checking branch ")
 	branchs := _checkBranch()
 	loading.Stop()
@@ -41,6 +41,6 @@ func _createPullRequest(ticket string, baseBranch string) {
 
 func Publish(ticket string) {
 	git.PushPublish()
-	_createPullRequest(ticket, "")
+	NewCreatePullRequest(ticket, "")
 	log.Println("Publish complete")
 }
