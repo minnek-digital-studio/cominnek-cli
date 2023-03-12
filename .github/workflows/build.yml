@@ -1,0 +1,26 @@
+name: Buidl Check
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      uses: actions/checkout@v3
+    - name: Build project
+      with:
+        go-version: stable
+      run: go build -v ./...
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      uses: actions/checkout@v3
+    - name: Run tests
+      with:
+        go-version: stable
+      run: go run ./... -v
