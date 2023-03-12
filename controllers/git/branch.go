@@ -25,3 +25,7 @@ func Release(ticket string) string {
 func Support(ticket string) string {
 	return getBaseCmd("support/" + ticket)
 }
+
+func Test(ticket string) string {
+	return getBaseCmd("test/" + ticket)
+}
