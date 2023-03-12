@@ -26,6 +26,7 @@ func showExistingPR(prData NewPullRequest) {
 	existing_pr, _, err := client.PullRequests.List(ctx, prData.Owner, prData.Repo, &github.PullRequestListOptions{
 		State: "open",
 		Head:  prData.Head,
+		Base: prData.Base,
 	})
 
 	if err != nil {
