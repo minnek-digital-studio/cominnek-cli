@@ -179,6 +179,7 @@ This the equivalent of: `git branch feature/{Ticket}`
 | `hotfix`        |  create a new hotfix branch from `master`|
 | `release`       |  create a new release branch from `develop`|
 | `support`       |  create a new support branch from `master`|
+| `test`          |  create a new test branch from `develop`|
 
 | Flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
