@@ -28,6 +28,12 @@ jobs:
           key: go-${{ runner.os }}-${{ hashFiles('go.mod') }}
           restore-keys: |
             go-${{ runner.os }}-
+
+      - name: Create config.priv.go (bash)
+        if: runner.os == 'Linux' || runner.os == 'macOS'
+        run: |
+          echo "package config; type IConfigPrivate struct {GithubClient string;EncryptKey   string};var Private = IConfigPrivate{GithubClient: \"some\",EncryptKey:\"some\",}" >> ./config/config.priv.go
+
       - name: Download dependencies
         run: go mod download
 
