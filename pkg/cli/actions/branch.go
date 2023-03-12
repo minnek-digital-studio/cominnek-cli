@@ -10,6 +10,7 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
+	"github.com/fatih/color"
 )
 
 func branchQuestion() {
@@ -18,13 +19,27 @@ func branchQuestion() {
 	if config.AppData.Branch.Type == "" {
 		ask.One(&survey.Select{
 			Message: "Select the branch type:",
-			Options: []string{"feature", "bugfix", "hotfix", "release", "support"},
+			Options: []string{"feature", "bugfix", "hotfix", "release", "support", "test"},
 		}, &config.AppData.Branch.Type, survey.WithValidator(survey.Required))
 	}
 
 	if config.AppData.Branch.Ticket == "" {
+		message := "Enter the ticket number or name:"
+
+		if config.AppData.Branch.Type == "release" {
+			message = "Enter the release version:"
+		}
+
+		if config.AppData.Branch.Type == "hotfix" {
+			message = "Enter the hotfix version:"
+		}
+
+		if config.AppData.Branch.Type == "test" {
+			message = "Enter the test version:"
+		}
+
 		ask.One(&survey.Input{
-			Message: "Enter the ticket number or name:",
+			Message: message,
 		}, &config.AppData.Branch.Ticket, survey.WithValidator(survey.Required))
 	}
 
@@ -56,6 +71,8 @@ func Branch() {
 			git.Release(ticket)
 		case "support":
 			git.Support(ticket)
+		case "test":
+			git.Test(ticket)
 		}
 	})
 }
@@ -72,6 +89,8 @@ func middleware(callBack func()) {
 			git.Switch(originBranch)
 			git.StashApply()
 		}
+
+		color.Red("Branch creation failed")
 	})
 
 	if config.AppData.Branch.Stash {
@@ -79,6 +98,8 @@ func middleware(callBack func()) {
 	}
 
 	callBack()
+
+	color.Green("Branch created successfully")
 
 	if config.AppData.Branch.Stash {
 		git.StashApply()

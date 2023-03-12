@@ -29,3 +29,8 @@ func Support(ticket string) {
 	cmd := git_controller.Support(ticket)
 	checkers.CheckBranch(cmd)
 }
+
+func Test(ticket string) {
+	cmd := git_controller.Test(ticket)
+	checkers.CheckBranch(cmd)
+}
