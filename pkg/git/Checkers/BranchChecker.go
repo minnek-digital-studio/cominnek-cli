@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/Minnek-Digital-Studio/cominnek/config"
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
@@ -30,8 +31,12 @@ func GetChanges() {
 	}
 }
 
-func CheckFlow(mainCmd string) {
+func CheckBranch(mainCmd string) {
 	branch := "develop"
+
+	if config.AppData.Branch.Type == "hotfix" ||  config.AppData.Branch.Type == "support" {
+		branch = "master"
+	}
 
 	if !git_controller.CheckIfBranch(branch) {
 		git_controller.Switch(branch)
@@ -42,7 +47,7 @@ func CheckFlow(mainCmd string) {
 
 	GetChanges()
 
-	loading.Start("Starting new flow ")
+	loading.Start("Creating a new branch ")
 
 	out, errout, err := shell.Out(mainCmd)
 	if err != nil {

@@ -1,14 +1,14 @@
 package shell
 
 import (
-	"bufio"
 	"bytes"
 	"fmt"
+	"io"
 	"log"
+	"os"
 	"os/exec"
 	"runtime"
 
-	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 )
 
@@ -35,28 +35,21 @@ func Out(command string) (string, string, error) {
 	return stdout.String(), stderr.String(), err
 }
 
-func OutLive(command string) {
+func OutLive(command string) (string, string, error) {
 	cmd := exec.Command(shellToUse, "-c", command)
 
-	stdout, err := cmd.StdoutPipe()
+	var stdoutBuf, stderrBuf bytes.Buffer
+	cmd.Stdout = io.MultiWriter(os.Stdout, &stdoutBuf)
+	cmd.Stderr = io.MultiWriter(os.Stderr, &stderrBuf)
+	
+	err := cmd.Run()
+	outStr, errStr := stdoutBuf.String(), stderrBuf.String()
+
 	if err != nil {
-		fmt.Println(err)
+		return outStr, errStr, err
 	}
 
-	err = cmd.Start()
-	loading.Start("Running command...")
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	scanner := bufio.NewScanner(stdout)
-	loading.Stop()
-	for scanner.Scan() {
-		m := scanner.Text()
-		fmt.Println(m)
-	}
-
-	cmd.Wait()
+	return outStr, errStr, nil
 }
 
 /*Execute a command and return the output*/

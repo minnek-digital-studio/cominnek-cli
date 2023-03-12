@@ -94,6 +94,6 @@ func CreatePullRequest(prData NewPullRequest) {
 	}
 
 	loading.Stop()
-
-	fmt.Printf("PR created: %s\n", pr.GetHTMLURL())
+	color.Yellow("\nPull request created\n")
+	println(pr.GetHTMLURL(), "\n")
 }

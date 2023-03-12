@@ -100,6 +100,7 @@ func addToStage(raw []string) {
 
 func processFiles(raw []string, unstaged []string, list []string) (newList []string, changesMsg string, defaults []string) {
 	if len(raw) == 0 {
+		loading.Stop()
 		println("No changes to commit ✅")
 		os.Exit(0)
 		return

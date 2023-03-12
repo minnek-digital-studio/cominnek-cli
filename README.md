@@ -16,7 +16,6 @@
 Create commits & pull requests easily. `Cominnek` is based on the [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 ## Index
  - **[Requirements](#requirements)**
-     - **[Git-Flow](#git-flow)**
  - **[Install](#installation)**
  - **[First Step](#first-steps)**
  - **[Usage](#usage)**
@@ -25,22 +24,6 @@ Create commits & pull requests easily. `Cominnek` is based on the [Semantic Comm
 # Requirements
 
 - **[Git](https://git-scm.com/)**
-- **[Git-Flow](#git-flow)**
-
-### Git-Flow
-To install git flow run: 
-
-#### MacOS
-
-```bash
-brew install git-flow
-```
-
-#### Linux
-
-```bash
-sudo apt install git-flow
-```
 
 # Installation
 
@@ -94,7 +77,7 @@ cominnek auth test
 - **[Push](#push)**: Commit and push the branch to GitHub.
 - **[Publish](#publish)**: Commit, push and create the pull request as a draft to develop in GitHub.
 - **[Commit](#commit)**: Commit the changes to the branch.
-- **[Flow](#flow)**: Create a new branch and start the flow.
+- **[Branch](#branch)**: Create a new branch.
 - **[Stash](#stash)**: Stash changes from one branch to another one.
 - **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
 - **[Merge](#merge)**: Merge the branch into the received branch.
@@ -179,20 +162,23 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 | `   --revert`      |string         | make the commit with the prefix revert()|
 
 *\* required*
-## Flow
+## Branch
 Create a new branch with the prefix `feature/`, `bugfix/`, `hotfix/` or `release/` and the name of the branch will be the ticket number.
 
+At Minnek, we created a variant of Git-flow where the main difference is that we don't merge the branch  upon completion. Instead, we create a Github Pull Request.
+
 ```bash
-cominnek flow feature "<Ticket>"
+cominnek branch feature "<Ticket>"
 ```
-This the equivalent of: `git flow feature start {Ticket}` or `git-flow feature start {Ticket}` on MacOS
+This the equivalent of: `git branch feature/{Ticket}`
 
 | Command               | description                            |
 | ------------------ | ---------------------------------------|
-| `feature`       |  create a new feature branch |
-| `bugfix`        |  create a new bugfix branch |
-| `hotfix`        |  create a new hotfix branch |
-| `release`       |  create a new release branch |
+| `feature`       |  create a new feature branch from `develop` |
+| `bugfix`        |  create a new bugfix branch from `develop` |
+| `hotfix`        |  create a new hotfix branch from `master`|
+| `release`       |  create a new release branch from `develop`|
+| `support`       |  create a new support branch from `master`|
 
 | Flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
@@ -219,9 +205,12 @@ cominnek pr
 ```
 The flag `--ticket` is optional. If it's not provided this will take the ticket number from the current branch.
 
-| flag               | type          | description                            |
-| ------------------ | ------------- | ---------------------------------------|
-| `-t --ticket`      |string         | name of the feature that's will be applied the change     |
+| flag               | type          | default | description                            |
+| ------------------ | ------------- | ------ | ---------------------------------------|
+| `-t --ticket`      |string         | take by branch| name of the feature that's will be applied the change     |
+| `-b --base`      |string         | `develop` |   base branch of the pull request.  |
+
+In a case of a release branch, it will create a pull request to `master` and `develop`.
 
 ## Merge
 Merge the current branch into the received one. This will help you save time when you are working on a feature branch and you want to merge, for example, the feature branch into the `test` branch.

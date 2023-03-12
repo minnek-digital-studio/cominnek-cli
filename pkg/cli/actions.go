@@ -49,7 +49,7 @@ func askActions() {
 	}
 
 	if config.AppData.Action == "Create Branch" {
-		pkg_action.Flow()
+		pkg_action.Branch()
 	}
 
 	if config.AppData.Action == "Stash" {

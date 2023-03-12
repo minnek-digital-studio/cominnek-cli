@@ -12,27 +12,40 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 )
 
-func flowQuestion() {
-	if config.AppData.Flow.Type == "" {
+func branchQuestion() {
+	fmt.Println()
+
+	if config.AppData.Branch.Type == "" {
 		ask.One(&survey.Select{
 			Message: "Select the branch type:",
 			Options: []string{"feature", "bugfix", "hotfix", "release", "support"},
-		}, &config.AppData.Flow.Type, survey.WithValidator(survey.Required))
+		}, &config.AppData.Branch.Type, survey.WithValidator(survey.Required))
 	}
 
-	if config.AppData.Flow.Ticket == "" {
+	if config.AppData.Branch.Ticket == "" {
 		ask.One(&survey.Input{
 			Message: "Enter the ticket number or name:",
-		}, &config.AppData.Flow.Ticket, survey.WithValidator(survey.Required))
+		}, &config.AppData.Branch.Ticket, survey.WithValidator(survey.Required))
+	}
+
+	if !config.AppData.Branch.Stash && git_controller.CheckChanges() {
+		ask.One(&survey.Confirm{
+			Message: "Do you want to stash your changes?",
+		}, &config.AppData.Branch.Stash)
 	}
 }
 
-func Flow() {
-	flowQuestion()
-	ticket := config.AppData.Flow.Ticket
+func Branch() {
+	branchQuestion()
+	ticket := config.AppData.Branch.Ticket
+
+	if !config.AppData.Branch.Stash && git_controller.CheckChanges() {
+		fmt.Println("You have uncommited changes, please commit them before creating a new branch")
+		return
+	}
 
 	middleware(func() {
-		switch config.AppData.Flow.Type {
+		switch config.AppData.Branch.Type {
 		case "feature":
 			git.Feature(ticket)
 		case "bugfix":
@@ -55,19 +68,19 @@ func middleware(callBack func()) {
 	events.App.On("cleanup", func(...interface{}) {
 		fmt.Println("Cleaning up")
 
-		if config.AppData.Flow.Stash {
+		if config.AppData.Branch.Stash {
 			git.Switch(originBranch)
 			git.StashApply()
 		}
 	})
 
-	if config.AppData.Flow.Stash {
+	if config.AppData.Branch.Stash {
 		git.Stash("")
 	}
 
 	callBack()
 
-	if config.AppData.Flow.Stash {
+	if config.AppData.Branch.Stash {
 		git.StashApply()
 	}
 }

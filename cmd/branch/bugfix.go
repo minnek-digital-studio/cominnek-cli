@@ -1,4 +1,4 @@
-package flow
+package branch
 
 import (
 	"github.com/Minnek-Digital-Studio/cominnek/config"
@@ -6,14 +6,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var FlowBugfixCmd = &cobra.Command{
+var BranchBugfixCmd = &cobra.Command{
 	Use:   "bugfix <name>",
-	Short: "create a new feature branch",
+	Short: "create a new feature branch from develop",
 	Run: func(cmd *cobra.Command, args []string) {
-		config.AppData.Flow.Type = "bugfix"
-		config.AppData.Flow.Stash = stash
+		config.AppData.Branch.Type = "bugfix"
+		config.AppData.Branch.Stash = stash
 		setTicket(args)
 
-		pkg_action.Flow()
+		pkg_action.Branch()
 	},
 }
