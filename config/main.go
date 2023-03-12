@@ -31,7 +31,7 @@ type IAppData struct {
 		Ticket string
 		Base   string
 	}
-	Flow struct {
+	Branch struct {
 		Type   string
 		Ticket string
 		Stash  bool
