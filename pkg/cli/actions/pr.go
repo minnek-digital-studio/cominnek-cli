@@ -41,5 +41,5 @@ func prQuestions() {
 func PullRequest() {
 	prQuestions()
 
-	github.CreatePullRequest(config.AppData.PullRequest.Ticket, config.AppData.PullRequest.Base)
+	github.NewCreatePullRequest(config.AppData.PullRequest.Ticket, config.AppData.PullRequest.Base)
 }
