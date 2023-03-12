@@ -20,6 +20,27 @@ type NewPullRequest struct {
 	Draft bool
 }
 
+func showExistingPR(prData NewPullRequest) {
+	client := client()
+
+	existing_pr, _, err := client.PullRequests.List(ctx, prData.Owner, prData.Repo, &github.PullRequestListOptions{
+		State: "open",
+		Head:  prData.Head,
+	})
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println("\nExisting PR:")
+
+	for _, pr := range existing_pr {
+		fmt.Println("\t" + pr.GetHTMLURL())
+	}
+	fmt.Println()
+}
+
 func CreatePullRequest(prData NewPullRequest) {
 	loading.Start("Creating pull request ")
 	client := client()
@@ -45,6 +66,11 @@ func CreatePullRequest(prData NewPullRequest) {
 			clearMessageS2 := strings.Replace(clearMessageS1, "]", "", -1)
 			message := fmt.Sprintf("\t%s", clearMessageS2)
 			fmt.Println(message)
+
+			if strings.Contains(message, "A pull request already exists for") {
+				showExistingPR(prData)
+			}
+
 			os.Exit(1)
 		}
 
