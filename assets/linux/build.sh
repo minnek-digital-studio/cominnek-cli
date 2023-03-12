@@ -26,7 +26,7 @@ rm -rf ./build/*
 mkdir -p ${BUILD_DIR}
 
 go mod tidy;
-go build -o ${BUILD_DIR}
+go build -o ${BUILD_DIR} -ldflags=-compressdwarf=false
 
 cd ${BUILD_DIR}
 dh_make --createorig --copyright gpl3 -e isaac@minnekdigital.com --single -y
