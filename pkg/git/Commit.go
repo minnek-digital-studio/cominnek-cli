@@ -14,7 +14,7 @@ import (
 )
 
 func _commit(msg string, body string, ctype string, scope string, ticket string) string {
-	println("\nCommiting files\n")
+	color.Yellow("\nCommiting files\n")
 	cmd := git_controller.Commit(msg, body, ctype, ticket, scope)
 	out, _, err := shell.OutLive(cmd)
 
