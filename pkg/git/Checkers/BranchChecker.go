@@ -7,10 +7,14 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
+	emitterTypes "github.com/Minnek-Digital-Studio/cominnek/pkg/emitters/types"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 	"github.com/fatih/color"
 )
+
+var branchEmmiter = new(emitters.Branch)
 
 func FetchData() {
 	loading.Start("Checking Origin ")
@@ -34,7 +38,7 @@ func GetChanges() {
 func CheckBranch(mainCmd string) {
 	branch := "develop"
 
-	if config.AppData.Branch.Type == "hotfix" ||  config.AppData.Branch.Type == "support" {
+	if config.AppData.Branch.Type == "hotfix" || config.AppData.Branch.Type == "support" {
 		branch = "master"
 	}
 
@@ -55,12 +59,17 @@ func CheckBranch(mainCmd string) {
 		fmt.Println(out)
 		fmt.Println(errout)
 
-		events.App.Emit("cleanup")
+		events.App.Emit("cleanup", err.Error())
 
 		log.Fatal(errout)
 	}
 
 	loading.Stop()
+
+	branchEmmiter.Success(emitterTypes.IBranchEventData{
+		Type:   config.AppData.Branch.Type,
+		Ticket: config.AppData.Branch.Ticket,
+	})
 
 	fmt.Println(out)
 }

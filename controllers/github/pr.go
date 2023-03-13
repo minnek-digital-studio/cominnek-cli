@@ -6,9 +6,12 @@ import (
 	"strings"
 
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/fatih/color"
 	"github.com/google/go-github/v47/github"
 )
+
+var pullRequestEmmiter = new(emitters.PullRequest)
 
 type NewPullRequest struct {
 	Title string
@@ -45,7 +48,7 @@ func showExistingPR(prData NewPullRequest) {
 func CreatePullRequest(prData NewPullRequest) {
 	loading.Start("Creating pull request ")
 	client := client()
-	user := getCurrentUser()
+	user := GetCurrentUser()
 
 	newPR := &github.NewPullRequest{
 		Title:               github.String(prData.Title),
@@ -70,6 +73,9 @@ func CreatePullRequest(prData NewPullRequest) {
 
 			if strings.Contains(message, "A pull request already exists for") {
 				showExistingPR(prData)
+				pullRequestEmmiter.Failed("A pull request already exists for")
+			} else {
+				pullRequestEmmiter.Failed(message)
 			}
 
 			os.Exit(1)
@@ -79,10 +85,12 @@ func CreatePullRequest(prData NewPullRequest) {
 			message := fmt.Sprintf("%v branch does not exist on remote", prData.Head)
 			fmt.Println("\t" + message)
 			fmt.Println("\n" + "use: 'cominnek publish'")
+			pullRequestEmmiter.Failed(message)
 			os.Exit(1)
 		}
 
 		fmt.Println(err)
+		pullRequestEmmiter.Failed(err.Error())
 		os.Exit(1)
 	}
 
@@ -90,10 +98,12 @@ func CreatePullRequest(prData NewPullRequest) {
 
 	if err != nil {
 		fmt.Println(err)
+		pullRequestEmmiter.Failed(err.Error())
 		return
 	}
 
 	loading.Stop()
+	pullRequestEmmiter.Success(pr.GetHTMLURL())
 	color.Yellow("\nPull request created\n")
 	println(pr.GetHTMLURL(), "\n")
 }

@@ -6,9 +6,12 @@ import (
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/github"
 )
+
+var publishEmmiter = new(emitters.Publish)
 
 func publishQuestions() {
 	if config.AppData.Publish.Ticket == "" {
@@ -28,6 +31,7 @@ func publishQuestions() {
 }
 
 func Publish() {
+	publishEmmiter.Init()
 	if !config.AppData.Publish.IgnoreCommit {
 		config.AppData.Publish.IgnoreCommit = !git_controller.CheckChanges()
 	}

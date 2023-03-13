@@ -6,8 +6,11 @@ import (
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/github"
 )
+
+var pullRequestEmmiter = new(emitters.PullRequest)
 
 func prQuestions() {
 	if config.AppData.PullRequest.Ticket == "" {
@@ -40,6 +43,6 @@ func prQuestions() {
 
 func PullRequest() {
 	prQuestions()
-
+	pullRequestEmmiter.Init()
 	github.NewCreatePullRequest(config.AppData.PullRequest.Ticket, config.AppData.PullRequest.Base)
 }
