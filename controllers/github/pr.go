@@ -45,7 +45,7 @@ func showExistingPR(prData NewPullRequest) {
 func CreatePullRequest(prData NewPullRequest) {
 	loading.Start("Creating pull request ")
 	client := client()
-	user := getCurrentUser()
+	user := GetCurrentUser()
 
 	newPR := &github.NewPullRequest{
 		Title:               github.String(prData.Title),
