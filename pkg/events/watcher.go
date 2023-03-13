@@ -11,6 +11,7 @@ var commitNames = new(eventNames.Commit)
 var pushNames = new(eventNames.Push)
 var branchNames = new(eventNames.Branch)
 var publishNames = new(eventNames.Publish)
+var pullRequest = new(eventNames.PullRequest)
 
 func Watcher() {
 	App.On("init:root", func(payload ...interface{}) {
@@ -84,6 +85,23 @@ func Watcher() {
 		message := payload[0].(string)
 
 		println(publishNames.Success())
+		println(message)
+	})
+
+	//! Pull Request
+	App.On(pullRequest.Init(), func(payload ...interface{}) {
+		println(pullRequest.Init())
+	})
+	App.On(pullRequest.Failed(), func(payload ...interface{}) {
+		err := payload[0].(string)
+
+		println(pullRequest.Failed())
+		println(err)
+	})
+	App.On(pullRequest.Success(), func(payload ...interface{}) {
+		message := payload[0].(string)
+
+		println(pullRequest.Success())
 		println(message)
 	})
 }
