@@ -35,7 +35,7 @@ func CheckChanges() bool {
 	return true
 }
 
-func Commit(msg string, _body string, ctype string, tiket string, scope string) string {
+func Commit(msg string, _body string, ctype string, tiket string, scope string) (string, string) {
 	trimScope := strings.TrimSpace(scope)
 	body := strings.TrimSpace(_body)
 	commit_message := _getCommitMessage(msg, ctype, tiket, trimScope)
@@ -46,5 +46,5 @@ func Commit(msg string, _body string, ctype string, tiket string, scope string) 
 		command = fmt.Sprintf("git commit %v -m \"%v\"", commit_message, body)
 	}
 
-	return command
+	return command, strings.Replace(commit_message, "-m ", "", 1)
 }
