@@ -13,6 +13,7 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 	"github.com/fatih/color"
+	"github.com/hashicorp/go-version"
 )
 
 var currentVersion = config.Public.Version
@@ -23,7 +24,10 @@ var maxToCheck = 10
 func CheckUpdates(printMessage bool) bool {
 	latestVersion := github_controller.GetLatestVersion()
 
-	if currentVersion != latestVersion {
+	_current, _ := version.NewVersion(currentVersion)
+	_latest, _ := version.NewVersion(latestVersion)
+	
+	if _current.LessThan(_latest) {
 		if printMessage {
 			fmt.Print("\n\n")
 			color.HiYellow("🎉🎉🎉 A new version of cominnek is available! 🎉🎉🎉")
