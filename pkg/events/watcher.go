@@ -3,6 +3,7 @@ package events
 import eventNames "github.com/Minnek-Digital-Studio/cominnek/pkg/events/names"
 
 var commitNames = new(eventNames.Commit)
+var pushNames = new(eventNames.Push)
 
 func Watcher(){
 	App.On("init:root", func(payload ...interface{}) {
@@ -24,4 +25,20 @@ func Watcher(){
 		println(commitNames.Success())
 		println(message)
 	});
+
+	App.On(pushNames.Init(), func(payload ...interface{}) {
+		println(pushNames.Init())
+	})
+	App.On(pushNames.Failed(), func(payload ...interface{}) {
+		err := payload[0].(string)
+
+		println(pushNames.Failed())
+		println(err)
+	})
+	App.On(pushNames.Success(), func(payload ...interface{}) {
+		message := payload[0].(string)
+
+		println(pushNames.Success())
+		println(message)
+	})
 }
