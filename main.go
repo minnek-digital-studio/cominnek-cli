@@ -16,24 +16,32 @@ func init() {
 }
 
 func main() {
+	verChan := make(chan bool)
+	emmitChan := make(chan bool)
+
 	helper.PrintName()
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 	logger.PrintLn(color.HiRedString("!!!!!"), color.HiYellowString("Logs Are Enable"), color.HiRedString("!!!!!!"))
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 	config.Defaults()
-	
-	c := make(chan bool)
+
+	go func() {
+		if !cmd.IgnoreCheckVersion {
+			controllers.CheckUpdates()
+		}
+		verChan <- true
+	}()
 
 	go func() {
 		emitters.RootEmitter()
-		c <- true
+		emmitChan <- true
 	}()
 
 	cmd.Execute()
 
-	if !cmd.IgnoreCheckVersion {
-		controllers.CheckUpdates(true)
+	if !cmd.IgnoreCheckVersion && <-verChan {
+		controllers.PrintUpdateMessage()
 	}
 
-	<-c
+	<-emmitChan
 }
