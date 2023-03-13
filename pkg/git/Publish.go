@@ -4,9 +4,12 @@ import (
 	"log"
 
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 	"github.com/fatih/color"
 )
+
+var publishEmmiter = new(emitters.Publish)
 
 func PushPublish() {
 	color.Yellow("\nPushing to remote\n")
@@ -16,5 +19,6 @@ func PushPublish() {
 
 	if err != nil {
 		log.Fatal("Error pushing to remote")
+		publishEmmiter.Failed(err.Error())
 	}
 }

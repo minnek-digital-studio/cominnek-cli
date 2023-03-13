@@ -6,8 +6,11 @@ import (
 
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 )
+
+var publishEmmiter = new(emitters.Publish)
 
 func _checkBranch() []string {
 	var branch []string
@@ -42,5 +45,6 @@ func NewCreatePullRequest(ticket string, baseBranch string) {
 func Publish(ticket string) {
 	git.PushPublish()
 	NewCreatePullRequest(ticket, "")
+	publishEmmiter.Success("Publish complete")
 	log.Println("Publish complete")
 }

@@ -10,6 +10,7 @@ import (
 var commitNames = new(eventNames.Commit)
 var pushNames = new(eventNames.Push)
 var branchNames = new(eventNames.Branch)
+var publishNames = new(eventNames.Publish)
 
 func Watcher() {
 	App.On("init:root", func(payload ...interface{}) {
@@ -67,5 +68,22 @@ func Watcher() {
 
 		println(branchNames.Success())
 		fmt.Printf("%+v\n", data)
+	})
+
+	//! Publish
+	App.On(publishNames.Init(), func(payload ...interface{}) {
+		println(publishNames.Init())
+	})
+	App.On(publishNames.Failed(), func(payload ...interface{}) {
+		err := payload[0].(string)
+
+		println(publishNames.Failed())
+		println(err)
+	})
+	App.On(publishNames.Success(), func(payload ...interface{}) {
+		message := payload[0].(string)
+
+		println(publishNames.Success())
+		println(message)
 	})
 }
