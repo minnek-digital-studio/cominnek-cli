@@ -18,7 +18,7 @@ import (
 )
 
 var commitRaw []string
-var commiteEmmiter = new(emitters.Commit)
+var commitEmmiter = new(emitters.Commit)
 
 func getLists(unstaged, list []string) (defaults []string, listUnstaged []string) {
 	if len(unstaged) == len(list) {
@@ -105,7 +105,7 @@ func processFiles(raw []string, unstaged []string, list []string) (newList []str
 		errMsg := "No files to commit"
 		loading.Stop()
 		println(errMsg + " ✅")
-		commiteEmmiter.Failed(errMsg)
+		commitEmmiter.Failed(errMsg)
 		os.Exit(0)
 		return
 	}
@@ -201,7 +201,7 @@ func executeCommit() {
 }
 
 func Commit(exec bool) {
-	commiteEmmiter.Init()
+	commitEmmiter.Init()
 	raw := []string{}
 	list := []string{}
 	currentBranch := git_controller.GetCurrentBranch()

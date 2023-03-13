@@ -14,7 +14,7 @@ import (
 	"github.com/fatih/color"
 )
 
-var commiteEmmiter = new(emitters.Commit)
+var commitEmmiter = new(emitters.Commit)
 
 func _commit(msg string, body string, ctype string, scope string, ticket string) string {
 	color.Yellow("\nCommiting files\n")
@@ -26,15 +26,15 @@ func _commit(msg string, body string, ctype string, scope string, ticket string)
 
 		if strings.Contains(out, "nothing to commit") {
 			fmt.Println("\nAborting commit...")
-			commiteEmmiter.Failed("Nothing to commit")
+			commitEmmiter.Failed("Nothing to commit")
 			os.Exit(1)
 		} else {
-			commiteEmmiter.Failed(out)
+			commitEmmiter.Failed(out)
 			log.Fatal("Commit failed")
 		}
 	}
 
-	commiteEmmiter.Success(message)
+	commitEmmiter.Success(message)
 
 	return out
 }
@@ -44,7 +44,7 @@ func _checkTicket(ticket string) string {
 		loading.Stop()
 		if !controllers.Confirm("No ticket number found. Commit anyway?", false) {
 			fmt.Println("Aborting commit")
-			commiteEmmiter.Failed("Aborted by user")
+			commitEmmiter.Failed("Aborted by user")
 			os.Exit(0)
 		}
 
@@ -65,7 +65,7 @@ func Commit(msg string, body string, ctype string, scope string) {
 			color.HiRed("Error:")
 			log.Fatal(errorMsg)
 
-			commiteEmmiter.Failed(errorMsg)
+			commitEmmiter.Failed(errorMsg)
 
 			os.Exit(1)
 		}
