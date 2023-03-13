@@ -8,10 +8,14 @@ import (
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
+	emitterTypes "github.com/Minnek-Digital-Studio/cominnek/pkg/emitters/types"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 	"github.com/fatih/color"
 )
+
+var branchEmmiter = new(emitters.Branch)
 
 func branchQuestion() {
 	fmt.Println()
@@ -53,9 +57,19 @@ func branchQuestion() {
 func Branch() {
 	branchQuestion()
 	ticket := config.AppData.Branch.Ticket
+	data := emitterTypes.IBranchEventData{
+		Type:   config.AppData.Branch.Type,
+		Ticket: ticket,
+	}
+
+	branchEmmiter.Init(data)
 
 	if !config.AppData.Branch.Stash && git_controller.CheckChanges() {
 		fmt.Println("You have uncommited changes, please commit them before creating a new branch")
+		branchEmmiter.Failed(emitterTypes.IBranchFailedData{
+			Error: "Uncommited changes",
+			Data:  data,
+		})
 		return
 	}
 
@@ -82,7 +96,8 @@ func middleware(callBack func()) {
 	originBranch := git_controller.GetCurrentBranch()
 	loading.Stop()
 
-	events.App.On("cleanup", func(...interface{}) {
+	events.App.On("cleanup", func(payload ...interface{}) {
+		originErr := payload[0].(string)
 		fmt.Println("Cleaning up")
 
 		if config.AppData.Branch.Stash {
@@ -91,6 +106,13 @@ func middleware(callBack func()) {
 		}
 
 		color.Red("Branch creation failed")
+		branchEmmiter.Failed(emitterTypes.IBranchFailedData{
+			Error: "Branch creation failed: " + originErr,
+			Data: emitterTypes.IBranchEventData{
+				Ticket: config.AppData.Branch.Ticket,
+				Type:   config.AppData.Branch.Type,
+			},
+		})
 	})
 
 	if config.AppData.Branch.Stash {
