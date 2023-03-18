@@ -15,7 +15,7 @@ import (
 	"github.com/fatih/color"
 )
 
-var branchEmmiter = new(emitters.Branch)
+var branchEmitter = new(emitters.Branch)
 
 func branchQuestion() {
 	fmt.Println()
@@ -62,12 +62,12 @@ func Branch() {
 		Ticket: ticket,
 	}
 
-	branchEmmiter.Init(data)
+	branchEmitter.Init(data)
 
 	if !config.AppData.Branch.Stash && git_controller.CheckChanges() {
-		fmt.Println("You have uncommited changes, please commit them before creating a new branch")
-		branchEmmiter.Failed(emitterTypes.IBranchFailedData{
-			Error: "Uncommited changes",
+		fmt.Println("You have uncommitted changes, please commit them before creating a new branch")
+		branchEmitter.Failed(emitterTypes.IBranchFailedData{
+			Error: "Uncommitted changes",
 			Data:  data,
 		})
 		return
@@ -106,7 +106,7 @@ func middleware(callBack func()) {
 		}
 
 		color.Red("Branch creation failed")
-		branchEmmiter.Failed(emitterTypes.IBranchFailedData{
+		branchEmitter.Failed(emitterTypes.IBranchFailedData{
 			Error: "Branch creation failed: " + originErr,
 			Data: emitterTypes.IBranchEventData{
 				Ticket: config.AppData.Branch.Ticket,
