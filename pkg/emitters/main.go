@@ -10,6 +10,10 @@ import (
 )
 
 func RootEmitter() {
+	if !git_controller.CheckGitRepo() {
+		return
+	}
+
 	pwd, _ := os.Getwd()
 	events.App.Emit("init:root", &emitterTypes.IRootEmitter{
 		Ticket: git_controller.GetTicketNumber(),
