@@ -60,3 +60,8 @@ func getOrigin() *IOriginInfo {
 		Repo:     repo,
 	}
 }
+	
+func CheckGitRepo() bool {
+    _, _, err := shell.Out("git rev-parse --is-inside-work-tree")
+    return err == nil
+}
