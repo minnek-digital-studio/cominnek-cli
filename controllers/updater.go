@@ -13,30 +13,36 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 	"github.com/fatih/color"
+	"github.com/hashicorp/go-version"
 )
 
 var currentVersion = config.Public.Version
 var allOk = true
 var osName = runtime.GOOS
 var maxToCheck = 10
+var showUpdateMessage bool
+var latestVersion string
 
-func CheckUpdates(printMessage bool) bool {
-	latestVersion := github_controller.GetLatestVersion()
+func CheckUpdates() bool {
+	latestVersion = github_controller.GetLatestVersion()
 
-	if currentVersion != latestVersion {
-		if printMessage {
-			fmt.Print("\n\n")
-			color.HiYellow("🎉🎉🎉 A new version of cominnek is available! 🎉🎉🎉")
-			fmt.Println(color.MagentaString(currentVersion), "→ ", color.GreenString(latestVersion))
-			fmt.Print("\n")
-			fmt.Println("Run", color.HiGreenString("'cominnek update'"), "to update or download the latest version from:")
-			color.HiBlue("https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/")
-		}
+	_current, _ := version.NewVersion(currentVersion)
+	_latest, _ := version.NewVersion(latestVersion)
 
-		return true
+	showUpdateMessage = _current.LessThan(_latest)
+
+	return showUpdateMessage
+}
+
+func PrintUpdateMessage() {
+	if showUpdateMessage {
+		fmt.Print("\n\n")
+		color.HiYellow("🎉🎉🎉 A new version of cominnek is available! 🎉🎉🎉")
+		fmt.Println(color.MagentaString(currentVersion), "→ ", color.GreenString(latestVersion))
+		fmt.Print("\n")
+		fmt.Println("Run", color.HiGreenString("'cominnek update'"), "to update or download the latest version from:")
+		color.HiBlue("https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/")
 	}
-
-	return false
 }
 
 func checkDistToUnmount(mountOut string, firstNumber int, lastNumber int) string {
@@ -150,7 +156,7 @@ func installUpdates(route string, fileName string) {
 }
 
 func Update() {
-	if !CheckUpdates(false) {
+	if !CheckUpdates() {
 		fmt.Println("🥳🎈 You are using the latest version of cominnek")
 		return
 	}

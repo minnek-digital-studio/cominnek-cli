@@ -12,11 +12,13 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/logger"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 	"github.com/fatih/color"
 )
 
 var commitRaw []string
+var commitEmmiter = new(emitters.Commit)
 
 func getLists(unstaged, list []string) (defaults []string, listUnstaged []string) {
 	if len(unstaged) == len(list) {
@@ -100,8 +102,10 @@ func addToStage(raw []string) {
 
 func processFiles(raw []string, unstaged []string, list []string) (newList []string, changesMsg string, defaults []string) {
 	if len(raw) == 0 {
+		errMsg := "No files to commit"
 		loading.Stop()
-		println("No changes to commit ✅")
+		println(errMsg + " ✅")
+		commitEmmiter.Failed(errMsg)
 		os.Exit(0)
 		return
 	}
@@ -197,6 +201,7 @@ func executeCommit() {
 }
 
 func Commit(exec bool) {
+	commitEmmiter.Init()
 	raw := []string{}
 	list := []string{}
 	currentBranch := git_controller.GetCurrentBranch()

@@ -6,20 +6,42 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/controllers"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/logger"
 	"github.com/Minnek-Digital-Studio/cominnek/helper"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 	"github.com/fatih/color"
 )
 
-func main() {
-	helper.PrintName()
+func init() {
+	events.Watcher()
+}
 
+func main() {
+	verChan := make(chan bool)
+	emmitChan := make(chan bool)
+
+	helper.PrintName()
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 	logger.PrintLn(color.HiRedString("!!!!!"), color.HiYellowString("Logs Are Enable"), color.HiRedString("!!!!!!"))
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
-
 	config.Defaults()
+
+	go func() {
+		if !cmd.IgnoreCheckVersion {
+			controllers.CheckUpdates()
+		}
+		verChan <- true
+	}()
+
+	go func() {
+		emitters.RootEmitter()
+		emmitChan <- true
+	}()
+
 	cmd.Execute()
 
-	if !cmd.IgnoreCheckVersion {
-		controllers.CheckUpdates(true)
+	if !cmd.IgnoreCheckVersion && <-verChan {
+		controllers.PrintUpdateMessage()
 	}
+
+	<-emmitChan
 }

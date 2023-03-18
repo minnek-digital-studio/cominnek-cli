@@ -6,6 +6,7 @@ require (
 	github.com/AlecAivazis/survey/v2 v2.3.6
 	github.com/common-nighthawk/go-figure v0.0.0-20210622060536-734e95fb86be
 	github.com/google/go-github/v47 v47.1.1-0.20220922183808-8a4bdb5e400f
+	github.com/hashicorp/go-version v1.6.0
 	github.com/inancgumus/screen v0.0.0-20190314163918-06e984b86ed3
 	github.com/schollz/progressbar/v3 v3.11.0
 	github.com/spf13/cobra v1.5.0
