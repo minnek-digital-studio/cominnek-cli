@@ -35,10 +35,10 @@ func CheckChanges() bool {
 	return true
 }
 
-func Commit(msg string, _body string, ctype string, tiket string, scope string) (string, string) {
+func Commit(msg string, _body string, ctype string, ticket string, scope string) (string, string) {
 	trimScope := strings.TrimSpace(scope)
 	body := strings.TrimSpace(_body)
-	commit_message := _getCommitMessage(msg, ctype, tiket, trimScope)
+	commit_message := _getCommitMessage(msg, ctype, ticket, trimScope)
 
 	command := fmt.Sprintf("git commit %v", commit_message)
 
