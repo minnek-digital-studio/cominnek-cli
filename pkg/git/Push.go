@@ -9,7 +9,7 @@ import (
 	"github.com/fatih/color"
 )
 
-var pushEmmiter = new(emitters.Push)
+var pushEmitter = new(emitters.Push)
 
 func _push() {
 	color.Yellow("\nPushing to remote\n")
@@ -18,17 +18,17 @@ func _push() {
 
 	if err != nil {
 		if outErr != "" {
-			pushEmmiter.Failed(outErr)
+			pushEmitter.Failed(outErr)
 		}
 
 		if out != "" {
-			pushEmmiter.Failed(out)
+			pushEmitter.Failed(out)
 		}
 
 		log.Fatal("Error pushing to remote")
 	}
 
-	pushEmmiter.Success("Pushed to remote")
+	pushEmitter.Success("Pushed to remote")
 }
 
 func Push() {

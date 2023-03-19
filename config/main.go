@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 	"path/filepath"
+	"time"
 )
 
 type ICommit struct {
@@ -11,6 +12,7 @@ type ICommit struct {
 
 type IAppData struct {
 	Action string
+	Start  time.Time
 	Commit struct {
 		Message string
 		Files   []string
@@ -41,6 +43,13 @@ type IAppData struct {
 	}
 	Merge struct {
 		Branch string
+	}
+	Reset struct {
+		Type string
+		Commit string
+		Number string
+		Target string
+		Confirm bool
 	}
 }
 

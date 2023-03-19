@@ -18,6 +18,7 @@ func askActions() {
 		"Publish",
 		"Push",
 		"Stash",
+		"Reset",
 		"Exit",
 	}
 
@@ -58,5 +59,9 @@ func askActions() {
 
 	if config.AppData.Action == "Merge" {
 		pkg_action.Merge()
+	}
+
+	if config.AppData.Action == "Reset" {
+		pkg_action.Reset()
 	}
 }

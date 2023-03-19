@@ -14,10 +14,10 @@ import (
 	"github.com/fatih/color"
 )
 
-var commitEmmiter = new(emitters.Commit)
+var commitEmitter = new(emitters.Commit)
 
 func _commit(msg string, body string, ctype string, scope string, ticket string) string {
-	color.Yellow("\nCommiting files\n")
+	color.Yellow("\nCommitting files\n")
 	cmd, message := git_controller.Commit(msg, body, ctype, ticket, scope)
 	out, _, err := shell.OutLive(cmd)
 
@@ -26,15 +26,15 @@ func _commit(msg string, body string, ctype string, scope string, ticket string)
 
 		if strings.Contains(out, "nothing to commit") {
 			fmt.Println("\nAborting commit...")
-			commitEmmiter.Failed("Nothing to commit")
+			commitEmitter.Failed("Nothing to commit")
 			os.Exit(1)
 		} else {
-			commitEmmiter.Failed(out)
+			commitEmitter.Failed(out)
 			log.Fatal("Commit failed")
 		}
 	}
 
-	commitEmmiter.Success(message)
+	commitEmitter.Success(message)
 
 	return out
 }
@@ -44,18 +44,18 @@ func _checkTicket(ticket string) string {
 		loading.Stop()
 		if !controllers.Confirm("No ticket number found. Commit anyway?", false) {
 			fmt.Println("Aborting commit")
-			commitEmmiter.Failed("Aborted by user")
+			commitEmitter.Failed("Aborted by user")
 			os.Exit(0)
 		}
 
-		loading.Start("Commiting files ")
+		loading.Start("Committing files ")
 	}
 
 	return ticket
 }
 
 func Commit(msg string, body string, ctype string, scope string) {
-	loading.Start("Commiting files ")
+	loading.Start("Committing files ")
 	currentBranch := git_controller.GetCurrentBranch()
 
 	if strings.HasPrefix(currentBranch, "bugfix/") {
@@ -65,7 +65,7 @@ func Commit(msg string, body string, ctype string, scope string) {
 			color.HiRed("Error:")
 			log.Fatal(errorMsg)
 
-			commitEmmiter.Failed(errorMsg)
+			commitEmitter.Failed(errorMsg)
 
 			os.Exit(1)
 		}
@@ -79,4 +79,35 @@ func Commit(msg string, body string, ctype string, scope string) {
 
 func CommitWithoutTicket(msg string, body string, ctype string, scope string) {
 	_commit(msg, body, ctype, scope, "")
+}
+
+func GetAllCommits() []string {
+	out, _, err := shell.Out("git log --pretty=format:'%h: %s - %an, %ar'")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return strings.Split(out, "\n")
+}
+
+func GetCommitHash(msg string) string {
+	return strings.Split(msg, ":")[0]
+}
+
+func ValidateCommitHash(hash string) bool {
+	_, _, err := shell.Out("git rev-parse --verify " + hash)
+
+	return err == nil
+}
+
+func GetCommitByHash(hash string) string {
+	cmd := fmt.Sprintf("git log --pretty=oneline --pretty=format:'%%h: %%s' %s | grep %s", hash, hash)
+	out, _, err := shell.Out(cmd)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return out
 }
