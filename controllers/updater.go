@@ -24,6 +24,10 @@ var showUpdateMessage bool
 var latestVersion string
 
 func CheckUpdates() bool {
+	if !Connected() {
+		return false
+	}
+
 	latestVersion = github_controller.GetLatestVersion()
 
 	_current, _ := version.NewVersion(currentVersion)
@@ -156,6 +160,11 @@ func installUpdates(route string, fileName string) {
 }
 
 func Update() {
+	if !Connected() {
+		fmt.Println("🤔 You are not connected to the internet")
+		return
+	}
+
 	if !CheckUpdates() {
 		fmt.Println("🥳🎈 You are using the latest version of cominnek")
 		return
