@@ -2,6 +2,7 @@ package pkg_action
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/Minnek-Digital-Studio/cominnek/config"
@@ -73,28 +74,45 @@ func Branch() {
 		return
 	}
 
-	middleware(func() {
+	middleware(func(exec bool) string {
+		var branch string;
 		switch config.AppData.Branch.Type {
 		case "feature":
-			git.Feature(ticket)
+			branch = git.Feature(ticket, exec)
 		case "bugfix":
-			git.Bugfix(ticket)
+			branch = git.Bugfix(ticket, exec)
 		case "hotfix":
-			git.HotFix(ticket)
+			branch = git.HotFix(ticket, exec)
 		case "release":
-			git.Release(ticket)
+			branch = git.Release(ticket, exec)
 		case "support":
-			git.Support(ticket)
+			branch = git.Support(ticket, exec)
 		case "test":
-			git.Test(ticket)
+			branch = git.Test(ticket, exec)
 		}
+
+		return branch
 	})
 }
 
-func middleware(callBack func()) {
+func middleware(callBack func(exe bool) string) {
 	loading.Start("Getting current branch...")
 	originBranch := git_controller.GetCurrentBranch()
 	loading.Stop()
+
+	branch := callBack(false)
+
+	if git_controller.CheckBranchExist(branch) {
+		color.Red("Branch already exists")
+		branchEmitter.Failed(emitterTypes.IBranchFailedData{
+			Error: "Branch already exists",
+			Data: emitterTypes.IBranchEventData{
+				Ticket: config.AppData.Branch.Ticket,
+				Type:   config.AppData.Branch.Type,
+			},
+		})
+		os.Exit(1)
+	}
 
 	events.App.On("cleanup", func(payload ...interface{}) {
 		originErr := payload[0].(string)
@@ -119,7 +137,7 @@ func middleware(callBack func()) {
 		git.Stash("")
 	}
 
-	callBack()
+	callBack(true)
 
 	color.Green("Branch created successfully")
 
