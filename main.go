@@ -6,6 +6,7 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/cmd"
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/logger"
 	"github.com/Minnek-Digital-Studio/cominnek/helper"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
@@ -23,6 +24,16 @@ func main() {
 	emitChan := make(chan bool)
 
 	helper.PrintName()
+
+	loading.Start("Loading internal modules")
+
+	if !controllers.Connected() {
+		loading.Stop()
+		color.Yellow("We are not able to connect to the internet, some features may not work")
+	}
+
+	loading.Stop()
+
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 	logger.PrintLn(color.HiRedString("!!!!!"), color.HiYellowString("Logs Are Enable"), color.HiRedString("!!!!!!"))
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
