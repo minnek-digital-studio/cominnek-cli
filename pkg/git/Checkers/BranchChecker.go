@@ -14,7 +14,7 @@ import (
 	"github.com/fatih/color"
 )
 
-var branchEmmiter = new(emitters.Branch)
+var branchEmitter = new(emitters.Branch)
 
 func FetchData() {
 	loading.Start("Checking Origin ")
@@ -66,7 +66,7 @@ func CheckBranch(mainCmd string) {
 
 	loading.Stop()
 
-	branchEmmiter.Success(emitterTypes.IBranchEventData{
+	branchEmitter.Success(emitterTypes.IBranchEventData{
 		Type:   config.AppData.Branch.Type,
 		Ticket: config.AppData.Branch.Ticket,
 	})
