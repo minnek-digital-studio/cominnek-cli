@@ -42,6 +42,9 @@ type IAppData struct {
 	Merge struct {
 		Branch string
 	}
+	Clone struct {
+		Url string
+	}
 }
 
 type IConfig struct {
