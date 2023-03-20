@@ -15,6 +15,7 @@ func RootEmitter() {
 	}
 
 	pwd, _ := os.Getwd()
+	git_controller.SkipError = true
 	events.App.Emit("init:root", &emitterTypes.IRootEmitter{
 		Ticket: git_controller.GetTicketNumber(),
 		Branch: git_controller.GetCurrentBranch(),
