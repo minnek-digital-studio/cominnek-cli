@@ -51,6 +51,12 @@ type IAppData struct {
 		Target string
 		Confirm bool
 	}
+	Clone struct {
+		Url string
+	}
+	CreateRepo struct {
+		Name string
+	}
 }
 
 type IConfig struct {

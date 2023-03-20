@@ -12,13 +12,22 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
 )
 
+func getCurrentShell() string {
+	shell := os.Getenv("SHELL")
+	if shell == "" {
+		shell = "/bin/sh"
+	}
+
+	return shell
+}
+
 func getShell() string {
 	os := runtime.GOOS
 	if os == "windows" {
 		return "powershell"
 	}
 
-	return "bash"
+	return getCurrentShell()
 }
 
 var shellToUse = getShell()
@@ -41,7 +50,7 @@ func OutLive(command string) (string, string, error) {
 	var stdoutBuf, stderrBuf bytes.Buffer
 	cmd.Stdout = io.MultiWriter(os.Stdout, &stdoutBuf)
 	cmd.Stderr = io.MultiWriter(os.Stderr, &stderrBuf)
-	
+
 	err := cmd.Run()
 	outStr, errStr := stdoutBuf.String(), stderrBuf.String()
 

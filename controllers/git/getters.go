@@ -1,21 +1,27 @@
 package git_controller
 
 import (
-	"fmt"
-	"log"
+	"os"
 	"strings"
 
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
+	"github.com/fatih/color"
 )
+
+var SkipError bool = false
 
 func GetCurrentBranch() string {
 	cmd := "git rev-parse --abbrev-ref HEAD"
-	out, errout, err := shell.Out(cmd)
+	out, _, err := shell.Out(cmd)
 
 	if err != nil {
-		fmt.Println(out)
-		fmt.Println(errout)
-		log.Fatal(errout)
+		if SkipError {
+			return ""
+		}
+
+		color.Red("Something went wrong getting the current branch.")
+		println("This may be because you don't have any commits yet, try making your first commit.")
+		os.Exit(1)
 	}
 
 	return strings.TrimSpace(out)
