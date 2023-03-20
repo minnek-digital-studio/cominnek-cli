@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"runtime"
 	"strings"
 
 	"github.com/Minnek-Digital-Studio/cominnek/controllers"
@@ -102,7 +103,14 @@ func ValidateCommitHash(hash string) bool {
 }
 
 func GetCommitByHash(hash string) string {
-	cmd := fmt.Sprintf("git log --pretty=oneline --pretty=format:'%%h: %%s' %s | grep %s", hash, hash)
+	os := runtime.GOOS
+	grepCmd := "grep"
+
+	if os == "windows" {
+		grepCmd = "Select-String"
+	}
+
+	cmd := fmt.Sprintf("git log --pretty=oneline --pretty=format:'%%h: %%s' %s | " + grepCmd + " %s", hash, hash)
 	out, _, err := shell.Out(cmd)
 
 	if err != nil {
