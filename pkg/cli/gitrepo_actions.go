@@ -30,4 +30,8 @@ func askActionsRepo() {
 	if config.AppData.Action == "Clone Repo" {
 		pkg_action.Clone()
 	}
+
+	if config.AppData.Action == "Create Repo" {
+		pkg_action.CreateRepo()
+	}
 }

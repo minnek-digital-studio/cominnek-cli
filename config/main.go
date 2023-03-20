@@ -45,6 +45,9 @@ type IAppData struct {
 	Clone struct {
 		Url string
 	}
+	CreateRepo struct {
+		Name string
+	}
 }
 
 type IConfig struct {
