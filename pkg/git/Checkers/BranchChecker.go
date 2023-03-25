@@ -3,6 +3,7 @@ package checkers
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
@@ -40,6 +41,12 @@ func CheckBranch(mainCmd string) {
 
 	if config.AppData.Branch.Type == "hotfix" || config.AppData.Branch.Type == "support" {
 		branch = "master"
+	}
+
+	if !git_controller.CheckBranchExist(branch) {
+		println("Sorry but the branch " + branch + " does not exist")
+		println("Run \""+ color.GreenString("git branch "+ branch )+"\" " + " to create it")
+		os.Exit(1)
 	}
 
 	if !git_controller.CheckIfBranch(branch) {
