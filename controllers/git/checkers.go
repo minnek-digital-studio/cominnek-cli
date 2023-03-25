@@ -31,3 +31,8 @@ func CheckChangesFromOrigin() bool {
 	ready := strings.Contains(out, "Your branch is up to date")
 	return !ready
 }
+
+func CheckBranchExist(branch string) bool {
+	_, _, err := shell.Out("git rev-parse --verify " + branch)
+	return err == nil
+}

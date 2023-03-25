@@ -5,32 +5,50 @@ import (
 	checkers "github.com/Minnek-Digital-Studio/cominnek/pkg/git/Checkers"
 )
 
-func Feature(ticket string) {
-	cmd := git_controller.Feature(ticket)
-	checkers.CheckBranch(cmd)
+func Feature(ticket string, execute bool) string {
+	cmd, branch := git_controller.Feature(ticket)
+	if(execute) {
+		checkers.CheckBranch(cmd)
+	}
+	return branch
 }
 
-func Bugfix(ticket string) {
-	cmd := git_controller.Bugfix(ticket)
-	checkers.CheckBranch(cmd)
+func Bugfix(ticket string, execute bool) string {
+	cmd, branch := git_controller.Bugfix(ticket)
+	if(execute) {
+		checkers.CheckBranch(cmd)
+	}
+	return branch
 }
 
-func HotFix(ticket string) {
-	cmd := git_controller.Hotfix(ticket)
-	checkers.CheckBranch(cmd)
+func HotFix(ticket string, execute bool) string {
+	cmd, branch := git_controller.Hotfix(ticket)
+	if(execute) {
+		checkers.CheckBranch(cmd)
+	}
+	return branch
 }
 
-func Release(ticket string) {
-	cmd := git_controller.Release(ticket)
-	checkers.CheckBranch(cmd)
+func Release(ticket string, execute bool) string {
+	cmd, branch := git_controller.Release(ticket)
+	if(execute) {
+		checkers.CheckBranch(cmd)
+	}
+	return branch
 }
 
-func Support(ticket string) {
-	cmd := git_controller.Support(ticket)
-	checkers.CheckBranch(cmd)
+func Support(ticket string, execute bool) string {
+	cmd, branch := git_controller.Support(ticket)
+	if(execute) {
+		checkers.CheckBranch(cmd)
+	}
+	return branch
 }
 
-func Test(ticket string) {
-	cmd := git_controller.Test(ticket)
-	checkers.CheckBranch(cmd)
+func Test(ticket string, execute bool) string {
+	cmd, branch := git_controller.Test(ticket)
+	if(execute) {
+		checkers.CheckBranch(cmd)
+	}
+	return branch
 }
