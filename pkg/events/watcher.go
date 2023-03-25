@@ -9,6 +9,7 @@ var pushNames = new(eventNames.Push)
 var branchNames = new(eventNames.Branch)
 var publishNames = new(eventNames.Publish)
 var pullRequest = new(eventNames.PullRequest)
+var resetNames = new(eventNames.Reset)
 
 func Watcher() {
 	App.On("init:root", func(payload ...interface{}) {})
@@ -37,4 +38,9 @@ func Watcher() {
 	App.On(pullRequest.Init(), func(payload ...interface{}) {})
 	App.On(pullRequest.Failed(), func(payload ...interface{}) {})
 	App.On(pullRequest.Success(), func(payload ...interface{}) {})
+
+	//! Reset
+	App.On(resetNames.Init(), func(payload ...interface{}) {})
+	App.On(resetNames.Failed(), func(payload ...interface{}) {})
+	App.On(resetNames.Success(), func(payload ...interface{}) {})
 }
