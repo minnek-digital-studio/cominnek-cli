@@ -3,6 +3,7 @@ package checkers
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
@@ -37,6 +38,28 @@ func GetChanges() {
 
 func CheckBranch(mainCmd string) {
 	branch := "develop"
+
+	if !git_controller.CheckBranchExist(branch) {
+		println("\nBranch develop not found\n")
+		
+		if !git_controller.CheckBranchExist("master") {
+			println("\nBranch master not found\n")
+			color.Red("Please create a master branch first\n")
+			os.Exit(1)
+		}
+		
+		if !git_controller.CheckBranchExistOnOrigin("develop") {
+			println("\nBranch develop not found on origin\n")
+			color.Yellow("Creating a new branch \n")
+			shell.ExecuteCommand("git branch develop master", false)
+			shell.ExecuteCommand("git checkout develop", false)
+			shell.ExecuteCommand("git push origin develop", false)
+			color.Green("\nBranch develop created\n\n")
+		} else {
+			color.Yellow("Getting branch develop from origin\n")
+			shell.ExecuteCommand("git checkout develop", false)
+		}
+	}
 
 	if config.AppData.Branch.Type == "hotfix" || config.AppData.Branch.Type == "support" {
 		branch = "master"
