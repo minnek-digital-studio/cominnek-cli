@@ -1,6 +1,8 @@
 package main
 
 import (
+	"time"
+
 	"github.com/Minnek-Digital-Studio/cominnek/cmd"
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers"
@@ -13,11 +15,12 @@ import (
 
 func init() {
 	events.Watcher()
+	config.AppData.Start = time.Now()
 }
 
 func main() {
 	verChan := make(chan bool)
-	emmitChan := make(chan bool)
+	emitChan := make(chan bool)
 
 	helper.PrintName()
 	logger.PrintLn(color.HiRedString("!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
@@ -34,7 +37,7 @@ func main() {
 
 	go func() {
 		emitters.RootEmitter()
-		emmitChan <- true
+		emitChan <- true
 	}()
 
 	cmd.Execute()
@@ -43,5 +46,7 @@ func main() {
 		controllers.PrintUpdateMessage()
 	}
 
-	<-emmitChan
+	<-emitChan
+
+	println("Done in", time.Since(config.AppData.Start).String())
 }
