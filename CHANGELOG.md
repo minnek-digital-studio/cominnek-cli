@@ -1,3 +1,8 @@
+# [3.0.0-beta.2] - 2023-03-25
+## Fixed
+
+- [8b17dd1](https://github.com/minnek-digital-studio/cominnek/commit/8b17dd1) add validation before checkout to develop
+
 # [3.0.0-beta.1] - 2023-03-25
 ## Added
 
