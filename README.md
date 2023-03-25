@@ -81,6 +81,7 @@ cominnek auth test
 - **[Stash](#stash)**: Stash changes from one branch to another one.
 - **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
 - **[Merge](#merge)**: Merge the branch into the received branch.
+- **[Reset](#reset)**: Reset the branch to the selected commit.
 - **[Update](#update)**: Update the cominnek version.
 - **[Config](#config)**: Configure the cominnek.
   - **[PR](#pr-1)**: Configure the pull request template.
@@ -147,8 +148,8 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `-m --message`     |string[]       | Receives the commit messange & body message |
-| `-a --all`         |bolean         | Add all files to the commit            |
+| `-m --message`     |string[]       | Receives the commit message & body message |
+| `-a --all`         |boolean        | Add all files to the commit            |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
 | `-d --docs`        |string         | make the commit with the prefix docs() |
@@ -227,6 +228,25 @@ cominnek merge "<branch>"
 | `<branch>`      |string*         | name of the branch that's will be applied the changes       |
 
 *\* required*
+
+## Reset 
+Reset the current branch to the selected commit. By default, it will reset to the last commit.
+
+```bash
+cominnek reset
+```
+This the equivalent of: `git reset --soft HEAD~1`
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-c --commit`      |string         | commit hash       |
+| `-y --confirm`     |boolean        | confirm the reset       |
+| `   --hard`        |boolean        | Reset HEAD, index and working tree   |
+| `   --soft`        |boolean        | Reset only HEAD      |
+| `   --mixed`       |boolean        | Reset HEAD and index |
+| `   --keep`        |boolean        | Reset HEAD, index and working tree      |
+| `   --merge`       |boolean        | Reset HEAD, index and working tree      |
+| `-n -number`       |number         | number of commits to reset       |
 
 ## Update
 Update the Cominnek version.
