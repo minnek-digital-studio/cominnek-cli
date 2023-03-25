@@ -40,7 +40,6 @@ func init() {
 	resetCmd.Flags().BoolVar(&keepReset, "keep", false, "Reset HEAD, index and working tree")
 	resetCmd.Flags().StringVarP(&config.AppData.Reset.Number, "number", "n", "", "The number of commits to reset.")
 	resetCmd.Flags().StringVarP(&config.AppData.Reset.Commit, "commit", "c", "", "The commit hash to reset to.")
-	resetCmd.Flags().StringVarP(&config.AppData.Reset.Target, "target", "r", "", "The target to reset to.")
 	resetCmd.Flags().BoolVarP(&config.AppData.Reset.Confirm, "confirm", "y", false, "Confirm the reset.")
 	rootCmd.AddCommand(resetCmd)
 }
