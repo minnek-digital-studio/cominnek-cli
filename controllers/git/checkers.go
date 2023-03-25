@@ -36,3 +36,8 @@ func CheckBranchExist(branch string) bool {
 	_, _, err := shell.Out("git rev-parse --verify " + branch)
 	return err == nil
 }
+
+func CheckBranchExistOnOrigin(branch string) bool {
+	_, _, err := shell.Out("git ls-remote --heads origin " + branch)
+	return err == nil
+}
