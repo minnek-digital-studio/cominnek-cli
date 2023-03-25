@@ -44,6 +44,12 @@ type IAppData struct {
 	Merge struct {
 		Branch string
 	}
+	Clone struct {
+		Url string
+	}
+	CreateRepo struct {
+		Name string
+	}
 	Reset struct {
 		Type string
 		Commit string
