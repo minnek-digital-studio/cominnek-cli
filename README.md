@@ -13,10 +13,11 @@
 
 <img src="./assets/banner.png" />
 
-Create commits & pull requests easily. `Cominnek` is based on the [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/) specification.
+Create commits & pull requests easily.  `Cominnek` is based on [TAYO](https://mnk-docs.ngrok.io/guide/development/version-control/branch-management.html) by Minnek.
 ## Index
  - **[Requirements](#requirements)**
  - **[Install](#installation)**
+ - **[Update](#update)**
  - **[First Step](#first-steps)**
  - **[Usage](#usage)**
  - **[Ticketing System](#ticketing-system)**
@@ -38,6 +39,7 @@ Create commits & pull requests easily. `Cominnek` is based on the [Semantic Comm
 ```bash
 cominnek -v
 ```
+
 ## How to install on Mac
 
 After mounting the installer maybe you would have some issues at the moment to run the installer on Mac since OS blocks the installer app. So you will need to run the `installer.sh` manually. 
@@ -55,6 +57,15 @@ $ cd  /Volumes/cominnek-$version/
 ```bash
 $ sudo bash installer.sh
 ```
+# Update
+
+You can get the latest version of `cominnek` by running the following command:
+
+```bash
+cominnek update
+```
+
+
 
 # First steps:
 
@@ -111,7 +122,7 @@ the commit will be: `fix(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `-m --message`     |string[]       | Receives the commit messange & body message |
+| `-m --message`     |string[]       | Receives the commit message & body message |
 | `-M --merge`       |string         | Receives a Branch to merge after end the push|
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
@@ -166,7 +177,7 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 ## Branch
 Create a new branch with the prefix `feature/`, `bugfix/`, `hotfix/` or `release/` and the name of the branch will be the ticket number.
 
-At Minnek, we created a variant of Git-flow where the main difference is that we don't merge the branch  upon completion. Instead, we create a Github Pull Request.
+We are following a Git-Flow variant called [TAYO](https://mnk-docs.ngrok.io/guide/development/version-control/branch-management.html) by Minnek
 
 ```bash
 cominnek branch feature "<Ticket>"
