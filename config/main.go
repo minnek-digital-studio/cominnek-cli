@@ -3,6 +3,7 @@ package config
 import (
 	"os"
 	"path/filepath"
+	"time"
 )
 
 type ICommit struct {
@@ -11,6 +12,7 @@ type ICommit struct {
 
 type IAppData struct {
 	Action string
+	Start  time.Time
 	Commit struct {
 		Message string
 		Files   []string
@@ -31,7 +33,7 @@ type IAppData struct {
 		Ticket string
 		Base   string
 	}
-	Flow struct {
+	Branch struct {
 		Type   string
 		Ticket string
 		Stash  bool
@@ -41,6 +43,19 @@ type IAppData struct {
 	}
 	Merge struct {
 		Branch string
+	}
+	Clone struct {
+		Url string
+	}
+	CreateRepo struct {
+		Name string
+	}
+	Reset struct {
+		Type string
+		Commit string
+		Number string
+		Target string
+		Confirm bool
 	}
 }
 
@@ -62,7 +77,7 @@ var cominnekPath = filepath.Join(userPath, ".cominnek")
 var cominnekTempPath = filepath.Join(tempPath, ".cominnek")
 
 var Public = IConfig{
-	Version:   "v2.5.0",
+	Version:   "v3.0.0",
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),
 	TokenPath: filepath.Join(cominnekPath, "auth.bin"),
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),

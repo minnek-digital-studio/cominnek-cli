@@ -7,7 +7,7 @@ import (
 
 var addCmd = &cobra.Command{
 	Use:   "add",
-	Short: "Add a new repository to your Github account",
+	Short: "Add files to commit",
 	Run: func(cmd *cobra.Command, args []string) {
 		git.Add()
 	},

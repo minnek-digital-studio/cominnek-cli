@@ -13,11 +13,11 @@
 
 <img src="./assets/banner.png" />
 
-Create commits & pull requests easily. `Cominnek` is based on the [Semantic Commit Messages](https://www.conventionalcommits.org/en/v1.0.0/) specification.
+Create commits & pull requests easily.  `Cominnek` is based on [TAYO](https://mnk-docs.ngrok.io/guide/development/version-control/branch-management.html) by Minnek.
 ## Index
  - **[Requirements](#requirements)**
-     - **[Git-Flow](#git-flow)**
  - **[Install](#installation)**
+ - **[Update](#update)**
  - **[First Step](#first-steps)**
  - **[Usage](#usage)**
  - **[Ticketing System](#ticketing-system)**
@@ -25,29 +25,13 @@ Create commits & pull requests easily. `Cominnek` is based on the [Semantic Comm
 # Requirements
 
 - **[Git](https://git-scm.com/)**
-- **[Git-Flow](#git-flow)**
-
-### Git-Flow
-To install git flow run: 
-
-#### MacOS
-
-```bash
-brew install git-flow
-```
-
-#### Linux
-
-```bash
-sudo apt install git-flow
-```
 
 # Installation
 
 1. Download installer
 
-[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.5.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
-)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.5.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-2.5.0.deb)
+[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.0.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
+)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.0.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.0.0.deb)
 
 2. Run installer ([See MAC Os steps](#how-to-install-on-mac))
 
@@ -55,6 +39,7 @@ sudo apt install git-flow
 ```bash
 cominnek -v
 ```
+
 ## How to install on Mac
 
 After mounting the installer maybe you would have some issues at the moment to run the installer on Mac since OS blocks the installer app. So you will need to run the `installer.sh` manually. 
@@ -72,6 +57,15 @@ $ cd  /Volumes/cominnek-$version/
 ```bash
 $ sudo bash installer.sh
 ```
+# Update
+
+You can get the latest version of `cominnek` by running the following command:
+
+```bash
+cominnek update
+```
+
+
 
 # First steps:
 
@@ -94,10 +88,11 @@ cominnek auth test
 - **[Push](#push)**: Commit and push the branch to GitHub.
 - **[Publish](#publish)**: Commit, push and create the pull request as a draft to develop in GitHub.
 - **[Commit](#commit)**: Commit the changes to the branch.
-- **[Flow](#flow)**: Create a new branch and start the flow.
+- **[Branch](#branch)**: Create a new branch.
 - **[Stash](#stash)**: Stash changes from one branch to another one.
 - **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
 - **[Merge](#merge)**: Merge the branch into the received branch.
+- **[Reset](#reset)**: Reset the branch to the selected commit.
 - **[Update](#update)**: Update the cominnek version.
 - **[Config](#config)**: Configure the cominnek.
   - **[PR](#pr-1)**: Configure the pull request template.
@@ -127,7 +122,7 @@ the commit will be: `fix(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `-m --message`     |string[]       | Receives the commit messange & body message |
+| `-m --message`     |string[]       | Receives the commit message & body message |
 | `-M --merge`       |string         | Receives a Branch to merge after end the push|
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
@@ -164,8 +159,8 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 
 | flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
-| `-m --message`     |string[]       | Receives the commit messange & body message |
-| `-a --all`         |bolean         | Add all files to the commit            |
+| `-m --message`     |string[]       | Receives the commit message & body message |
+| `-a --all`         |boolean        | Add all files to the commit            |
 | `-F --feat`        |string         | make the commit with the prefix feat() |
 | `-f --fix`         |string         | make the commit with the prefix fix()  |
 | `-d --docs`        |string         | make the commit with the prefix docs() |
@@ -179,20 +174,24 @@ the commit will be: `feat(home):{Ticket} do some modifications`
 | `   --revert`      |string         | make the commit with the prefix revert()|
 
 *\* required*
-## Flow
+## Branch
 Create a new branch with the prefix `feature/`, `bugfix/`, `hotfix/` or `release/` and the name of the branch will be the ticket number.
 
+We are following a Git-Flow variant called [TAYO](https://mnk-docs.ngrok.io/guide/development/version-control/branch-management.html) by Minnek
+
 ```bash
-cominnek flow feature "<Ticket>"
+cominnek branch feature "<Ticket>"
 ```
-This the equivalent of: `git flow feature start {Ticket}` or `git-flow feature start {Ticket}` on MacOS
+This the equivalent of: `git branch feature/{Ticket}`
 
 | Command               | description                            |
 | ------------------ | ---------------------------------------|
-| `feature`       |  create a new feature branch |
-| `bugfix`        |  create a new bugfix branch |
-| `hotfix`        |  create a new hotfix branch |
-| `release`       |  create a new release branch |
+| `feature`       |  create a new feature branch from `develop` |
+| `bugfix`        |  create a new bugfix branch from `develop` |
+| `hotfix`        |  create a new hotfix branch from `master`|
+| `release`       |  create a new release branch from `develop`|
+| `support`       |  create a new support branch from `master`|
+| `test`          |  create a new test branch from `develop`|
 
 | Flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
@@ -219,9 +218,12 @@ cominnek pr
 ```
 The flag `--ticket` is optional. If it's not provided this will take the ticket number from the current branch.
 
-| flag               | type          | description                            |
-| ------------------ | ------------- | ---------------------------------------|
-| `-t --ticket`      |string         | name of the feature that's will be applied the change     |
+| flag               | type          | default | description                            |
+| ------------------ | ------------- | ------ | ---------------------------------------|
+| `-t --ticket`      |string         | take by branch| name of the feature that's will be applied the change     |
+| `-b --base`      |string         | `develop` |   base branch of the pull request.  |
+
+In a case of a release branch, it will create a pull request to `master` and `develop`.
 
 ## Merge
 Merge the current branch into the received one. This will help you save time when you are working on a feature branch and you want to merge, for example, the feature branch into the `test` branch.
@@ -237,6 +239,25 @@ cominnek merge "<branch>"
 | `<branch>`      |string*         | name of the branch that's will be applied the changes       |
 
 *\* required*
+
+## Reset 
+Reset the current branch to the selected commit. By default, it will reset to the last commit.
+
+```bash
+cominnek reset
+```
+This the equivalent of: `git reset --soft HEAD~1`
+
+| flag               | type          | description                            |
+| ------------------ | ------------- | ---------------------------------------|
+| `-c --commit`      |string         | commit hash       |
+| `-y --confirm`     |boolean        | confirm the reset       |
+| `   --hard`        |boolean        | Reset HEAD, index and working tree   |
+| `   --soft`        |boolean        | Reset only HEAD      |
+| `   --mixed`       |boolean        | Reset HEAD and index |
+| `   --keep`        |boolean        | Reset HEAD, index and working tree      |
+| `   --merge`       |boolean        | Reset HEAD, index and working tree      |
+| `-n -number`       |number         | number of commits to reset       |
 
 ## Update
 Update the Cominnek version.
@@ -375,7 +396,7 @@ $ cominnek push "Changes in home page" -F "home"
 
 If you want to contribute to this project, please read the [contributing guide](/CONTRIBUTING.md)
 
-Cominnek `V2.5.0`
+Cominnek `V3.0.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
 
 ## About

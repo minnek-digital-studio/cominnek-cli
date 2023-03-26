@@ -1,27 +1,34 @@
 package git
 
 import (
-	"fmt"
 	"log"
 
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
-	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
+	"github.com/fatih/color"
 )
 
+var pushEmitter = new(emitters.Push)
+
 func _push() {
-	loading.Start("Pushing to remote ")
+	color.Yellow("\nPushing to remote\n")
 	cmd := git_controller.Push()
-	out, errout, err := shell.Out(cmd)
+	out, outErr, err := shell.OutLive(cmd)
 
 	if err != nil {
-		fmt.Println(out)
-		fmt.Println(errout)
-		log.Fatal(errout)
+		if outErr != "" {
+			pushEmitter.Failed(outErr)
+		}
+
+		if out != "" {
+			pushEmitter.Failed(out)
+		}
+
+		log.Fatal("Error pushing to remote")
 	}
 
-	loading.Stop()
-	fmt.Println(out)
+	pushEmitter.Success("Pushed to remote")
 }
 
 func Push() {

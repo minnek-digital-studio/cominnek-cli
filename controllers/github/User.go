@@ -7,7 +7,7 @@ import (
 	"github.com/google/go-github/v47/github"
 )
 
-func getCurrentUser()*github.User {
+func GetCurrentUser()*github.User {
 	client := client();
 	user, _, err := client.Users.Get(ctx, "")
 

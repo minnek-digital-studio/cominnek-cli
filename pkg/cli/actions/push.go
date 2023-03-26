@@ -6,10 +6,12 @@ import (
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 )
 
 var mergeAfterPush bool
+var pushEmmiter = new(emitters.Push)
 
 func pushQuestion() {
 	if config.AppData.Push.Merge == "" {
@@ -34,6 +36,7 @@ func pushQuestion() {
 }
 
 func Push() {
+	pushEmmiter.Init()
 	if !config.AppData.Push.IgnoreCommit {
 		config.AppData.Push.IgnoreCommit = !git_controller.CheckChanges()
 	}

@@ -1,4 +1,4 @@
-package flow
+package branch
 
 import (
 	"github.com/Minnek-Digital-Studio/cominnek/config"
@@ -6,14 +6,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var FlowReleaseCmd = &cobra.Command{
-	Use:   "release <name>",
-	Short: "create a new release branch",
+var BranchTestCmd = &cobra.Command{
+	Use:   "test <name>",
+	Short: "create a new test branch from develop",
 	Run: func(cmd *cobra.Command, args []string) {
-		config.AppData.Flow.Type = "release"
-		config.AppData.Flow.Stash = stash
+		config.AppData.Branch.Type = "test"
+		config.AppData.Branch.Stash = stash
 		setTicket(args)
 
-		pkg_action.Flow()
+		pkg_action.Branch()
 	},
 }

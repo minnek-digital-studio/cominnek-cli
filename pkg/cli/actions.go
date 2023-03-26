@@ -18,6 +18,7 @@ func askActions() {
 		"Publish",
 		"Push",
 		"Stash",
+		"Reset",
 		"Exit",
 	}
 
@@ -49,7 +50,7 @@ func askActions() {
 	}
 
 	if config.AppData.Action == "Create Branch" {
-		pkg_action.Flow()
+		pkg_action.Branch()
 	}
 
 	if config.AppData.Action == "Stash" {
@@ -58,5 +59,9 @@ func askActions() {
 
 	if config.AppData.Action == "Merge" {
 		pkg_action.Merge()
+	}
+
+	if config.AppData.Action == "Reset" {
+		pkg_action.Reset()
 	}
 }

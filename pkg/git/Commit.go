@@ -4,32 +4,38 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"runtime"
 	"strings"
 
 	"github.com/Minnek-Digital-Studio/cominnek/controllers"
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 	"github.com/fatih/color"
 )
 
+var commitEmitter = new(emitters.Commit)
+
 func _commit(msg string, body string, ctype string, scope string, ticket string) string {
-	cmd := git_controller.Commit(msg, body, ctype, ticket, scope)
-	out, outErr, err := shell.Out(cmd)
+	color.Yellow("\nCommitting files\n")
+	cmd, message := git_controller.Commit(msg, body, ctype, ticket, scope)
+	out, _, err := shell.OutLive(cmd)
 
 	if err != nil {
 		loading.Stop()
 
 		if strings.Contains(out, "nothing to commit") {
-			fmt.Println(out)
-			fmt.Println("Aborting commit...")
-
+			fmt.Println("\nAborting commit...")
+			commitEmitter.Failed("Nothing to commit")
 			os.Exit(1)
 		} else {
-			fmt.Println(outErr)
+			commitEmitter.Failed(out)
 			log.Fatal("Commit failed")
 		}
 	}
+
+	commitEmitter.Success(message)
 
 	return out
 }
@@ -39,39 +45,77 @@ func _checkTicket(ticket string) string {
 		loading.Stop()
 		if !controllers.Confirm("No ticket number found. Commit anyway?", false) {
 			fmt.Println("Aborting commit")
+			commitEmitter.Failed("Aborted by user")
 			os.Exit(0)
 		}
 
-		loading.Start("Commiting files ")
+		loading.Start("Committing files ")
 	}
 
 	return ticket
 }
 
 func Commit(msg string, body string, ctype string, scope string) {
-	loading.Start("Commiting files ")
+	loading.Start("Committing files ")
 	currentBranch := git_controller.GetCurrentBranch()
 
 	if strings.HasPrefix(currentBranch, "bugfix/") {
 		if ctype == "feat" {
+			errorMsg := "Bugfix branch cannot have a feature commit"
 			loading.Stop()
 			color.HiRed("Error:")
-			log.Fatal("Bugfix branch cannot have a feature commit")
+			log.Fatal(errorMsg)
+
+			commitEmitter.Failed(errorMsg)
+
 			os.Exit(1)
 		}
 	}
 
 	ticket := _checkTicket(git_controller.GetTicketNumber())
-	out := _commit(msg, body, ctype, scope, ticket)
-
 	loading.Stop()
-	fmt.Println(out)
+	_commit(msg, body, ctype, scope, ticket)
+
 }
 
 func CommitWithoutTicket(msg string, body string, ctype string, scope string) {
-	loading.Start("Commiting files ")
-	out := _commit(msg, body, ctype, scope, "")
+	_commit(msg, body, ctype, scope, "")
+}
 
-	loading.Stop()
-	fmt.Println(out)
+func GetAllCommits() []string {
+	out, _, err := shell.Out("git log --pretty=format:'%h: %s - %an, %ar'")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return strings.Split(out, "\n")
+}
+
+func GetCommitHash(msg string) string {
+	return strings.Split(msg, ":")[0]
+}
+
+func ValidateCommitHash(hash string) bool {
+	_, _, err := shell.Out("git rev-parse --verify " + hash)
+
+	return err == nil
+}
+
+func GetCommitByHash(hash string) string {
+	os := runtime.GOOS
+	grepCmd := "grep"
+
+	if os == "windows" {
+		grepCmd = "Select-String"
+	}
+
+	cmd := fmt.Sprintf("git log --pretty=oneline --pretty=format:'%%h: %%s' %s | " + grepCmd + " %s", hash, hash)
+	out, _, err := shell.Out(cmd)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return out
 }
