@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "cominnek",
+  "short_name": "cominnek",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Create commits & pull requests easily. A git & github CLI manager with super powers"
+}

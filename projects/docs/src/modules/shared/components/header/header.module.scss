@@ -1,0 +1,42 @@
+:root {
+    --cmk-header-height: 60px;
+}
+
+.main {
+    height: var(--cmk-header-height);
+    position: fixed;
+    top: 0;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    z-index: 100;
+}
+
+.content {
+    align-items: center;
+    display: flex;
+    height: var(--cmk-header-height);
+    justify-content: space-between;
+    width: 100%;
+    z-index: 1;
+}
+
+.scrolled {
+    backdrop-filter: blur(10px);
+    background-color: rgba(29, 29, 29, 0.473);
+    box-shadow: 0 2px 4px 0 rgba(26, 26, 26, 0.1);
+}
+
+.title {
+    font-size: 20px;
+    text-transform: uppercase;
+    
+    a {
+        color: var(--cmk-color-light);
+        font-weight: 700;
+        text-decoration: none;
+
+        &:hover {
+            color: var(--cmk-color-secondary);
+        }
+    }
+}

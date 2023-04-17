@@ -1,0 +1,15 @@
+@use "sass:map";
+
+.cmk-u-only {
+    &--desktop {
+        @media (max-width: 768px - 1px) {
+            display: none !important;
+        }
+    }
+
+    &--mobile {
+        @media (min-width: 768px) {
+            display: none !important;
+        }
+    }
+}
