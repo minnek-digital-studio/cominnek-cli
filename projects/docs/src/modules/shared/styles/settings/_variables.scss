@@ -1,0 +1,11 @@
+@use "colors";
+
+:root {
+    --user-font-scale: 1rem - 16px;
+    --max-width: calc(100% - 1rem);
+
+    --breakpoint-mobile: 480px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1024px;
+    --breakpoint-desktop-large: 1280px;
+}

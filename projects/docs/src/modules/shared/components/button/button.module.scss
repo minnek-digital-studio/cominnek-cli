@@ -1,0 +1,79 @@
+.root {
+    border: 0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 600;
+    padding-block: 0.5rem;
+    padding-inline: 1.2rem;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        scale: 1.05;
+    }
+}
+
+
+.group {
+    display: flex;
+
+    &.spaced {
+        gap: 0.5rem;
+    }
+
+    &.inline {
+        .root {
+            border-radius: 0;
+
+            &:first-child {
+                border-bottom-left-radius: 0.5rem;
+                border-top-left-radius: 0.5rem;
+            }
+
+            &:last-child {
+                border-bottom-right-radius: 0.5rem;
+                border-top-right-radius: 0.5rem;
+            }
+        }
+    }
+}
+
+
+// Variants
+.primary {
+    background-color: var(--cmk-color-primary);
+    color: var(--cmk-color-white);
+
+    &:hover {
+        background-color: var(--cmk-color-primary-light);
+    }
+}
+
+.secondary {
+    background-color: var(--cmk-color-secondary);
+    color: var(--cmk-color-white);
+
+    &:hover {
+        background-color: var(--cmk-color-secondary-light);
+    }
+}
+
+.dark {
+    background-color: var(--cmk-color-dark);
+    color: var(--cmk-color-white);
+
+    &:hover {
+        background-color: var(--cmk-color-secondary);
+    }
+}
+
+.light {
+    background-color: var(--cmk-color-light);
+    color: var(--cmk-color-dark);
+
+    &:hover {
+        background-color: var(--cmk-color-light-light);
+    }
+}

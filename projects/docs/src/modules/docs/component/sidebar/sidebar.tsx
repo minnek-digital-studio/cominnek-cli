@@ -1,0 +1,108 @@
+import { component$, useStyles$ } from "@builder.io/qwik";
+import {
+  type ContentMenu,
+  useContent,
+  useLocation,
+  Link,
+} from "@builder.io/qwik-city";
+// import { GlobalStore } from "../../context";
+// import { CloseIcon } from "../svgs/close-icon";
+import styles from "./sidebar.scss?inline";
+
+export const SideBar = component$((props: { allOpen?: boolean }) => {
+  useStyles$(styles);
+
+  const { menu } = useContent();
+  const { url } = useLocation();
+  const allOpen = props.allOpen;
+
+  return (
+    <aside class="cmk-sidebar">
+      <nav class="menu">
+        <button
+          class="menu-close"
+          onClick$={() => console.log("close")}
+          type="button"
+        >
+          {/* <CloseIcon width={24} height={24} /> */}
+          <i>X</i>
+        </button>
+        <Items items={menu?.items} pathname={url.pathname} allOpen={allOpen} />
+      </nav>
+    </aside>
+  );
+});
+
+export function Items({
+  items,
+  pathname,
+  allOpen,
+}: {
+  items?: ContentMenu[];
+  pathname: string;
+  allOpen?: boolean;
+}) {
+  return (
+    <ul>
+      {items &&
+        items.map((item, i) => (
+          <li key={i}>
+            {item.items ? (
+              <details
+                open={
+                  allOpen ||
+                  i < 1 ||
+                  item.items?.some((item) => pathname === item.href)
+                }
+              >
+                <summary>
+                  <h5>{item.text}</h5>
+                </summary>
+                <Items items={item.items} pathname={pathname} />
+              </details>
+            ) : (
+              <Link
+                href={item.href}
+                class={{
+                  "is-active": pathname === item.href,
+                }}
+              >
+                {item.text}
+              </Link>
+            )}
+          </li>
+        ))}
+    </ul>
+  );
+}
+
+export function createBreadcrumbs(
+  menu: ContentMenu | undefined,
+  pathname: string
+) {
+  if (menu?.items) {
+    for (const breadcrumbA of menu.items) {
+      if (breadcrumbA.href === pathname) {
+        return [breadcrumbA];
+      }
+
+      if (breadcrumbA.items) {
+        for (const breadcrumbB of breadcrumbA.items) {
+          if (breadcrumbB.href === pathname) {
+            return [breadcrumbA, breadcrumbB];
+          }
+
+          if (breadcrumbB.items) {
+            for (const breadcrumbC of breadcrumbB.items) {
+              if (breadcrumbC.href === pathname) {
+                return [breadcrumbA, breadcrumbB, breadcrumbC];
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return [];
+}
