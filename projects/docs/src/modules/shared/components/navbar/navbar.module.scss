@@ -1,0 +1,116 @@
+.links {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    height: 100%;
+    justify-content: space-between;
+
+    a {
+        color: var(--cmk-color-light);
+        font-size: 16px;
+        text-decoration: none;
+
+        &:hover {
+            color: var(--cmk-color-secondary);
+        }
+    }
+}
+
+.hamburger {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    height: 20px;
+    margin: 0 auto;
+    padding: 5px;
+    position: relative;
+    width: 25px;
+
+    span {
+        background: var(--cmk-color-light);
+        border-radius: 9px;
+        display: block;
+        height: 3px;
+        left: 0;
+        opacity: 1;
+        position: absolute;
+        transform: rotate(0deg);
+        transition: 0.25s ease-in-out;
+        width: 100%;
+
+        &:nth-child(1) {
+            top: 0;
+        }
+
+        &:nth-child(2),
+        &:nth-child(3) {
+            top: 8px;
+        }
+
+        &:nth-child(4) {
+            top: 16px;
+        }
+    }
+
+    &.open span {
+        &:nth-child(1) {
+            left: 50%;
+            top: 10px;
+            width: 0%;
+        }
+
+        &:nth-child(2) {
+            transform: rotate(45deg);
+        }
+
+        &:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+
+        &:nth-child(4) {
+            left: 50%;
+            top: 10px;
+            width: 0%;
+        }
+    }
+}
+
+.menu {
+    backdrop-filter: blur(20px);
+    background-color: rgba(15, 15, 15, 0.979);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    height: calc(100vh - var(--cmk-header-height));
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    top: var(--cmk-header-height);
+    width: 100vw;
+    z-index: 1;
+
+    &.open {
+        display: flex;
+    }
+
+    a {
+        color: var(--cmk-color-white);
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 auto;
+        text-decoration: none;
+        text-transform: uppercase;
+
+        &:hover {
+            color: var(--cmk-color-primary);
+            text-decoration: none;
+        }
+    }
+}
+
+body {
+    &.open {
+        overflow: hidden;
+    }
+}

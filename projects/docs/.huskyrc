@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Load NVM support and all defined ENV variables.
+# https://typicode.github.io/husky/#/
+#
+# 1) Move the .huskyrc to the current user's home directory.
+# ~/.huskyrc
+#
+# 2) And add the script below to load nvm.sh and
+# sets the correct PATH before running hook.
+#
+# Before do this verify if the NVM path is correct.
+#
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+#
+# 3) Or load the NVM support form bash or zsh shell environment.
+# source ~/.bash_profile # common on windows systems
+# source ~/.zshrc # common on unix systems
+
+# Check if this repo has .nvmrc file and
+# use it to set proper Node.js version.
+if test -f ".nvmrc"; then
+  nvm use
+fi

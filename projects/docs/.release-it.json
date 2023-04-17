@@ -1,0 +1,24 @@
+{
+    "git": {
+        "commitMessage": "chore: release v${version}"
+    },
+    "github": {
+        "release": true
+    },
+    "npm": false,
+    "plugins": {
+        "@release-it/conventional-changelog": {
+            "preset": "angular",
+            "infile": "CHANGELOG.md"
+        },
+        "@release-it/bumper": {
+            "out": {
+                "file": ".version.json",
+                "path": "current.version"
+            }
+        }
+    },
+    "hooks": {
+        "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
+    }
+}

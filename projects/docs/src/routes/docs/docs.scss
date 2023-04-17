@@ -1,0 +1,89 @@
+body,
+html {
+    background-color: var(--cmk-color-light);
+    color: var(--cmk-color-dark);
+}
+
+.cmk-docs {
+    main {
+        margin-left: auto;
+        margin-right: auto;
+        min-height: 100vh;
+
+        @media (min-width: 1280px) {
+            max-width: 1300px;
+        }
+    }
+}
+
+.cmk-content {
+    position: relative;
+}
+
+.cmk-container {
+    h1:first-child {
+        margin-top: 0;
+    }
+
+    @media (min-width: 1024px) {
+        margin-right: 10rem;
+    }
+
+    @media (min-width: 768px) {
+        margin-left: 230px;
+        padding: 20px;
+        padding-right: 2rem;
+        padding-top: 40px;
+    }
+
+    .icon-link {
+        display: none;
+    }
+
+    .icon-link {
+        &::after {
+            color: var(--cmk-color-primary);
+            content: "#";
+        }
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        position: relative;
+
+        a {
+            display: block;
+            height: 1em;
+            left: -16px;
+            position: absolute;
+            text-decoration: none;
+            top: -1px;
+            width: 1em;
+
+            &:hover .icon-link {
+                display: inline;
+            }
+        }
+    }
+}
+
+.cmk-breadcrumbs {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    margin-top: calc(var(--cmk-header-height) - 20px);
+    padding: 0;
+
+    li:not(:last-child)::after {
+        color: var(--cmk-color-secondary);
+        content: "\203A";
+        margin: 0 0.3rem;
+    }
+
+    @media (min-width: 768px) {
+        display: none;
+    }
+}

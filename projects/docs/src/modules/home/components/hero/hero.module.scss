@@ -1,0 +1,80 @@
+
+
+.main {
+    align-items: center;
+    background: var(--cmk-color-black-lighter);
+    background: linear-gradient(341deg, var(--cmk-color-black-lighter) 0%, var(--cmk-color-black-light) 35%, var(--cmk-color-black) 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0 1rem;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1;
+    margin: 0;
+    max-width: 260px;
+    text-align: center;
+    
+    @media (min-width: 801px) {
+        font-size: 3rem;
+        line-height: 0.5;
+        max-width: 100%;
+    }
+    
+    @media (min-width: 1025px) {
+        font-size: 4rem;
+    }
+}
+
+:root {
+    --cmk-main-color: var(--cmk-color-secondary);
+}
+
+.subtitle {
+    color: var(--cmk-color-white);
+    display: none;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    line-height: 1.2;
+    margin: 0;
+    max-width: 290px;
+    text-align: center;
+
+    @media (min-width: 801px) {
+        display: block;
+        font-size: 1.5rem !important;
+        max-width: 100%;
+    }
+}
+
+.type {
+    color: var(--cmk-main-color);
+}
+
+.type_line {
+    animation: blink 0.5s step-end infinite;
+    border-right: 0.1em solid var(--cmk-main-color);
+    display: inline-flex;
+    height: 100px;
+    max-height: 0.9em;
+    overflow: hidden;
+    position: relative;
+    top: 0.1em;
+    white-space: nowrap;
+}
+
+@keyframes blink {
+    from,
+    to { border-color: transparent; }
+    50% { border-color: var(--cmk-main-color); }
+}
