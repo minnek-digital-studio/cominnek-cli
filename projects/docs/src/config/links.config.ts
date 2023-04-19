@@ -14,8 +14,9 @@ const linksConfig: ILinksConfig = {
         hidden: true,
     },
     docs: {
-        path: '/docs',
+        path: 'https://github.com/minnek-digital-studio/cominnek#usage',
         label: 'Docs',
+        _blank: true,
     },
 };
 
