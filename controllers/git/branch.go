@@ -35,3 +35,8 @@ func Test(ticket string) (string, string) {
 	branchName := "test/" + ticket
 	return getBaseCmd(branchName), branchName
 }
+
+func Sync(ticket string) (string, string) {
+	branchName := "sync/" + ticket
+	return getBaseCmd(branchName), branchName
+}

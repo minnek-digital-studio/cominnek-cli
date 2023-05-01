@@ -14,6 +14,7 @@ func SetFlags() {
 	addFlags(BranchSupportCmd)
 	addFlags(BranchBugfixCmd)
 	addFlags(BranchTestCmd)
+	addFlags(BranchSyncCmd)
 }
 
 func addFlags(cmd *cobra.Command) {

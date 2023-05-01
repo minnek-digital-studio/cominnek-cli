@@ -24,7 +24,7 @@ func branchQuestion() {
 	if config.AppData.Branch.Type == "" {
 		ask.One(&survey.Select{
 			Message: "Select the branch type:",
-			Options: []string{"feature", "bugfix", "hotfix", "release", "support", "test"},
+			Options: []string{"feature", "bugfix", "hotfix", "release", "support", "test", "sync"},
 		}, &config.AppData.Branch.Type, survey.WithValidator(survey.Required))
 	}
 
@@ -89,6 +89,8 @@ func Branch() {
 			branch = git.Support(ticket, exec)
 		case "test":
 			branch = git.Test(ticket, exec)
+		case "sync":
+			branch = git.Sync(ticket, exec)
 		}
 
 		return branch
