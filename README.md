@@ -30,8 +30,8 @@ Create commits & pull requests easily.  `Cominnek` is based on [TAYO](https://mn
 
 1. Download installer
 
-[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.0.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
-)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.0.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.0.0.deb)
+[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.1.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
+)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.1.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.1.0.deb)
 
 2. Run installer ([See MAC Os steps](#how-to-install-on-mac))
 
@@ -192,6 +192,7 @@ This the equivalent of: `git branch feature/{Ticket}`
 | `release`       |  create a new release branch from `develop`|
 | `support`       |  create a new support branch from `master`|
 | `test`          |  create a new test branch from `develop`|
+| `sync`          |  create a new sync branch from `develop`|
 
 | Flag               | type          | description                            |
 | ------------------ | ------------- | ---------------------------------------|
@@ -336,7 +337,7 @@ cominnek auth logout
 You can add a body to commit using the `--message` flag twice.
 
 ```bash
-cominnek push "Changes in home page" -f "home" -m "the title was aligned to right"
+cominnek push -m "Changes in home page" -f "home" -m "the title was aligned to right"
 ```
 This is the same as
 `git commit -m "fix(home):{Ticket} Changes in home page" -m "the title was aligned to right"`
@@ -348,12 +349,12 @@ To do a commit without a scope, use the flag and on windows, you should use it w
 
 Mac Os and Linux:
 ```bash
-cominnek push "theme setup" -b
+cominnek push -m "theme setup" -b
 ```
 Windows:
 
 ```powershell
-cominnek push "theme setup" -b " "
+cominnek push -m "theme setup" -b " "
 ```
 the commit will be: `build: theme setup`
 
@@ -376,7 +377,7 @@ The ticker number will be `MJ-11`
 If you execute the command:
 
 ```bash
-cominnek push "Changes on homepage" -F "home"
+cominnek push -m "Changes on homepage" -F "home"
 ``` 
 
 the commit will be: `feat(home): MJ-11 Changes on the homepage`
@@ -387,7 +388,7 @@ This going to let you know that you are not in a feature branch and you will acc
 Example: You're in the branch `develop`
 
 ```bash
-$ cominnek push "Changes in home page" -F "home"
+$ cominnek push -m "Changes in home page" -F "home"
   This is not a feature. Do you want to continue? (yes or no)
         Commit message: "feat(home): Changes in home page"
 ```
@@ -396,7 +397,7 @@ $ cominnek push "Changes in home page" -F "home"
 
 If you want to contribute to this project, please read the [contributing guide](/CONTRIBUTING.md)
 
-Cominnek `V3.0.0`
+Cominnek `V3.1.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
 
 ## About

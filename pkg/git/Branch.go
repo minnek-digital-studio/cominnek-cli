@@ -52,3 +52,11 @@ func Test(ticket string, execute bool) string {
 	}
 	return branch
 }
+
+func Sync(ticket string, execute bool) string {
+	cmd, branch := git_controller.Sync(ticket)
+	if(execute) {
+		checkers.CheckBranch(cmd)
+	}
+	return branch
+}

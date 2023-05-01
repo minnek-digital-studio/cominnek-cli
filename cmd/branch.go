@@ -22,5 +22,6 @@ func init() {
 	branchCmd.AddCommand(branch.BranchSupportCmd)
 	branchCmd.AddCommand(branch.BranchBugfixCmd)
 	branchCmd.AddCommand(branch.BranchTestCmd)
+	branchCmd.AddCommand(branch.BranchSyncCmd)
 	rootCmd.AddCommand(branchCmd)
 }
