@@ -1,3 +1,11 @@
+# [3.1.0] - 2023-04-30
+
+## Added
+- [#84](https://github.com/minnek-digital-studio/cominnek/issues/84) Add sync branch 
+
+## Fixed
+- [#83](https://github.com/minnek-digital-studio/cominnek/issues/83) skip-commit Flag not working for publish command
+
 # [3.0.0] - 2023-03-27
 
 ## Added
