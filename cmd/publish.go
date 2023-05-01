@@ -29,7 +29,7 @@ var publishCmd = &cobra.Command{
 		config.AppData.Commit.Body = body
 		config.AppData.Push.Merge = merge
 		config.AppData.Publish.Ticket = ticket
-		config.AppData.Push.IgnoreCommit = skipCommit
+		config.AppData.Publish.IgnoreCommit = skipCommit
 
 		pkg_action.Publish()
 
