@@ -40,6 +40,8 @@ func GetTicketNumber() string {
 		return strings.TrimPrefix(currentBranch, "support/")
 	} else if strings.HasPrefix(currentBranch, "bugfix/") {
 		return strings.TrimPrefix(currentBranch, "bugfix/")
+	} else if strings.HasPrefix(currentBranch, "sync/") {
+		return strings.TrimPrefix(currentBranch, "sync/")
 	}
 
 	return ""
