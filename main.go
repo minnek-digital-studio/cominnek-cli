@@ -6,6 +6,7 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/cmd"
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/files"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/logger"
 	"github.com/Minnek-Digital-Studio/cominnek/helper"
@@ -17,6 +18,11 @@ import (
 func init() {
 	events.Watcher()
 	config.AppData.Start = time.Now()
+
+	github_template := ".github/PULL_REQUEST_TEMPLATE.md"
+	if files.CheckExist(github_template) {
+		config.Public.PRBody = github_template
+	}
 }
 
 func main() {

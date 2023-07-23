@@ -8,6 +8,7 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/project"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	emitterTypes "github.com/Minnek-Digital-Studio/cominnek/pkg/emitters/types"
@@ -20,26 +21,35 @@ var branchEmitter = new(emitters.Branch)
 
 func branchQuestion() {
 	fmt.Println()
+	var branchesNames []string
+	if config.AppData.Branch.Data.Name == "" {
+		for _, branch := range project.Config.Git.Branches {
+			if branch.Config.Hidden {
+				continue
+			}
 
-	if config.AppData.Branch.Type == "" {
+			branchesNames = append(branchesNames, branch.Name)
+		}
 		ask.One(&survey.Select{
 			Message: "Select the branch type:",
-			Options: []string{"feature", "bugfix", "hotfix", "release", "support", "test", "sync"},
-		}, &config.AppData.Branch.Type, survey.WithValidator(survey.Required))
+			Options: branchesNames,
+		}, &config.AppData.Branch.Data.Name, survey.WithValidator(survey.Required))
+
+		config.AppData.Branch.Data = project.GetConfigByName(config.AppData.Branch.Data.Name)
 	}
 
 	if config.AppData.Branch.Ticket == "" {
 		message := "Enter the ticket number or name:"
 
-		if config.AppData.Branch.Type == "release" {
+		if config.AppData.Branch.Data.Name == "release" {
 			message = "Enter the release version:"
 		}
 
-		if config.AppData.Branch.Type == "hotfix" {
+		if config.AppData.Branch.Data.Name == "hotfix" {
 			message = "Enter the hotfix version:"
 		}
 
-		if config.AppData.Branch.Type == "test" {
+		if config.AppData.Branch.Data.Name == "test" {
 			message = "Enter the test version:"
 		}
 
@@ -56,10 +66,11 @@ func branchQuestion() {
 }
 
 func Branch() {
+	project.ReadConfigFile(true)
 	branchQuestion()
 	ticket := config.AppData.Branch.Ticket
 	data := emitterTypes.IBranchEventData{
-		Type:   config.AppData.Branch.Type,
+		Type:   config.AppData.Branch.Data.Name,
 		Ticket: ticket,
 	}
 
@@ -75,23 +86,9 @@ func Branch() {
 	}
 
 	middleware(func(exec bool) string {
-		var branch string;
-		switch config.AppData.Branch.Type {
-		case "feature":
-			branch = git.Feature(ticket, exec)
-		case "bugfix":
-			branch = git.Bugfix(ticket, exec)
-		case "hotfix":
-			branch = git.HotFix(ticket, exec)
-		case "release":
-			branch = git.Release(ticket, exec)
-		case "support":
-			branch = git.Support(ticket, exec)
-		case "test":
-			branch = git.Test(ticket, exec)
-		case "sync":
-			branch = git.Sync(ticket, exec)
-		}
+		var branch string
+		branchData := config.AppData.Branch.Data
+		branch = git.Custom(branchData.Path, ticket, exec)
 
 		return branch
 	})
@@ -110,7 +107,7 @@ func middleware(callBack func(exe bool) string) {
 			Error: "Branch already exists",
 			Data: emitterTypes.IBranchEventData{
 				Ticket: config.AppData.Branch.Ticket,
-				Type:   config.AppData.Branch.Type,
+				Type:   config.AppData.Branch.Data.Name,
 			},
 		})
 		os.Exit(1)
@@ -130,7 +127,7 @@ func middleware(callBack func(exe bool) string) {
 			Error: "Branch creation failed: " + originErr,
 			Data: emitterTypes.IBranchEventData{
 				Ticket: config.AppData.Branch.Ticket,
-				Type:   config.AppData.Branch.Type,
+				Type:   config.AppData.Branch.Data.Name,
 			},
 		})
 	})

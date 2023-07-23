@@ -2,8 +2,8 @@ package github
 
 import (
 	"log"
-	"strings"
 
+	"github.com/Minnek-Digital-Studio/cominnek/config"
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	github_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/github"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
@@ -20,20 +20,11 @@ func _checkTicket(ticket string) string {
 	return ticket
 }
 
-func _getBranch(_baseBranch string, currentBranch string) string {
-	baseBranch := _baseBranch
-
-	if _baseBranch == "" {
-		baseBranch = "develop"
-	}
-
-	return baseBranch
-}
-
 func _getTitle(currentBranch string, baseBranch string) string {
 	title := currentBranch
+	branchData := config.AppData.Branch.Data
 
-	if strings.Contains(currentBranch, "release") || strings.Contains(currentBranch, "hotfix") {
+	if len(branchData.To) > 1 {
 		title = currentBranch + " " + baseBranch
 	}
 
@@ -44,10 +35,11 @@ func CreatePullRequest(_ticket string, _baseBranch string) {
 	origin := git_controller.GetOrigin()
 
 	loading.Start("Preparing your pull request ")
+
 	currentBranch := git_controller.GetCurrentBranch()
 	ticket := _checkTicket(_ticket)
 	body := git_controller.Pull_request(ticket, currentBranch)
-	baseBranch := _getBranch(_baseBranch, currentBranch)
+	baseBranch := _baseBranch
 	title := _getTitle(currentBranch, baseBranch)
 	loading.Stop()
 
