@@ -1,15 +1,15 @@
 package cmd
 
 import (
-	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/extras"
 	"github.com/spf13/cobra"
 )
 
 var addCmd = &cobra.Command{
-	Use:   "add",
-	Short: "Add files to commit",
+	Use:   "add [package]",
+	Short: "Install a new package",
 	Run: func(cmd *cobra.Command, args []string) {
-		git.Add()
+		extras.AddPackage(args[0])
 	},
 }
 

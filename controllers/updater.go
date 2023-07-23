@@ -172,7 +172,7 @@ func Update() {
 
 	fileName := github_controller.GetLatestFileName()
 	url := "https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/" + fileName
-	route := bridge.DownloadFromURL(url, fileName)
+	route := bridge.DownloadTempFromURL(url, fileName)
 
 	installUpdates(route, fileName)
 }
