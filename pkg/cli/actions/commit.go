@@ -1,7 +1,6 @@
 package pkg_action
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -12,7 +11,6 @@ import (
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/logger"
-	"github.com/Minnek-Digital-Studio/cominnek/controllers/project"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
@@ -203,7 +201,6 @@ func executeCommit() {
 }
 
 func Commit(exec bool) {
-	fmt.Println(project.Config.Git.Branches[0].Name)
 	commitEmitter.Init()
 	raw := []string{}
 	list := []string{}

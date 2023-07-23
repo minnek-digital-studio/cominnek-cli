@@ -11,7 +11,7 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 )
 
-var publishEmmiter = new(emitters.Publish)
+var publishEmitter = new(emitters.Publish)
 
 func _checkBranch() []string {
 	var branch []string
@@ -46,6 +46,6 @@ func NewCreatePullRequest(ticket string, baseBranch string) {
 func Publish(ticket string) {
 	git.PushPublish()
 	NewCreatePullRequest(ticket, "")
-	publishEmmiter.Success("Publish complete")
+	publishEmitter.Success("Publish complete")
 	log.Println("Publish complete")
 }
