@@ -4,6 +4,8 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/project"
 )
 
 type ICommit struct {
@@ -34,9 +36,9 @@ type IAppData struct {
 		Base   string
 	}
 	Branch struct {
-		Type   string
-		Ticket string
+		Data   project.Branch
 		Stash  bool
+		Ticket string
 	}
 	Stash struct {
 		Branch string
@@ -51,10 +53,10 @@ type IAppData struct {
 		Name string
 	}
 	Reset struct {
-		Type string
-		Commit string
-		Number string
-		Target string
+		Type    string
+		Commit  string
+		Number  string
+		Target  string
 		Confirm bool
 	}
 }
