@@ -18,7 +18,7 @@ var PRConfigCmd = &cobra.Command{
 	Short: "configure the defaults for pull requests",
 	Run: func(cmd *cobra.Command, args []string) {
 		if !files.CheckExist(markdownRoute) {
-			fmt.Println(color.HiRedString("💀Error: ")+ "The file: " + color.HiYellowString(markdownRoute)  +" does not exist.")
+			fmt.Println(color.HiRedString("💀Error: ") + "The file: " + color.HiYellowString(markdownRoute) + " does not exist.")
 			os.Exit(1)
 		}
 
