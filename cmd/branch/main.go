@@ -10,7 +10,7 @@ import (
 var stash bool
 
 func SetCommands(Command *cobra.Command) {
-	project.ReadConfigFile()
+	project.ReadConfigFile(false)
 
 	for _, branch := range project.Config.Git.Branches {
 		if branch.Config.Hidden {

@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/Minnek-Digital-Studio/cominnek/controllers/project"
+	project_structs "github.com/Minnek-Digital-Studio/cominnek/controllers/project/structs"
 )
 
 type ICommit struct {
@@ -36,7 +36,7 @@ type IAppData struct {
 		Base   string
 	}
 	Branch struct {
-		Data   project.Branch
+		Data   project_structs.Branch
 		Stash  bool
 		Ticket string
 	}
@@ -64,6 +64,7 @@ type IAppData struct {
 type IConfig struct {
 	AppPath   string
 	TempPath  string
+	FlowPath  string
 	KeyPath   string
 	TokenPath string
 	Version   string
@@ -83,6 +84,7 @@ var Public = IConfig{
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),
 	TokenPath: filepath.Join(cominnekPath, "auth.bin"),
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),
+	FlowPath:  filepath.Join(cominnekPath, "flows"),
 	AppPath:   cominnekPath,
 	TempPath:  cominnekTempPath,
 	Logs:      false,

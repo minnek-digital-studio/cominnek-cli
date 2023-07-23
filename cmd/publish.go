@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/Minnek-Digital-Studio/cominnek/config"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/project"
 	pkg_action "github.com/Minnek-Digital-Studio/cominnek/pkg/cli/actions"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 	"github.com/spf13/cobra"
@@ -11,6 +12,8 @@ var publishCmd = &cobra.Command{
 	Use:   "publish <message>",
 	Short: "Publish a branch to GitHub and create a pull request as Draft",
 	Run: func(cmd *cobra.Command, args []string) {
+		project.ReadConfigFile(true)
+
 		msg := ""
 		body := ""
 

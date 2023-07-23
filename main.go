@@ -8,7 +8,6 @@ import (
 	"github.com/Minnek-Digital-Studio/cominnek/controllers"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/logger"
-	"github.com/Minnek-Digital-Studio/cominnek/controllers/project"
 	"github.com/Minnek-Digital-Studio/cominnek/helper"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/events"
@@ -18,7 +17,6 @@ import (
 func init() {
 	events.Watcher()
 	config.AppData.Start = time.Now()
-	project.ReadConfigFile()
 }
 
 func main() {

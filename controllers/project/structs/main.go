@@ -1,4 +1,4 @@
-package project
+package project_structs
 
 type Project struct {
 	Cominnek Cominnek `json:"cominnek"`
@@ -11,6 +11,7 @@ type Cominnek struct {
 type Git struct {
 	GitConfig
 	Flow    string    `json:"flow"` // flow: "git", "github" or "custom"
+	Version string    `json:"version"`
 	Extends GitConfig `json:"extends"`
 }
 

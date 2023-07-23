@@ -66,6 +66,7 @@ func branchQuestion() {
 }
 
 func Branch() {
+	project.ReadConfigFile(true)
 	branchQuestion()
 	ticket := config.AppData.Branch.Ticket
 	data := emitterTypes.IBranchEventData{
