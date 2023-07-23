@@ -45,9 +45,7 @@ var _variables []Variables = []Variables{
 var _PRBody string = `
 ## Issue Info
 
-<a href="https://minnek.atlassian.net/browse/${ticket}" target="_blank">
-    <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white" alt="JIRA" title="${ticket}"/>
-</a>
+- ${ticket}
 
 ### Code Review Checklist for Authors
 
