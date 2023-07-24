@@ -17,9 +17,7 @@ var exitOnFail bool
 
 func ReadConfigFile(_exitOnFail bool) bool {
 	exitOnFail = _exitOnFail
-	fileNames := []string{
-		"mnk-config.json",
-	}
+	fileNames := config.Public.ConfigFilesNames
 
 	for _, fileName := range fileNames {
 		if files.CheckExist(fileName) {

@@ -68,7 +68,12 @@ func DownloadFromURL(url, fileName, path string) string {
 		folders.Create(path)
 	}
 
-	download(route, url, fileName)
+	err := download(route, url, fileName)
+
+	if err != nil {
+		log.Fatalln("ERR3: Something goes wrong downloading the file")
+		return ""
+	}
 
 	println()
 	log.Println("🎉 Downloaded")

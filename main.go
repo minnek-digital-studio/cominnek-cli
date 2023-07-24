@@ -57,6 +57,12 @@ func main() {
 		emitChan <- true
 	}()
 
+	// Check if the config is valid before running the command if the command is not login or add
+
+	// if !cli.CheckConfig() {
+	// 	return
+	// }
+
 	cmd.Execute()
 
 	if !cmd.IgnoreCheckVersion && <-verChan {
