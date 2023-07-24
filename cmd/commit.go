@@ -4,6 +4,8 @@ import (
 	"os"
 
 	"github.com/Minnek-Digital-Studio/cominnek/config"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/project"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/cli"
 	pkg_action "github.com/Minnek-Digital-Studio/cominnek/pkg/cli/actions"
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
@@ -16,6 +18,12 @@ var commitCmd = &cobra.Command{
 	Use:   "commit",
 	Short: "Commit changes to Git",
 	Run: func(cmd *cobra.Command, args []string) {
+		if !cli.CheckConfig() {
+			color.Red("\nSorry, you need to initialize the project first.")
+			os.Exit(1)
+		}
+		project.ReadConfigFile(true)
+
 		msg := ""
 		body := ""
 

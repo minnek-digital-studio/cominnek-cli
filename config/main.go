@@ -62,15 +62,17 @@ type IAppData struct {
 }
 
 type IConfig struct {
-	AppPath   string
-	TempPath  string
-	FlowPath  string
-	KeyPath   string
-	TokenPath string
-	Version   string
-	Commits   ICommit
-	PRBody    string
-	Logs      bool
+	AppPath          string
+	TempPath         string
+	FlowPath         string
+	KeyPath          string
+	TokenPath        string
+	CacheFile        string
+	ConfigFilesNames []string
+	Version          string
+	Commits          ICommit
+	PRBody           string
+	Logs             bool
 }
 
 var userPath, _ = os.UserConfigDir()
@@ -85,9 +87,14 @@ var Public = IConfig{
 	TokenPath: filepath.Join(cominnekPath, "auth.bin"),
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),
 	FlowPath:  filepath.Join(cominnekPath, "flows"),
-	AppPath:   cominnekPath,
-	TempPath:  cominnekTempPath,
-	Logs:      false,
+	CacheFile: filepath.Join(cominnekTempPath, "cache.bin"),
+	ConfigFilesNames: []string{
+		".minnekrc.json",
+		"minnekrc.json",
+	},
+	AppPath:  cominnekPath,
+	TempPath: cominnekTempPath,
+	Logs:     false,
 	Commits: ICommit{
 		Types: []string{
 			"feat",

@@ -1,10 +1,14 @@
 package cmd
 
 import (
+	"os"
+
 	"github.com/Minnek-Digital-Studio/cominnek/config"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/project"
+	"github.com/Minnek-Digital-Studio/cominnek/pkg/cli"
 	pkg_action "github.com/Minnek-Digital-Studio/cominnek/pkg/cli/actions"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
@@ -12,6 +16,10 @@ var publishCmd = &cobra.Command{
 	Use:   "publish <message>",
 	Short: "Publish a branch to GitHub and create a pull request as Draft",
 	Run: func(cmd *cobra.Command, args []string) {
+		if !cli.CheckConfig() {
+			color.Red("\nSorry, you need to initialize the project first.")
+			os.Exit(1)
+		}
 		project.ReadConfigFile(true)
 
 		msg := ""
