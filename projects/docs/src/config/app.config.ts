@@ -2,7 +2,7 @@ import linksConfig from "./links.config";
 
 const AppConfig = {
     appName: "Cominnek",
-    repoUrl: "https://github.com/isaacismaelx14/cominnek-website",
+    repoUrl: "https://github.com/minnek-digital-studio/cominnek",
     links: linksConfig
 };
 

@@ -23,7 +23,7 @@ export const ContentNav = component$(() => {
   const next = getNav(items, url.pathname, 1);
 
   return (
-    <nav class="content-nav border-t border-slate-300 flex flex-wrap py-4">
+    <nav class="content-nav mt-4 border-t border-slate-300 flex flex-wrap py-4">
       <div class="flex-1">
         {prev ? (
           <Link class="px-3 py-1 prev" href={prev.href}>
