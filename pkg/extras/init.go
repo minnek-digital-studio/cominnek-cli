@@ -19,13 +19,15 @@ import (
 )
 
 var url = "https://api.github.com/repos/minnek-digital-studio/cominnek-src/git/trees/master?recursive=1"
-var configTemplate = `{
-	"cominnek": {
-	  "git": {
-		"flow": "${flow}"
-	  }
-	}
-  }`
+var configTemplate = `
+{
+  "cominnek": {
+    "git": {
+      "flow": "${flow}"
+    }
+  }
+}
+`
 
 func InitProject() {
 	flows := checkFromCache()

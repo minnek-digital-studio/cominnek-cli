@@ -92,6 +92,33 @@ func GetAllCommits() []string {
 	return strings.Split(out, "\n")
 }
 
+func GetAllCommitsForRelease(lastReleaseHash string) []string {
+	cmd := "git log --pretty=format:'message[%s];hash[%h]'"
+
+	if lastReleaseHash != "" {
+		cmd += " " + lastReleaseHash + "..HEAD"
+	}
+
+	out, _, err := shell.Out(cmd)
+
+	if err != nil {
+		println("Error getting commits")
+		os.Exit(1)
+	}
+
+	return strings.Split(out, "\n")
+}
+
+func LastTag() string {
+	out, _, err := shell.Out("git describe --tags --abbrev=0")
+
+	if err != nil {
+		return ""
+	}
+
+	return strings.TrimSpace(out)
+}
+
 func GetCommitHash(msg string) string {
 	return strings.Split(msg, ":")[0]
 }
@@ -110,7 +137,7 @@ func GetCommitByHash(hash string) string {
 		grepCmd = "Select-String"
 	}
 
-	cmd := fmt.Sprintf("git log --pretty=oneline --pretty=format:'%%h: %%s' %s | " + grepCmd + " %s", hash, hash)
+	cmd := fmt.Sprintf("git log --pretty=oneline --pretty=format:'%%h: %%s' %s | "+grepCmd+" %s", hash, hash)
 	out, _, err := shell.Out(cmd)
 
 	if err != nil {

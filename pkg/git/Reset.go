@@ -15,7 +15,17 @@ func Reset(r_type string, r_number string, r_commit string) {
 	color.Yellow("\nResetting\n")
 	cmd := git_controller.ResetBy(r_type, r_number, r_commit)
 	_, _, err := shell.OutLive(cmd)
-	
+
+	if err != nil {
+		resetEmitter.Failed(err.Error())
+		os.Exit(1)
+	}
+}
+
+func ResetAll() {
+	cmd := git_controller.RemoveAllChanges()
+	_, _, err := shell.Out(cmd)
+
 	if err != nil {
 		resetEmitter.Failed(err.Error())
 		os.Exit(1)
