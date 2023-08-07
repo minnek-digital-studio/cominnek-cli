@@ -110,13 +110,27 @@ func GetAllCommitsForRelease(lastReleaseHash string) []string {
 }
 
 func LastTag() string {
-	out, _, err := shell.Out("git describe --tags --abbrev=0")
+	tags := GetTags()
+	fmt.Println("Tags:", tags)
 
-	if err != nil {
-		return ""
+	for tag := range tags {
+		if !strings.Contains(tags[tag], "-") {
+			return tags[tag]
+		}
 	}
 
-	return strings.TrimSpace(out)
+	return ""
+}
+
+func GetTags() []string {
+	out, _, err := shell.Out("git tag --sort=-creatordate")
+
+	if err != nil {
+		println("Error getting tags")
+		return []string{}
+	}
+
+	return strings.Split(out, "\n")
 }
 
 func GetCommitHash(msg string) string {
