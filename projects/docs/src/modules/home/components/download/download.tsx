@@ -13,7 +13,7 @@ export const Download = component$(() => {
         </Title>
         <Button.Group variant="inline" class={Styles.buttons}>
           <Button
-            href="https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.1.0.dmg"
+            href="https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-4.0.0.dmg"
             _target="_blank"
             variant="dark"
             class={Styles.button}
@@ -22,7 +22,7 @@ export const Download = component$(() => {
             <i class={["fa-brands fa-apple", Styles.icon]}></i>
           </Button>
           <Button
-            href="https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.1.0.exe"
+            href="https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-4.0.0.exe"
             _target="_blank"
             variant="dark"
             class={Styles.button}
@@ -31,7 +31,7 @@ export const Download = component$(() => {
             <i class={["fa-brands fa-windows", Styles.icon]}></i>
           </Button>
           <Button
-            href="https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.1.0.deb"
+            href="https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-4.0.0.deb"
             _target="_blank"
             variant="dark"
             class={Styles.button}

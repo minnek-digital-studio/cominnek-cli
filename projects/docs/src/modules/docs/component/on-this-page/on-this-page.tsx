@@ -5,7 +5,7 @@ import AppConfig from "~/config/app.config";
 
 const makeEditPageUrl = (url: string) => {
   const path = url.replace(/\/$/, "");
-  return `${AppConfig.repoUrl}/tree/master/src/routes${path}/index.mdx`;
+  return `${AppConfig.repoUrl}/tree/master/projects/docs/src/routes${path}/index.mdx`;
 };
 
 export default component$(() => {

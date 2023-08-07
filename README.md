@@ -30,8 +30,8 @@ Create commits & pull requests easily.  `Cominnek` is based on [TAYO](https://mn
 
 1. Download installer
 
-[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.1.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
-)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.1.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-3.1.0.deb)
+[![Macos](https://img.shields.io/badge/mac%20os-0078D6?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-4.0.0.dmg) [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white
+)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-4.0.0.exe) [![Linux](https://img.shields.io/badge/Linux-0078D6?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-4.0.0.deb)
 
 2. Run installer ([See MAC Os steps](#how-to-install-on-mac))
 
@@ -84,6 +84,7 @@ cominnek auth test
 
 # Usage
 
+- **[Init](#init)**: Initialize cominnek.
 - **[Update version](#update-version)**: Create and push a commit with the correct template for conventional commits.
 - **[Push](#push)**: Commit and push the branch to GitHub.
 - **[Publish](#publish)**: Commit, push and create the pull request as a draft to develop in GitHub.
@@ -93,6 +94,7 @@ cominnek auth test
 - **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
 - **[Merge](#merge)**: Merge the branch into the received branch.
 - **[Reset](#reset)**: Reset the branch to the selected commit.
+- **[Release](#release-experimental)**: Release a new version. (⚠️ Experimental)
 - **[Update](#update)**: Update the cominnek version.
 - **[Config](#config)**: Configure the cominnek.
   - **[PR](#pr-1)**: Configure the pull request template.
@@ -100,6 +102,14 @@ cominnek auth test
   - **[Login](#login)**: Login into your GitHub account.
   - **[Test](#test)**: Test the connection with GitHub.
   - **[Logout](#logout)**: Logout from your GitHub account.
+
+## Init
+Initialize cominnek.
+
+```bash
+cominnek init
+```
+This will create a `.minnekrc.json` file in the root of your project.
 ## Update version
 Create and push a commit with the correct template for conventional commits.
 
@@ -260,6 +270,16 @@ This the equivalent of: `git reset --soft HEAD~1`
 | `   --merge`       |boolean        | Reset HEAD, index and working tree      |
 | `-n -number`       |number         | number of commits to reset       |
 
+## Release (Experimental)
+
+⚠️ This is an experimental feature. You can report any issue [here](https://github.com/minnek-digital-studio/cominnek/issues)
+
+Release a new version using [semantic versioning](https://semver.org/)
+
+```bash
+cominnek release
+```
+
 ## Update
 Update the Cominnek version.
 
@@ -397,7 +417,7 @@ $ cominnek push -m "Changes in home page" -F "home"
 
 If you want to contribute to this project, please read the [contributing guide](/CONTRIBUTING.md)
 
-Cominnek `V3.1.0`
+Cominnek `V4.0.0`
 > With ❤ by [isaacismaelx14](https://github.com/isaacismaelx14)
 
 ## About

@@ -25,3 +25,15 @@ func GetRepoList() (repos []*github.Repository) {
 
 	return repos
 }
+
+func GetRepoURL(owner string, repo string) string {
+	client := client()
+
+	repository, _, err := client.Repositories.Get(ctx, owner, repo)
+
+	if err != nil {
+		println("Sorry cannot get repo list")
+	}
+
+	return repository.GetHTMLURL()
+}

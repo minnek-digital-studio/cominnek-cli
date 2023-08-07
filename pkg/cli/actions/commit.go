@@ -18,7 +18,7 @@ import (
 )
 
 var commitRaw []string
-var commitEmmiter = new(emitters.Commit)
+var commitEmitter = new(emitters.Commit)
 
 func getLists(unstaged, list []string) (defaults []string, listUnstaged []string) {
 	if len(unstaged) == len(list) {
@@ -32,7 +32,7 @@ func getLists(unstaged, list []string) (defaults []string, listUnstaged []string
 			match := ""
 			logger.PrintLn("{")
 			logger.PrintLn("\titem: ", item)
-			logger.PrintLn("\tCheking: [")
+			logger.PrintLn("\tChecking: [")
 			for i, unstagedItem := range unstaged {
 				if unstagedItem == "" {
 					continue
@@ -50,12 +50,12 @@ func getLists(unstaged, list []string) (defaults []string, listUnstaged []string
 
 			if match != "" {
 				listUnstaged = append(listUnstaged, item)
-				logger.PrintLn("\tUntraked: ", color.HiGreenString("Yes"))
+				logger.PrintLn("\tUntracked: ", color.HiGreenString("Yes"))
 				logger.PrintLn("}")
 				continue
 			}
 
-			logger.PrintLn("\tUntraked: ", color.HiRedString("No"))
+			logger.PrintLn("\tUntracked: ", color.HiRedString("No"))
 			defaults = append(defaults, item)
 			logger.PrintLn("}")
 		}
@@ -105,7 +105,7 @@ func processFiles(raw []string, unstaged []string, list []string) (newList []str
 		errMsg := "No files to commit"
 		loading.Stop()
 		println(errMsg + " ✅")
-		commitEmmiter.Failed(errMsg)
+		commitEmitter.Failed(errMsg)
 		os.Exit(0)
 		return
 	}
@@ -201,7 +201,7 @@ func executeCommit() {
 }
 
 func Commit(exec bool) {
-	commitEmmiter.Init()
+	commitEmitter.Init()
 	raw := []string{}
 	list := []string{}
 	currentBranch := git_controller.GetCurrentBranch()

@@ -4,6 +4,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/project"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/shell"
 	"github.com/fatih/color"
 )
@@ -30,18 +31,28 @@ func GetCurrentBranch() string {
 func GetTicketNumber() string {
 	currentBranch := GetCurrentBranch()
 
-	if strings.HasPrefix(currentBranch, "feature/") {
-		return strings.TrimPrefix(currentBranch, "feature/")
-	} else if strings.HasPrefix(currentBranch, "hotfix/") {
-		return strings.TrimPrefix(currentBranch, "hotfix/")
-	} else if strings.HasPrefix(currentBranch, "release/") {
-		return strings.TrimPrefix(currentBranch, "release/")
-	} else if strings.HasPrefix(currentBranch, "support/") {
-		return strings.TrimPrefix(currentBranch, "support/")
-	} else if strings.HasPrefix(currentBranch, "bugfix/") {
-		return strings.TrimPrefix(currentBranch, "bugfix/")
-	} else if strings.HasPrefix(currentBranch, "sync/") {
-		return strings.TrimPrefix(currentBranch, "sync/")
+	var paths []string
+
+	for _, path := range project.Config.Git.Branches {
+		paths = append(paths, strings.ReplaceAll(path.Path, "*", ""))
+	}
+
+	for _, path := range paths {
+		if strings.HasPrefix(currentBranch, path) {
+			return strings.TrimPrefix(currentBranch, path)
+		}
+	}
+
+	return ""
+}
+
+func GetBranchType() string {
+	currentBranch := GetCurrentBranch()
+
+	for _, path := range project.Config.Git.Branches {
+		if strings.HasPrefix(currentBranch, strings.ReplaceAll(path.Path, "*", "")) {
+			return path.Name
+		}
 	}
 
 	return ""

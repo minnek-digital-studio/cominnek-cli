@@ -4,6 +4,8 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+
+	project_structs "github.com/Minnek-Digital-Studio/cominnek/controllers/project/structs"
 )
 
 type ICommit struct {
@@ -34,9 +36,9 @@ type IAppData struct {
 		Base   string
 	}
 	Branch struct {
-		Type   string
-		Ticket string
+		Data   project_structs.Branch
 		Stash  bool
+		Ticket string
 	}
 	Stash struct {
 		Branch string
@@ -51,23 +53,26 @@ type IAppData struct {
 		Name string
 	}
 	Reset struct {
-		Type string
-		Commit string
-		Number string
-		Target string
+		Type    string
+		Commit  string
+		Number  string
+		Target  string
 		Confirm bool
 	}
 }
 
 type IConfig struct {
-	AppPath   string
-	TempPath  string
-	KeyPath   string
-	TokenPath string
-	Version   string
-	Commits   ICommit
-	PRBody    string
-	Logs      bool
+	AppPath          string
+	TempPath         string
+	FlowPath         string
+	KeyPath          string
+	TokenPath        string
+	CacheFile        string
+	ConfigFilesNames []string
+	Version          string
+	Commits          ICommit
+	PRBody           string
+	Logs             bool
 }
 
 var userPath, _ = os.UserConfigDir()
@@ -77,13 +82,19 @@ var cominnekPath = filepath.Join(userPath, ".cominnek")
 var cominnekTempPath = filepath.Join(tempPath, ".cominnek")
 
 var Public = IConfig{
-	Version:   "v3.1.0",
+	Version:   "v4.0.0",
 	KeyPath:   filepath.Join(cominnekPath, "key.bin"),
 	TokenPath: filepath.Join(cominnekPath, "auth.bin"),
 	PRBody:    filepath.Join(cominnekPath, "pr-body.md"),
-	AppPath:   cominnekPath,
-	TempPath:  cominnekTempPath,
-	Logs:      false,
+	FlowPath:  filepath.Join(cominnekPath, "flows"),
+	CacheFile: filepath.Join(cominnekTempPath, "cache.bin"),
+	ConfigFilesNames: []string{
+		".minnekrc.json",
+		"minnekrc.json",
+	},
+	AppPath:  cominnekPath,
+	TempPath: cominnekTempPath,
+	Logs:     false,
 	Commits: ICommit{
 		Types: []string{
 			"feat",

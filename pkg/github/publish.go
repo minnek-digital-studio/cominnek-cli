@@ -2,27 +2,32 @@ package github
 
 import (
 	"log"
-	"strings"
 
+	"github.com/Minnek-Digital-Studio/cominnek/config"
 	git_controller "github.com/Minnek-Digital-Studio/cominnek/controllers/git"
 	"github.com/Minnek-Digital-Studio/cominnek/controllers/loading"
+	"github.com/Minnek-Digital-Studio/cominnek/controllers/project"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/emitters"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/git"
 )
 
-var publishEmmiter = new(emitters.Publish)
+var publishEmitter = new(emitters.Publish)
 
 func _checkBranch() []string {
 	var branch []string
 	currentBranch := git_controller.GetCurrentBranch()
+	branchType := git_controller.GetBranchType()
+	branchData := project.GetConfigByName(branchType)
+	config.AppData.Branch.Data = branchData
 
 	if currentBranch == "master" {
 		log.Fatal("You can't create a pull request from the master branch")
 	}
 
-	if strings.Contains(currentBranch, "hotfix") || strings.Contains(currentBranch, "release") {
-		branch = append(branch, "master")
-		branch = append(branch, "develop")
+	if len(branchData.To) > 0 {
+		branch = append(branch, branchData.To...)
+	} else {
+		branch = append(branch, branchData.From)
 	}
 
 	return branch
@@ -30,21 +35,17 @@ func _checkBranch() []string {
 
 func NewCreatePullRequest(ticket string, baseBranch string) {
 	loading.Start("Checking branch ")
-	branchs := _checkBranch()
+	branches := _checkBranch()
 	loading.Stop()
 
-	if len(branchs) > 1 {
-		for _, branch := range branchs {
-			CreatePullRequest(ticket, branch)
-		}
-	} else {
-		CreatePullRequest(ticket, baseBranch)
+	for _, branch := range branches {
+		CreatePullRequest(ticket, branch)
 	}
 }
 
 func Publish(ticket string) {
 	git.PushPublish()
 	NewCreatePullRequest(ticket, "")
-	publishEmmiter.Success("Publish complete")
+	publishEmitter.Success("Publish complete")
 	log.Println("Publish complete")
 }

@@ -24,3 +24,24 @@ html {
 [id] {
     scroll-margin-top: var(--cmk-header-height);
 }
+
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin-top: 1.25rem;
+    font-weight: bold;
+}
+
+p {
+    margin-bottom: 1rem;
+}

@@ -5,14 +5,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var addCmd = &cobra.Command{
-	Use:   "add [package]",
-	Short: "Install a new package",
+var initCmd = &cobra.Command{
+	Use:   "init",
+	Short: "Init a new package",
 	Run: func(cmd *cobra.Command, args []string) {
-		extras.AddPackage(args[0])
+		extras.InitProject()
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(addCmd)
+	rootCmd.AddCommand(initCmd)
 }
