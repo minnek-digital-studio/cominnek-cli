@@ -111,7 +111,6 @@ func GetAllCommitsForRelease(lastReleaseHash string) []string {
 
 func LastTag() string {
 	tags := GetTags()
-	fmt.Println("Tags:", tags)
 
 	for tag := range tags {
 		if !strings.Contains(tags[tag], "-") {
