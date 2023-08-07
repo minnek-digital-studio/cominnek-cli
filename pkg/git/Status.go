@@ -27,3 +27,19 @@ func Status() {
 		fmt.Println(out)
 	}
 }
+
+func ExistOnOrigin(branch string) bool {
+	loading.Start("Checking if branch exists on origin ")
+	out, _, err := shell.Out("git ls-remote --exit-code --heads origin " + branch)
+	loading.Stop()
+
+	if err != nil {
+		return false
+	}
+
+	if out == "" {
+		return false
+	} else {
+		return true
+	}
+}

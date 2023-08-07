@@ -5,6 +5,7 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/Minnek-Digital-Studio/cominnek/config"
+	"github.com/Minnek-Digital-Studio/cominnek/helper"
 	"github.com/Minnek-Digital-Studio/cominnek/pkg/ask"
 	pkg_action "github.com/Minnek-Digital-Studio/cominnek/pkg/cli/actions"
 )
@@ -17,6 +18,7 @@ func askActions() {
 		"Pull Request",
 		"Publish",
 		"Push",
+		"Release",
 		"Stash",
 		"Reset",
 		"Exit",
@@ -39,6 +41,11 @@ func askActions() {
 
 	if config.AppData.Action == "Push" {
 		pkg_action.Push()
+	}
+
+	if config.AppData.Action == "Release" {
+		helper.PrintName()
+		pkg_action.Release()
 	}
 
 	if config.AppData.Action == "Publish" {

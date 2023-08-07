@@ -12,7 +12,6 @@ func Reset() {
 	}
 }
 
-
 func ResetBy(r_type string, r_number string, r_commit string) string {
 	cmd := "git reset"
 	cmd += " --" + r_type
@@ -23,6 +22,17 @@ func ResetBy(r_type string, r_number string, r_commit string) string {
 
 	if r_commit != "" {
 		cmd += " " + r_commit
+	}
+
+	return cmd
+}
+
+func RemoveAllChanges() string {
+	cmd := "git clean -df; git reset --hard"
+	_, _, err := shell.Out(cmd)
+
+	if err != nil {
+		panic(err)
 	}
 
 	return cmd

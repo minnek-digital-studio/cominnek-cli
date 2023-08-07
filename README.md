@@ -84,6 +84,7 @@ cominnek auth test
 
 # Usage
 
+- **[Init](#init)**: Initialize cominnek.
 - **[Update version](#update-version)**: Create and push a commit with the correct template for conventional commits.
 - **[Push](#push)**: Commit and push the branch to GitHub.
 - **[Publish](#publish)**: Commit, push and create the pull request as a draft to develop in GitHub.
@@ -93,6 +94,7 @@ cominnek auth test
 - **[PR](#pr)**: Create a Pull Request as a draft to develop in GitHub.
 - **[Merge](#merge)**: Merge the branch into the received branch.
 - **[Reset](#reset)**: Reset the branch to the selected commit.
+- **[Release](#release-experimental)**: Release a new version. (⚠️ Experimental)
 - **[Update](#update)**: Update the cominnek version.
 - **[Config](#config)**: Configure the cominnek.
   - **[PR](#pr-1)**: Configure the pull request template.
@@ -100,6 +102,14 @@ cominnek auth test
   - **[Login](#login)**: Login into your GitHub account.
   - **[Test](#test)**: Test the connection with GitHub.
   - **[Logout](#logout)**: Logout from your GitHub account.
+
+## Init
+Initialize cominnek.
+
+```bash
+cominnek init
+```
+This will create a `.minnekrc.json` file in the root of your project.
 ## Update version
 Create and push a commit with the correct template for conventional commits.
 
@@ -259,6 +269,16 @@ This the equivalent of: `git reset --soft HEAD~1`
 | `   --keep`        |boolean        | Reset HEAD, index and working tree      |
 | `   --merge`       |boolean        | Reset HEAD, index and working tree      |
 | `-n -number`       |number         | number of commits to reset       |
+
+## Release (Experimental)
+
+⚠️ This is an experimental feature. You can report any issue [here](https://github.com/minnek-digital-studio/cominnek/issues)
+
+Release a new version using [semantic versioning](https://semver.org/)
+
+```bash
+cominnek release
+```
 
 ## Update
 Update the Cominnek version.
