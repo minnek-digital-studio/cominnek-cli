@@ -13,7 +13,7 @@
 
 <img src="./assets/banner.png" />
 
-Create commits & pull requests easily.  `Cominnek` is based on [TAYO]([https://mnk-docs.ngrok.io/guide/development/version-control/branch-management.html](https://docs.minnekdigital.com/engineering/development/version-control/branch/tayo-flow.html)) by Minnek.
+Create commits & pull requests easily.  `Cominnek` is based on [TAYO](https://docs.minnekdigital.com/engineering/development/version-control/branch/tayo-flow.html) by Minnek.
 ## Index
  - **[Requirements](#requirements)**
  - **[Install](#installation)**
