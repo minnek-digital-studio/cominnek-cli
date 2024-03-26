@@ -42,7 +42,7 @@ cominnek -v
 
 ## How to install on WSL
 
-A continuación veremos como instalar cominnek en WSL 2 y los paquetes necesarios para la autenticación.
+Next we will see how to install cominnek in WSL 2 and the necessary packages for authentication.
 
 ### Install Comminek
 
