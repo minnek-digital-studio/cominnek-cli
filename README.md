@@ -40,6 +40,46 @@ Create commits & pull requests easily.  `Cominnek` is based on [TAYO](https://do
 cominnek -v
 ```
 
+## How to install on WSL
+
+A continuación veremos como instalar cominnek en WSL 2 y los paquetes necesarios para la autenticación.
+
+### Install Comminek
+
+1. Open the terminal.
+2. Download Package
+```bash
+wget https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-4.0.0.deb
+```  
+3. Install package cominnek.deb
+```bash
+sudo dpkg -i ./cominnek-4.0.0.deb
+```
+4. Verify Installation
+```bash
+cominnek -v
+```
+
+### Install dependencies for auth.
+If you have problem with xdg-open follow this steps
+
+1. Install xdg-utils
+```bash
+sudo apt-get install xdg-utils
+```
+2. Add repository of wsl utils
+```bash
+sudo add-apt-repository ppa:wslutilities/wslu
+```
+3. Update 
+```bash
+sudo apt update
+```
+4. Install wsl utils
+```bash
+sudo apt install wslu
+```
+
 ## How to install on Mac
 
 After mounting the installer maybe you would have some issues at the moment to run the installer on Mac since OS blocks the installer app. So you will need to run the `installer.sh` manually. 
