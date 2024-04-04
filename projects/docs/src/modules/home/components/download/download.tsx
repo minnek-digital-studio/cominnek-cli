@@ -14,7 +14,6 @@ export const Download = component$(() => {
         <Button.Group variant="inline" class={Styles.buttons}>
           <Button
             href="https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-4.0.0.dmg"
-            _target="_blank"
             variant="dark"
             class={Styles.button}
             title="MacOS"
@@ -23,7 +22,6 @@ export const Download = component$(() => {
           </Button>
           <Button
             href="https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-4.0.0.exe"
-            _target="_blank"
             variant="dark"
             class={Styles.button}
             title="Windows"
