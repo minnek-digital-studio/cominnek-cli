@@ -30,7 +30,6 @@ export const Download = component$(() => {
           </Button>
           <Button
             href="https://github.com/Minnek-Digital-Studio/cominnek/releases/latest/download/cominnek-4.0.0.deb"
-            _target="_blank"
             variant="dark"
             class={Styles.button}
             title="Linux"
